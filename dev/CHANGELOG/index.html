@@ -2144,6 +2144,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2330,7 +2347,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -2410,6 +2427,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2596,7 +2630,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -2657,7 +2691,10 @@
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>. From v0.1.0 forward this project follows <a href="https://semver.org/">Semantic Versioning</a>. Server and firmware tag independently as <code>server-vX.Y.Z</code> and <code>fw-vX.Y.Z</code>; see <code>COMPATIBILITY.md</code> for the matrix.</p>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<p><em>Nothing yet — <code>server-v0.1.0</code> was tagged on 2026-05-17.</em></p>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Bridge systemd unit loads API keys from <code>${BRIDGE_DIR}/.env</code></strong> (#15) — <code>zeroclaw-bridge.service.template</code> and <code>scripts/install-bridge.sh</code> now emit <code>EnvironmentFile=-${BRIDGE_DIR}/.env</code>. <code>install-bridge.sh</code> creates a mode-0600 stub <code>.env</code> containing <code>OPENROUTER_API_KEY=</code> (and commented <code>VISION_API_KEY</code> / <code>VLM_API_KEY</code> placeholders) when one isn't already present, so the missing-vision-key failure surfaces as the bridge's existing ERROR ("camera offline") instead of a silent confabulation. Existing <code>.env</code> files are preserved.</li>
+</ul>
 <h2 id="server-v010-2026-05-17">[server-v0.1.0] - 2026-05-17<a class="headerlink" href="#server-v010-2026-05-17" title="Permanent link">&para;</a></h2>
 <p>First git-tagged public release. Covers all server + firmware work shipped to <code>main</code> between project inception and 2026-05-17. The earlier <code>[0.1.0] - 2026-04-25</code> entry below describes a pre-tag internal milestone — retained for historical reference, but <code>server-v0.1.0</code> is the canonical first release.</p>
 <h3 id="added-server-2026-04-26-2026-05-15">Added — server (2026-04-26 → 2026-05-15)<a class="headerlink" href="#added-server-2026-04-26-2026-05-15" title="Permanent link">&para;</a></h3>
@@ -2770,7 +2807,7 @@
 <li><strong>3-sentence response limit</strong> enforced in both <code>/api/message</code> and <code>/api/message/stream</code> endpoints. <code>MAX_SENTENCES</code> env var (default 3).</li>
 <li><strong>Streaming <code>final</code> line</strong> now always includes emoji prefix correction.</li>
 </ul>
-<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>ASR noise filter</strong> — <code>_is_noise()</code> rejects punctuation-only or very short ASR results before they trigger a thinking animation or LLM call. Configurable via <code>MIN_UTTERANCE_CHARS</code>.</li>
 <li><strong>ASR name correction</strong> — <code>_apply_asr_corrections()</code> fixes common SenseVoice misrecognitions of the robot name.</li>
