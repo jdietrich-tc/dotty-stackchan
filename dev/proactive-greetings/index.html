@@ -494,7 +494,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1514,34 +1514,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2247,15 +2219,15 @@ today's library trip without the user asking first.</p>
     autonumber
     participant FW as Firmware (camera)
     participant XZ as xiaozhi-server
-    participant BR as zeroclaw-bridge
+    participant DB as dotty-behaviour
     participant PG as ProactiveGreeter
     participant CAL as Calendar cache
     participant LLM as LLM (OpenRouter)
     participant TTS as inject-text + TTS
 
     FW-&gt;&gt;XZ: face_recognized {identity: "Hudson"}
-    XZ-&gt;&gt;BR: POST /api/perception/event
-    BR--&gt;&gt;PG: perception bus event
+    XZ-&gt;&gt;DB: POST /api/perception/event
+    DB--&gt;&gt;PG: perception bus event
     PG-&gt;&gt;PG: cooldown + per-day cap check
     PG-&gt;&gt;CAL: summarize_for_prompt(events, person="Hudson")
     CAL--&gt;&gt;PG: ["09:00 [Hudson] Library day"]
@@ -2324,7 +2296,7 @@ while this one targets <code>face_recognized</code> (Layer 4 output).</p>
 </tr>
 <tr>
 <td><code>GREETER_STATE_PATH</code></td>
-<td><code>~/.zeroclaw/greeter_state.json</code></td>
+<td><code>/var/lib/dotty-behaviour/state/greeter_state.json</code></td>
 <td>Persistent greet log so a restart doesn't re-greet everyone.</td>
 </tr>
 <tr>

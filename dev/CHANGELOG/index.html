@@ -496,7 +496,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1518,34 +1518,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2158,6 +2130,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Removed
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2336,7 +2330,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
+  <a href="#changed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -2358,7 +2352,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_1" class="md-nav__link">
+  <a href="#changed_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -2441,6 +2435,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Removed
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2619,7 +2635,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
+  <a href="#changed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -2641,7 +2657,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_1" class="md-nav__link">
+  <a href="#changed_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -2694,6 +2710,15 @@
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Bridge systemd unit loads API keys from <code>${BRIDGE_DIR}/.env</code></strong> (#15) — <code>zeroclaw-bridge.service.template</code> and <code>scripts/install-bridge.sh</code> now emit <code>EnvironmentFile=-${BRIDGE_DIR}/.env</code>. <code>install-bridge.sh</code> creates a mode-0600 stub <code>.env</code> containing <code>OPENROUTER_API_KEY=</code> (and commented <code>VISION_API_KEY</code> / <code>VLM_API_KEY</code> placeholders) when one isn't already present, so the missing-vision-key failure surfaces as the bridge's existing ERROR ("camera offline") instead of a silent confabulation. Existing <code>.env</code> files are preserved.</li>
+</ul>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Documentation reconciled to the post-#36 architecture</strong> — <code>README.md</code>, <code>CLAUDE.md</code>, and the <code>docs/</code> tree previously described the retired ZeroClaw bridge and its Raspberry-Pi brain host. They now describe the live stack: the <code>dotty-pi</code> pi-agent container (the voice brain, reached via the <code>PiVoiceLLM</code> provider), <code>dotty-behaviour</code> (perception bus + ambient consumers + greeter, port 8090), and <code>bridge.py</code> as the admin dashboard service (port 8080). <code>.config.yaml.template</code> and <code>docker-compose.yml.template</code> updated to match — <code>vision_explain</code> / <code>VISION_BRIDGE_URL</code> now point at dotty-behaviour, and the <code>zeroclaw</code> provider mount + <code>ZeroClawLLM</code> config block are gone. The #36 cutover was executed 2026-05-19; this is the follow-up doc sweep its runbook deferred.</li>
+</ul>
+<h3 id="removed">Removed<a class="headerlink" href="#removed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>custom-providers/zeroclaw/</code></strong> — the <code>ZeroClawLLM</code> voice provider, dead since the #36 cutover.</li>
+<li><strong><code>docs/multi-daemon-split.md</code>, <code>docs/advanced/multi-host.md</code></strong> — both documented ZeroClaw-host topologies that no longer exist.</li>
 </ul>
 <h2 id="server-v010-2026-05-17">[server-v0.1.0] - 2026-05-17<a class="headerlink" href="#server-v010-2026-05-17" title="Permanent link">&para;</a></h2>
 <p>First git-tagged public release. Covers all server + firmware work shipped to <code>main</code> between project inception and 2026-05-17. The earlier <code>[0.1.0] - 2026-04-25</code> entry below describes a pre-tag internal milestone — retained for historical reference, but <code>server-v0.1.0</code> is the canonical first release.</p>
@@ -2800,7 +2825,7 @@
 <ul>
 <li><strong>Smart Mode marker check.</strong> <code>zeroclaw.py</code> <code>_payload</code> was matching <code>[SMART_MODE]\n</code> against the composed <code>[Context] … [User] …</code> payload (marker landed at offset ~2700, so <code>startswith</code> was always False). Every voice "smart mode" turn since <code>434988d</code> silently fell back to the default voice model. Fix detects markers on the raw user message before <code>_compose()</code> wraps it.</li>
 </ul>
-<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Default LLM switched</strong> from <code>qwen/qwen3-30b-a3b-instruct-2507</code> to <code>mistralai/mistral-small-3.2-24b-instruct</code> (2.6× speedup, p50 1.9 s vs 5 s, no quality regression on smoke battery).</li>
 <li><strong>Rebranded to Dotty.</strong> Project identity renamed from <code>stackchan-infra</code> to Dotty (<code>dotty-stackchan</code>). Default robot name is "Dotty" (customizable via <code>make setup</code>). Channel identifier <code>stackchan</code> → <code>dotty</code> (both accepted during transition). Python constants <code>STACKCHAN_TURN_*</code> → <code>VOICE_TURN_*</code>. All docs, config, and build files updated.</li>
@@ -2830,7 +2855,7 @@
 <li><strong>systemd unit (<code>zeroclaw-bridge.service</code>)</strong> — bare-metal bridge deployment with <code>Restart=on-failure</code>.</li>
 <li><strong>docker-compose.yml</strong> — container definition for xiaozhi-esp32-server with volume mounts for all custom providers.</li>
 </ul>
-<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">&para;</a></h3>
+<h3 id="changed_2">Changed<a class="headerlink" href="#changed_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Depersonalized repo</strong> — renamed from "Dotty" to a generic StackChan stack; persona name is now user-configurable via <code>&lt;ROBOT_NAME&gt;</code> placeholder.</li>
 <li><strong>Default LLM endpoint switched to streaming</strong> — <code>.config.yaml</code> now points <code>ZeroClawLLM.url</code> at <code>/api/message/stream</code> by default; the buffered <code>/api/message</code> endpoint remains available for backward compatibility and smoke tests.</li>

@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1520,34 +1520,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2462,9 +2434,14 @@ source-of-truth for re-verification.</p>
 </thead>
 <tbody>
 <tr>
-<td>ZeroClaw</td>
-<td>https://github.com/zeroclaw-labs/zeroclaw</td>
-<td>Agent runtime. Architecture, workspace files, providers, MCP support. Rust / dual MIT+Apache-2.0.</td>
+<td>pi agent (dotty-pi)</td>
+<td>https://github.com/BrettKinny/dotty-stackchan/tree/main/dotty-pi</td>
+<td>The Docker container that runs the pi coding agent — the current Dotty brain.</td>
+</tr>
+<tr>
+<td>dotty-pi-ext</td>
+<td>https://github.com/BrettKinny/dotty-stackchan/tree/main/dotty-pi-ext</td>
+<td>pi extension providing the 5 voice tools (memory_lookup, remember, think_hard, take_photo, play_song).</td>
 </tr>
 <tr>
 <td>Qwen3-30B-A3B-Instruct-2507</td>
@@ -2515,19 +2492,9 @@ source-of-truth for re-verification.</p>
 <td>21-emotion catalog + wire format.</td>
 </tr>
 <tr>
-<td>Agent Client Protocol</td>
-<td>https://agentclientprotocol.com</td>
-<td>ACP spec (Zed-originated). JSON-RPC 2.0 over stdio/HTTP/WS.</td>
-</tr>
-<tr>
-<td>ACP prompt-turn spec</td>
-<td>https://agentclientprotocol.com/protocol/prompt-turn</td>
-<td><code>session/prompt</code>, <code>session/update</code>, <code>session/cancel</code>, <code>session/request_permission</code>.</td>
-</tr>
-<tr>
 <td>MCP (Model Context Protocol)</td>
 <td>https://modelcontextprotocol.io</td>
-<td>The base spec ACP reuses JSON shapes from.</td>
+<td>JSON-RPC 2.0 tool-use protocol used by the firmware's MCP tools and the pi agent.</td>
 </tr>
 </tbody>
 </table>
@@ -2562,11 +2529,6 @@ source-of-truth for re-verification.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>ZeroClaw</td>
-<td>MIT / Apache-2.0 (dual)</td>
-<td>Binary is yours to run.</td>
-</tr>
 <tr>
 <td>FunASR / SenseVoiceSmall</td>
 <td>Check the HF card</td>

@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1727,34 +1727,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2513,8 +2485,8 @@
 
 <h1 id="first-boot-setup-bringing-up-your-stackchan">First-Boot Setup — Bringing Up Your StackChan<a class="headerlink" href="#first-boot-setup-bringing-up-your-stackchan" title="Permanent link">&para;</a></h1>
 <p>Step-by-step for taking a fresh M5Stack StackChan from the box to a working,
-fully-self-hosted voice robot. The backend (xiaozhi-server on a Docker host,
-ZeroClaw bridge on a separate host) is assumed to already be deployed — if you're
+fully-self-hosted voice robot. The backend (all four Docker containers on a
+single Docker host) is assumed to already be deployed — if you're
 starting fresh, skim <code>README.md</code> first.</p>
 <blockquote>
 <p>This guide assumes you've already substituted the placeholders from
@@ -2528,18 +2500,18 @@ second or two:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8003/xiaozhi/ota/
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Expect:  OTA接口运行正常，向设备发送的websocket地址是：ws://&lt;XIAOZHI_HOST&gt;:8000/xiaozhi/v1/</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;ZEROCLAW_HOST&gt;:8080/health
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Expect:  {&quot;status&quot;:&quot;ok&quot;,&quot;service&quot;:&quot;zeroclaw-bridge&quot;,&quot;acp_running&quot;:true}</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/health
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Expect:  {&quot;status&quot;:&quot;ok&quot;, ...}</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://&lt;ZEROCLAW_HOST&gt;:8080/api/message<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;content-type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;content&quot;:&quot;hi&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Expect:  {&quot;response&quot;:&quot;&lt;emoji&gt; &lt;short reply&gt;&quot;,&quot;session_id&quot;:&quot;...&quot;}</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8090/health
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Expect:  {&quot;status&quot;:&quot;ok&quot;, ...}</span>
 </code></pre></div>
 <p>If any fails, fix the backend before dealing with the robot:</p>
 <ul>
 <li>OTA down → <code>ssh &lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt; 'docker logs --tail 40 xiaozhi-esp32-server'</code></li>
-<li>Bridge down → <code>ssh &lt;ZEROCLAW_USER&gt;@&lt;ZEROCLAW_HOST&gt; 'sudo journalctl -u zeroclaw-bridge -n 40 --no-pager'</code></li>
+<li>Dashboard/bridge down → <code>ssh &lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt; 'docker logs --tail 40 bridge'</code></li>
+<li>dotty-behaviour down → <code>ssh &lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt; 'docker logs --tail 40 dotty-behaviour'</code></li>
+<li>dotty-pi down → <code>ssh &lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt; 'docker logs --tail 40 dotty-pi'</code></li>
 </ul>
 <hr />
 <h2 id="1-about-the-firmware-situation">1. About the firmware situation<a class="headerlink" href="#1-about-the-firmware-situation" title="Permanent link">&para;</a></h2>
@@ -2650,19 +2622,18 @@ terminal:</p>
    also support a press-to-talk button on the side.</li>
 <li>Watch the logs — you should see:</li>
 <li>An ASR line with transcribed text</li>
-<li>A <code>ZeroClawLLM</code> call (hits the bridge)</li>
+<li>A <code>PiVoiceLLM</code> call (routes to the dotty-pi brain container)</li>
 <li>A TTS line with the response text</li>
 <li>Face animation changes to match the leading emoji</li>
 <li>The robot speaks. If you hear audio but no face change, check that the
    response starts with one of: 😊 😆 😢 😮 🤔 😠 😐 😍 😴.</li>
 </ol>
-<p>Expected first-audio latency: <strong>~2–4s</strong> after you stop speaking. If it's
-way slower, check <code>http://&lt;ZEROCLAW_HOST&gt;:8080/health</code> for <code>acp_running:true</code>
-(a dead ACP child means the bridge is re-spawning on every request).</p>
+<p>Expected first-audio latency: <strong>~5–8s</strong> after you stop speaking (the pi agent
+cold-start on first turn). Subsequent turns are faster once the model is warm.</p>
 <hr />
 <h2 id="6-tune-if-needed">6. Tune if needed<a class="headerlink" href="#6-tune-if-needed" title="Permanent link">&para;</a></h2>
 <p>All of these are edits to <code>data/.config.yaml</code> on the Docker host followed by
-<code>docker compose restart</code>, except the LLM model (lives on the ZeroClaw host).</p>
+<code>docker compose restart</code>.</p>
 <table>
 <thead>
 <tr>
@@ -2695,7 +2666,7 @@ way slower, check <code>http://&lt;ZEROCLAW_HOST&gt;:8080/health</code> for <cod
 <tr>
 <td>"Too slow to reply"</td>
 <td>switch LLM model</td>
-<td><code>&lt;ZEROCLAW_CFG&gt;</code> on ZeroClaw host → <code>default_model</code></td>
+<td>see <a href="../dotty-pi/README.md">dotty-pi/README.md</a> for model selection rules</td>
 </tr>
 <tr>
 <td>"No facial expression change"</td>
@@ -2735,12 +2706,10 @@ It just isn't what M5Stack ships today.</p>
 <h2 id="9-when-its-working-bookmark-these">9. When it's working: bookmark these<a class="headerlink" href="#9-when-its-working-bookmark-these" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Tail voice pipeline</strong>: <code>ssh &lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt; 'docker logs -f xiaozhi-esp32-server'</code></li>
-<li><strong>Tail bridge</strong>: <code>ssh &lt;ZEROCLAW_USER&gt;@&lt;ZEROCLAW_HOST&gt; 'sudo journalctl -u zeroclaw-bridge -f'</code></li>
-<li><strong>Smoke test end-to-end</strong>: <code>curl -X POST http://&lt;ZEROCLAW_HOST&gt;:8080/api/message -H 'content-type: application/json' -d '{"content":"test"}'</code></li>
-<li><strong>ZeroClaw's web UI</strong> (for tweaking the agent persona directly):
-  <code>ssh -L 42617:127.0.0.1:42617 &lt;ZEROCLAW_USER&gt;@&lt;ZEROCLAW_HOST&gt;</code> then open
-  http://localhost:42617 in a browser — pair with the code printed by
-  <code>sudo &lt;ZEROCLAW_BIN&gt; gateway get-paircode</code>.</li>
+<li><strong>Tail brain container</strong>: <code>ssh &lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt; 'docker logs -f dotty-pi'</code></li>
+<li><strong>Tail perception/behaviour</strong>: <code>ssh &lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt; 'docker logs -f dotty-behaviour'</code></li>
+<li><strong>Admin dashboard</strong>: open <code>http://&lt;XIAOZHI_HOST&gt;:8080/ui</code> in a browser.</li>
+<li><strong>Dashboard health</strong>: <code>curl http://&lt;XIAOZHI_HOST&gt;:8080/health</code></li>
 </ul>
 
 

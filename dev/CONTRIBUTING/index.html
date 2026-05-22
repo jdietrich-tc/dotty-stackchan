@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1520,34 +1520,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2417,10 +2389,10 @@ modifications — please open an issue first to discuss the approach.</p>
 <li>
 <p><strong>Check for leaked placeholders or real values:</strong></p>
 </li>
-<li>Files in this repo must use placeholders (<code>&lt;XIAOZHI_HOST&gt;</code>, <code>&lt;ZEROCLAW_HOST&gt;</code>,
-    <code>&lt;ZEROCLAW_USER&gt;</code>, <code>&lt;ROBOT_NAME&gt;</code>, etc.) everywhere a real IP, hostname,
-    username, or filesystem path would appear. See the "Configuring for your
-    environment" table in <code>README.md</code> for the full list.</li>
+<li>Files in this repo must use placeholders (<code>&lt;XIAOZHI_HOST&gt;</code>, <code>&lt;XIAOZHI_USER&gt;</code>,
+    <code>&lt;ROBOT_NAME&gt;</code>, etc.) everywhere a real IP, hostname, username, or filesystem
+    path would appear. See the "Configuring for your environment" table in
+    <code>README.md</code> for the full list.</li>
 <li>
 <p><strong>Never commit real IPs, hostnames, usernames, API keys, or filesystem
     paths.</strong> If your diff introduces a literal IP address or path that isn't
@@ -2446,13 +2418,18 @@ modifications — please open an issue first to discuss the approach.</p>
 <tbody>
 <tr>
 <td><strong>Voice pipeline (xiaozhi-server)</strong></td>
-<td><code>docker-compose.yml</code>, <code>.config.yaml</code>, custom providers (<code>zeroclaw.py</code>, <code>edge_stream.py</code>, <code>fun_local.py</code>, <code>piper_local.py</code>)</td>
-<td>These run inside the xiaozhi-server Docker container on whatever Linux Docker host you've chosen.</td>
+<td><code>docker-compose.yml</code>, <code>.config.yaml</code>, custom providers (<code>pi_voice/</code>, <code>tier1_slim/</code>, <code>edge_stream.py</code>, <code>fun_local.py</code>, <code>piper_local.py</code>)</td>
+<td>These run inside the xiaozhi-server Docker container on the Docker host.</td>
 </tr>
 <tr>
-<td><strong>Bridge</strong></td>
-<td><code>bridge.py</code>, <code>zeroclaw-bridge.service</code>, <code>bridge/</code></td>
-<td>Runs on the ZeroClaw host. The <code>bridge/</code> directory contains the Dockerfile, compose file, and deployment docs.</td>
+<td><strong>Brain / behaviour</strong></td>
+<td><code>dotty-pi/</code>, <code>dotty-pi-ext/</code>, <code>dotty-behaviour/</code></td>
+<td>Docker containers on the same host as xiaozhi-server. <code>dotty-pi</code> is the pi agent (voice brain); <code>dotty-behaviour</code> is the perception/greeter service.</td>
+</tr>
+<tr>
+<td><strong>Admin dashboard</strong></td>
+<td><code>bridge.py</code>, <code>bridge/</code></td>
+<td>FastAPI service on port 8080, running as a container on the Docker host.</td>
 </tr>
 <tr>
 <td><strong>Documentation</strong></td>
@@ -2481,8 +2458,7 @@ forked and configured per-deployment. Every value that varies between
 deployments must use a placeholder:</p>
 <ul>
 <li><code>&lt;XIAOZHI_HOST&gt;</code>, <code>&lt;XIAOZHI_USER&gt;</code>, <code>&lt;XIAOZHI_HOSTNAME&gt;</code>, <code>&lt;XIAOZHI_PATH&gt;</code></li>
-<li><code>&lt;ZEROCLAW_HOST&gt;</code>, <code>&lt;ZEROCLAW_USER&gt;</code>, <code>&lt;ZEROCLAW_HOME&gt;</code>, <code>&lt;BRIDGE_PATH&gt;</code></li>
-<li><code>&lt;ZEROCLAW_BIN&gt;</code>, <code>&lt;ZEROCLAW_CFG&gt;</code></li>
+<li><code>&lt;UNRAID_HOST&gt;</code></li>
 <li><code>&lt;YOUR_NAME&gt;</code>, <code>&lt;ROBOT_NAME&gt;</code></li>
 </ul>
 <p>Port numbers (<code>8000</code>, <code>8003</code>, <code>8080</code>, <code>18789</code>, <code>42617</code>) are product-generic
@@ -2499,11 +2475,11 @@ dropdown behavior, and maintainer commands (<code>mike deploy ... --push</code>,
 (don't break links from older versions to ones that still exist). If a doc is
 only relevant for a future version, note that in the PR description.</p>
 <h2 id="safety-related-changes">Safety-related changes<a class="headerlink" href="#safety-related-changes" title="Permanent link">&para;</a></h2>
-<p>The child-safety enforcement layer (prompt sandwich in <code>bridge.py</code>, audience
-framing in <code>.config.yaml</code>) is load-bearing. If your change touches the system
-prompt, turn suffix, or emoji enforcement logic, please describe your
-red-team testing in the PR description. See the commit history for examples
-of the red-team battery format.</p>
+<p>The child-safety enforcement layer (persona prompt sandwich, audience framing
+in <code>.config.yaml</code>) is load-bearing. If your change touches the system prompt,
+turn suffix, or emoji enforcement logic, please describe your red-team testing
+in the PR description. See the commit history for examples of the red-team
+battery format.</p>
 <h2 id="where-to-ask-questions">Where to ask questions<a class="headerlink" href="#where-to-ask-questions" title="Permanent link">&para;</a></h2>
 <p>Open a <a href="../../issues">GitHub Issue</a>. There is no chat channel or mailing list
 at this time.</p>

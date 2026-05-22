@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Side-by-side comparison of LLM backend options for Dotty.">
+        <meta name="description" content="Side-by-side comparison of LLM backend options for Dotty — PiVoiceLLM (default), Tier1Slim, OpenAICompat, and llama-swap.">
       
       
       
@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1397,15 +1397,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-tier1slim-two-tier-voice-current-default" class="md-nav__link">
+  <a href="#3-tier1slim-two-tier-voice-alternate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Tier1Slim (two-tier voice — current default)
+        3. Tier1Slim (two-tier voice — alternate)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Tier1Slim (two-tier voice — current default)">
+    <nav class="md-nav" aria-label="3. Tier1Slim (two-tier voice — alternate)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1436,15 +1436,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-zeroclaw-always-on-single-tier-agent" class="md-nav__link">
+  <a href="#4-pivoicellm-pi-agent-default" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. ZeroClaw (always-on single-tier agent)
+        4. PiVoiceLLM (pi agent — default)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. ZeroClaw (always-on single-tier agent)">
+    <nav class="md-nav" aria-label="4. PiVoiceLLM (pi agent — default)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1792,34 +1792,6 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -2527,15 +2499,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-tier1slim-two-tier-voice-current-default" class="md-nav__link">
+  <a href="#3-tier1slim-two-tier-voice-alternate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Tier1Slim (two-tier voice — current default)
+        3. Tier1Slim (two-tier voice — alternate)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Tier1Slim (two-tier voice — current default)">
+    <nav class="md-nav" aria-label="3. Tier1Slim (two-tier voice — alternate)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2566,15 +2538,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-zeroclaw-always-on-single-tier-agent" class="md-nav__link">
+  <a href="#4-pivoicellm-pi-agent-default" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. ZeroClaw (always-on single-tier agent)
+        4. PiVoiceLLM (pi agent — default)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. ZeroClaw (always-on single-tier agent)">
+    <nav class="md-nav" aria-label="4. PiVoiceLLM (pi agent — default)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2669,7 +2641,7 @@ and the matching block under <code>LLM:</code> in <code>.config.yaml</code>.</p>
 <th>OpenAI-compatible API</th>
 <th>llama-swap (local, multi-model)</th>
 <th>Tier1Slim (two-tier voice)</th>
-<th>ZeroClaw (single-tier agent)</th>
+<th>PiVoiceLLM (pi agent — default)</th>
 </tr>
 </thead>
 <tbody>
@@ -2678,21 +2650,21 @@ and the matching block under <code>LLM:</code> in <code>.config.yaml</code>.</p>
 <td><code>OpenAICompat</code></td>
 <td><code>OpenAICompat</code></td>
 <td><code>Tier1Slim</code></td>
-<td><code>ZeroClawLLM</code></td>
+<td><code>PiVoiceLLM</code></td>
 </tr>
 <tr>
 <td><strong>Runs where</strong></td>
 <td>Cloud (OpenRouter, OpenAI, etc.)</td>
 <td>Local GPU host (Docker, llama.cpp)</td>
-<td>Inner loop on llama-swap; escalations through the bridge</td>
-<td>ZeroClaw host or server</td>
+<td>Inner loop on llama-swap; tool escalation via bridge</td>
+<td>dotty-pi container on the Docker host</td>
 </tr>
 <tr>
 <td><strong>Latency</strong></td>
 <td>300-800 ms (network-bound)</td>
 <td>200-600 ms (GPU-bound; <code>qwen3.5:4b</code> warm &lt;500 ms)</td>
 <td>&lt;500 ms plain chat; +bridge round-trip on tool calls</td>
-<td>500-1500 ms (full agent overhead on every turn)</td>
+<td>500-1500 ms (pi agent turn overhead)</td>
 </tr>
 <tr>
 <td><strong>Cost</strong></td>
@@ -2706,35 +2678,35 @@ and the matching block under <code>LLM:</code> in <code>.config.yaml</code>.</p>
 <td>Tokens sent to cloud provider</td>
 <td>Fully local, nothing leaves LAN</td>
 <td>Fully local for plain turns; cloud only when smart_mode is on</td>
-<td>Fully local (if local LLM backend)</td>
+<td>Fully local</td>
 </tr>
 <tr>
 <td><strong>Setup complexity</strong></td>
 <td>Low — API key + model name</td>
 <td>Medium — GPU, Docker, GGUF download</td>
-<td>Medium — llama-swap + Tier1Slim block; bridge for escalations</td>
-<td>High — ZeroClaw install, bridge, systemd</td>
+<td>Medium — llama-swap + Tier1Slim block</td>
+<td>Medium — dotty-pi container + llama-swap</td>
 </tr>
 <tr>
 <td><strong>Memory / tools</strong></td>
 <td>None</td>
 <td>None</td>
-<td><code>memory_lookup</code> / <code>think_hard</code> / <code>take_photo</code> / <code>play_song</code> via escalation</td>
-<td>Yes — persistent memory, 70+ tools, MCP</td>
+<td>Chitchat-only post-cutover (escalation endpoint non-functional)</td>
+<td>Yes — memory_lookup, remember, think_hard, take_photo, play_song</td>
 </tr>
 <tr>
 <td><strong>Hot-swappable</strong></td>
 <td>Restart container</td>
 <td>Restart container</td>
 <td><strong>Yes</strong> — <code>set_runtime()</code> mutates the live provider; smart-mode flip is instant</td>
-<td>No — daemon restart on model swap</td>
+<td>Restart container</td>
 </tr>
 <tr>
 <td><strong>Best for</strong></td>
 <td>Quick start, best-in-class models</td>
 <td>Privacy + concurrent multi-model serving</td>
-<td>Default for snappy voice; agent features only when needed</td>
-<td>Always-on agentic features, deep tool use</td>
+<td>Chitchat-only fallback; no tool calls</td>
+<td><strong>Default — snappy voice with full tool support</strong></td>
 </tr>
 </tbody>
 </table>
@@ -2782,18 +2754,11 @@ that maps Chat Completions calls onto the underlying Messages API. The
 </code></pre></div>
 <p>Caveats when running Anthropic-only (no OpenRouter):</p>
 <ul>
-<li><strong>Vision intents</strong> (<code>take_photo</code>) go through the bridge's <code>_call_vision_api</code>,
-  which reads <code>VLM_API_KEY</code> → <code>VISION_API_KEY</code> → <code>OPENROUTER_API_KEY</code> in turn
-  and defaults to OpenRouter for the upload. Point those env vars at your
-  Anthropic key and set the bridge's VLM model+URL env to Anthropic's
-  endpoint to keep vision working without OpenRouter.</li>
-<li><strong>Smart-mode escalation</strong> defaults to <code>anthropic/claude-sonnet-4-6</code> via
-  OpenRouter — flip <code>SMART_MODEL</code> in <code>zeroclaw-bridge.service</code> to a bare
-  Anthropic model id and <code>VOICE_CLOUD_PROFILE_KEY</code> to
-  <code>custom:https://api.anthropic.com/v1</code> to route smart-mode there too.</li>
+<li><strong>Vision intents</strong> (<code>take_photo</code>) rely on the VLM call path. Point the
+  bridge's VLM env vars (<code>VLM_API_KEY</code>, <code>VLM_MODEL</code>, <code>VLM_URL</code>) at your
+  Anthropic key and endpoint to keep vision working without OpenRouter.</li>
 <li>The compat shim doesn't support every OpenAI option (streaming and tools
-  work; <code>logprobs</code>, <code>seed</code>, etc. don't). Tier1Slim's <code>think_hard</code> /
-  <code>memory_lookup</code> tool calls go through the bridge, so they're unaffected.</li>
+  work; <code>logprobs</code>, <code>seed</code>, etc. don't).</li>
 </ul>
 <h2 id="2-llama-swap-local-multi-model">2. llama-swap (local, multi-model)<a class="headerlink" href="#2-llama-swap-local-multi-model" title="Permanent link">&para;</a></h2>
 <p><code>OpenAICompat</code> provider pointed at a local llama-swap instance. llama-swap fronts upstream llama.cpp and routes per-model requests to per-alias <code>llama-server</code> children, with declarative co-residency (the <code>voice</code> matrix set keeps <code>qwen3.5:4b</code> and <code>qwen3.6:27b-think</code> both warm) and on-demand swap to other sets (e.g. <code>coding</code> for <code>qwen3.6:27b@96K</code>). Recommended local backend when you want to run more than one model at a time without paying repeated cold-load costs.</p>
@@ -2832,9 +2797,10 @@ that maps Chat Completions calls onto the underlying Messages API. The
 <li>No memory between sessions — stateless like the cloud option.</li>
 <li>If you don't need concurrent multi-model serving, Ollama is the simpler single-binary alternative.</li>
 </ul>
-<h2 id="3-tier1slim-two-tier-voice-current-default">3. Tier1Slim (two-tier voice — current default)<a class="headerlink" href="#3-tier1slim-two-tier-voice-current-default" title="Permanent link">&para;</a></h2>
-<p>The default in the shipped <code>.config.yaml</code>. A small, fast model (<code>qwen3.5:4b</code> against llama-swap) handles every plain conversational turn without involving the bridge. When the model emits a structured <code>tool_call</code>, the provider escalates to <code>POST /api/voice/escalate</code> and the bridge dispatches the tool (ZeroClaw memory for <code>memory_lookup</code>, <code>qwen3.6:27b-think</code> for <code>think_hard</code>, the VLM for <code>take_photo</code>, or <code>/xiaozhi/admin/play-asset</code> for <code>play_song</code>).</p>
-<p>Smart-mode flips repoint the inner loop at a cloud model (default <code>anthropic/claude-sonnet-4-6</code>) via in-process <code>set_runtime()</code> — no docker restart and no daemon restart.</p>
+<h2 id="3-tier1slim-two-tier-voice-alternate">3. Tier1Slim (two-tier voice — alternate)<a class="headerlink" href="#3-tier1slim-two-tier-voice-alternate" title="Permanent link">&para;</a></h2>
+<p>An alternate voice backend. A small, fast model (<code>qwen3.5:4b</code> against llama-swap) handles every plain conversational turn without involving the bridge. When the model emits a structured <code>tool_call</code>, the provider escalates to <code>POST /api/voice/escalate</code> on the bridge.</p>
+<p><strong>Post-cutover caveat:</strong> <code>POST /api/voice/escalate</code> was served by the ZeroClaw bridge voice path, which was retired in issue #36 (2026-05-19). The escalation endpoint is non-functional in the current stack. Tier1Slim is therefore a <strong>chitchat-only rollback path</strong> — plain conversational turns work, tool calls (<code>memory_lookup</code>, <code>think_hard</code>, <code>take_photo</code>, <code>play_song</code>) do not. Use <code>PiVoiceLLM</code> (the default) for full tool support.</p>
+<p>Smart-mode flips repoint the inner loop at a cloud model (default <code>anthropic/claude-sonnet-4-6</code>) via in-process <code>set_runtime()</code> — no docker restart.</p>
 <h3 id="configyaml-snippet_2"><code>.config.yaml</code> snippet<a class="headerlink" href="#configyaml-snippet_2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">selected_module</span><span class="p">:</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">LLM</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tier1Slim</span>
@@ -2850,66 +2816,83 @@ that maps Chat Completions calls onto the underlying Messages API. The
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
 </code></pre></div>
-<p>Plus environment variables (consumed by the bridge for smart-mode dispatch):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>DOTTY_VOICE_PROVIDER=tier1slim
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>TIER1SLIM_CLOUD_API_KEY=sk-or-...           # required for OFF→ON smart-mode flip
-</code></pre></div>
 <p>Full reference: <a href="../tier1slim/">tier1slim.md</a>.</p>
 <h3 id="notes_2">Notes<a class="headerlink" href="#notes_2" title="Permanent link">&para;</a></h3>
 <ul>
-<li>The inner loop bypasses the bridge entirely on plain turns, so <code>bridge.py</code> going down doesn't break chitchat (only tool calls fail).</li>
-<li><code>set_runtime()</code> lets the bridge hot-swap the live provider — used for smart-mode flips and would also support per-time-of-day model selection in future.</li>
+<li>The inner loop bypasses the bridge entirely on plain turns, so chitchat works even if <code>bridge.py</code> is unreachable.</li>
+<li><code>set_runtime()</code> lets the bridge hot-swap the live provider — used for smart-mode flips.</li>
 <li>Persona uses <code>personas/dotty_voice.md</code>; the top-level <code>prompt:</code> block is deliberately ignored because the 4 B chat template only honours one system message.</li>
 </ul>
-<h2 id="4-zeroclaw-always-on-single-tier-agent">4. ZeroClaw (always-on single-tier agent)<a class="headerlink" href="#4-zeroclaw-always-on-single-tier-agent" title="Permanent link">&para;</a></h2>
-<p>The <code>ZeroClawLLM</code> provider routes through the FastAPI bridge on the ZeroClaw host into a long-running ZeroClaw agent process. ZeroClaw handles its own LLM calls (to OpenRouter, Ollama, or any supported provider), persistent memory, tool execution, and MCP integration. Every voice turn round-trips through ZeroClaw — heavier than Tier1Slim, but you get the full agent loop on every turn whether you need it or not.</p>
+<h2 id="4-pivoicellm-pi-agent-default">4. PiVoiceLLM (pi agent — default)<a class="headerlink" href="#4-pivoicellm-pi-agent-default" title="Permanent link">&para;</a></h2>
+<p>The default in the shipped <code>.config.yaml</code>. The <code>PiVoiceLLM</code> provider routes each voice turn to the <strong>dotty-pi container</strong> — the pi coding agent running on the same Docker host as xiaozhi-server.</p>
+<p><code>PiClient</code> drives the agent by running <code>docker exec -i dotty-pi pi --mode rpc …</code> and exchanging JSONL messages over its stdin/stdout. The agent's outer loop uses <code>qwen3.5:4b</code> on local llama-swap for fast chitchat and loads the <strong>dotty-pi-ext extension</strong>, which exposes five voice-focused tools:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>memory_lookup</code></td>
+<td>Recall a fact from past conversations (FTS on brain.db)</td>
+</tr>
+<tr>
+<td><code>remember</code></td>
+<td>Stash a new fact into brain.db</td>
+</tr>
+<tr>
+<td><code>think_hard</code></td>
+<td>Escalate a hard question to <code>qwen3.6:27b-think</code></td>
+</tr>
+<tr>
+<td><code>take_photo</code></td>
+<td>Describe what Dotty's camera sees via a VLM</td>
+</tr>
+<tr>
+<td><code>play_song</code></td>
+<td>Play a song through the speaker</td>
+</tr>
+</tbody>
+</table>
+<p>Only TTS-bound text streams back to xiaozhi-server — tool results stay internal to the agent loop.</p>
 <h3 id="prerequisites_1">Prerequisites<a class="headerlink" href="#prerequisites_1" title="Permanent link">&para;</a></h3>
 <ul>
-<li>ZeroClaw installed on the ZeroClaw host (or another host): <code>cargo install zeroclaw</code>.</li>
-<li><code>bridge.py</code> running as a systemd service (<code>zeroclaw-bridge.service</code>).</li>
-<li>Persona configured in <code>~/.zeroclaw/workspace/</code> (<code>SOUL.md</code>, <code>IDENTITY.md</code>, etc.).</li>
+<li>dotty-pi container running on the Docker host.</li>
+<li>llama-swap running and reachable by the dotty-pi container (<code>qwen3.5:4b</code> for the outer loop; <code>qwen3.6:27b-think</code> for <code>think_hard</code>).</li>
 </ul>
 <h3 id="configyaml-snippet_3"><code>.config.yaml</code> snippet<a class="headerlink" href="#configyaml-snippet_3" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">selected_module</span><span class="p">:</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">LLM</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ZeroClawLLM</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nt">LLM</span><span class="p">:</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">ZeroClawLLM</span><span class="p">:</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeroclaw</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://&lt;ZEROCLAW_HOST&gt;:8080/api/message/stream</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dotty</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="nt">system_prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">      </span><span class="no">You are &lt;ROBOT_NAME&gt;, a desktop robot (StackChan body). Begin every reply</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">      </span><span class="no">with a single emoji, then speak naturally in 1-3 short TTS-friendly sentences.</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">selected_module</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">LLM</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PiVoiceLLM</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nt">LLM</span><span class="p">:</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">PiVoiceLLM</span><span class="p">:</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pi_voice</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dotty-pi</span>
 </code></pre></div>
 <h3 id="notes_3">Notes<a class="headerlink" href="#notes_3" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Higher latency because ZeroClaw may invoke tools or consult memory before
-  replying. The <code>timeout: 90</code> accommodates this.</li>
-<li>The bridge enforces an English + emoji sandwich around every turn to prevent
-  Qwen3's Chinese-leak tendency (see <a href="../brain/">brain.md</a>).</li>
-<li>Persistent memory (SQLite-backed) means the robot remembers across sessions.</li>
-<li>Supports 70+ built-in tools plus any MCP servers you connect.</li>
-<li>Set <code>DOTTY_VOICE_PROVIDER=zeroclaw</code> (the default) so smart-mode flips know to rewrite ZeroClaw's <code>config.toml</code> rather than Tier1Slim's runtime.</li>
+<li>Higher latency than a raw llama-swap call because the pi agent loop adds overhead — tool-using turns are slower than plain chitchat.</li>
+<li>Persistent memory (<code>brain.db</code>, FTS5) means the robot remembers across sessions.</li>
+<li>All four server-side services (xiaozhi-server, dotty-pi, dotty-behaviour, bridge.py) run as Docker containers on the same host — no separate "brain host" required.</li>
 </ul>
 <h2 id="switching-backends">Switching backends<a class="headerlink" href="#switching-backends" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Edit <code>.config.yaml</code> — change <code>selected_module.LLM</code> and the relevant <code>LLM:</code> block.</li>
-<li>If you're switching the smart-mode dispatch path, also set <code>DOTTY_VOICE_PROVIDER</code> (<code>tier1slim</code> or <code>zeroclaw</code>) in the bridge's systemd unit env block.</li>
 <li>Restart xiaozhi-server: <code>docker compose restart xiaozhi-server</code>.</li>
-<li>Test with a voice command or <code>curl</code> to the bridge endpoint.</li>
+<li>Test with a voice command or a <code>curl</code> to the health endpoint.</li>
 </ol>
-<p>All four <code>LLM:</code> blocks can coexist in the config; only the one named in <code>selected_module.LLM</code> is active.</p>
+<p>All <code>LLM:</code> blocks can coexist in the config; only the one named in <code>selected_module.LLM</code> is active.</p>
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../tier1slim/">tier1slim.md</a> — the default voice path in detail.</li>
-<li><a href="../brain/">brain.md</a> — model matrix and ZeroClaw architecture.</li>
+<li><a href="../tier1slim/">tier1slim.md</a> — Tier1Slim alternate voice path in detail.</li>
+<li><a href="../brain/">brain.md</a> — model matrix and dotty-pi agent architecture.</li>
 <li><a href="../voice-pipeline/">voice-pipeline.md</a> — ASR, TTS, and VAD modules.</li>
 <li><a href="../architecture/">architecture.md</a> — how the LLM slot fits into the full pipeline.</li>
 <li><a href="../cookbook/llama-swap-concurrent-models/">cookbook/llama-swap-concurrent-models.md</a> — running multiple resident models on one GPU.</li>
 </ul>
-<p>Last verified: 2026-05-17.</p>
+<p>Last verified: 2026-05-22.</p>
 
 
 

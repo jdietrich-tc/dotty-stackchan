@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1520,34 +1520,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2502,9 +2474,9 @@
 </tr>
 <tr>
 <td><strong>PowerMem</strong></td>
-<td>Dual-layer short-term + summarized memory (currently ZeroClaw owns memory)</td>
+<td>Dual-layer short-term + summarized memory (currently the <code>dotty-pi</code> agent owns memory via its FTS brain.db)</td>
 <td>Low</td>
-<td>Would overlap with ZeroClaw's memory — probably don't</td>
+<td>Would overlap with the pi agent's memory — probably don't</td>
 </tr>
 <tr>
 <td><strong>Intent router</strong> (<code>function_call</code> mode)</td>
@@ -2520,7 +2492,7 @@
 </tr>
 <tr>
 <td><strong>Multi-device routing</strong></td>
-<td>Run the StackChan as one of several voice surfaces on the same ZeroClaw brain</td>
+<td>Run the StackChan as one of several voice surfaces on the same pi agent brain</td>
 <td>Low</td>
 <td>Needs the full-module deployment (DB-backed)</td>
 </tr>
@@ -2540,7 +2512,7 @@
 </table>
 <p><a id="brain-unused"></a></p>
 <h2 id="brain-unused">Brain — unused<a class="headerlink" href="#brain-unused" title="Permanent link">&para;</a></h2>
-<p>ZeroClaw + Qwen3 + OpenRouter features that could be wired into the bridge.</p>
+<p><code>dotty-pi</code> (pi agent + qwen3.5:4b on llama-swap) + <code>dotty-pi-ext</code> features that could be wired up.</p>
 <table>
 <thead>
 <tr>
@@ -2552,32 +2524,32 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>ACP <code>session/update</code> streaming</strong></td>
+<td><strong>Streaming first-token to TTS</strong></td>
 <td>First-token TTS instead of waiting for the full response (perceived-latency win)</td>
 <td><strong>High</strong></td>
 <td><code>ROADMAP.md</code> → "Reduce first-audio latency"</td>
 </tr>
 <tr>
-<td><strong>Long-lived ZeroClaw sessions</strong></td>
-<td>Skip <code>session/new</code> per turn — carry context across turns within a conversation</td>
+<td><strong>Long-lived pi agent sessions</strong></td>
+<td>Carry context across turns within a conversation without re-loading the persona each time</td>
 <td>Medium</td>
-<td><code>ROADMAP.md</code> → "Reduce first-audio latency" (ACP session overhead)</td>
+<td><code>ROADMAP.md</code> → "Reduce first-audio latency"</td>
 </tr>
 <tr>
-<td><strong><code>session/request_permission</code></strong></td>
-<td>Bridge confirms tool calls before they execute — useful for child-safety. Bridge now auto-approves (2026-04-25); tool allowlist for child-safety is a follow-up.</td>
+<td><strong>Tool pre-approval gate</strong></td>
+<td>Bridge confirms tool calls before they execute — useful for child-safety.</td>
 <td>Medium</td>
 <td><code>ROADMAP.md</code> → "Lock down for child-safe operation"</td>
 </tr>
 <tr>
-<td>~~<strong>Qwen3 function-calling / tool-use</strong>~~</td>
-<td><strong>Wired up (2026-04-25).</strong> ZeroClaw auto-approves tools in <code>auto_approve</code> list and sends tool execution as <code>session/event</code> notifications. Bridge logs tool calls at INFO level. Works for <code>weather</code>, <code>web_search_tool</code>, <code>calculator</code>, etc.</td>
-<td>~~Medium~~ Done</td>
+<td>~~<strong>Tool-use</strong>~~</td>
+<td><strong>Wired up.</strong> The <code>dotty-pi-ext</code> extension exposes 5 voice tools (<code>memory_lookup</code>, <code>remember</code>, <code>think_hard</code>, <code>take_photo</code>, <code>play_song</code>).</td>
+<td>Done</td>
 <td>—</td>
 </tr>
 <tr>
-<td><strong>ZeroClaw MCP-server mode</strong></td>
-<td>Expose ZeroClaw's tools/memory to other MCP clients</td>
+<td><strong>pi agent MCP-server mode</strong></td>
+<td>Expose the agent's tools/memory to other MCP clients</td>
 <td>Low</td>
 <td><strong>New-task candidate</strong></td>
 </tr>
@@ -2585,34 +2557,34 @@
 <td><strong>Qwen3 <code>role: "system"</code> injection</strong></td>
 <td>Move the English+emoji constraints into a proper system message instead of a prompt prefix/suffix; better MoE adherence</td>
 <td>Medium</td>
-<td>Rework of bridge's wrapping logic</td>
+<td>Rework of persona prompt structure</td>
 </tr>
 <tr>
-<td><strong>Qwen3 extended context (256K native)</strong></td>
+<td><strong>Qwen3 extended context (96K native)</strong></td>
 <td>Keep long conversation history / memory verbatim instead of summarising</td>
 <td>Low</td>
 <td>Costs more tokens per turn — probably not worth it yet</td>
 </tr>
 <tr>
-<td><strong>OpenRouter latency/cost dashboard</strong></td>
-<td>Observability beyond the local <code>state/costs.jsonl</code></td>
-<td>Low</td>
-<td>Already available — just point a browser at it</td>
-</tr>
-<tr>
-<td><strong>OpenRouter failover / multi-model</strong></td>
-<td>A/B a smaller faster model for voice turns specifically</td>
-<td>Medium</td>
-<td><code>ROADMAP.md</code> → "Reduce first-audio latency" (smaller model for voice)</td>
-</tr>
-<tr>
-<td><strong>ZeroClaw cost/trace surfacing</strong></td>
-<td>Expose <code>state/costs.jsonl</code> + <code>runtime-trace.jsonl</code> via the bridge <code>/health</code> or a new <code>/stats</code> endpoint</td>
+<td><strong>llama-swap latency/cost dashboard</strong></td>
+<td>Observability into per-turn inference cost on the local model</td>
 <td>Low</td>
 <td><strong>New-task candidate</strong></td>
 </tr>
 <tr>
-<td><strong>ZeroClaw cron scheduler</strong></td>
+<td><strong>Model A/B for voice turns</strong></td>
+<td>Test a smaller/faster model for chitchat, escalate to 27B-think only when needed</td>
+<td>Medium</td>
+<td><code>ROADMAP.md</code> → "Reduce first-audio latency"</td>
+</tr>
+<tr>
+<td><strong>Per-turn cost/trace surfacing</strong></td>
+<td>Expose pi agent trace data via the bridge <code>/health</code> or a new <code>/stats</code> endpoint</td>
+<td>Low</td>
+<td><strong>New-task candidate</strong></td>
+</tr>
+<tr>
+<td><strong>pi agent cron scheduler</strong></td>
 <td>The robot could say "good morning" on a schedule, not just on demand</td>
 <td>Low</td>
 <td><strong>New-task candidate</strong></td>
@@ -2648,7 +2620,7 @@
 </tr>
 </tbody>
 </table>
-<p>These are all feeders for the <strong><code>ROADMAP.md</code></strong> "Map the ZeroClaw ↔ xiaozhi-server ↔ StackChan firmware interaction" backlog item.</p>
+<p>These are all feeders for the <strong><code>ROADMAP.md</code></strong> "Map the dotty-pi ↔ xiaozhi-server ↔ StackChan firmware interaction" backlog item.</p>
 <h2 id="prioritisation-rule-of-thumb">Prioritisation rule of thumb<a class="headerlink" href="#prioritisation-rule-of-thumb" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2685,7 +2657,7 @@
 <li><a href="../ROADMAP/">ROADMAP.md</a> — live backlog; this file is a <em>source</em> for it, not a replacement.</li>
 <li><a href="../hardware/">hardware.md</a> — what the hardware features actually are.</li>
 <li><a href="../voice-pipeline/">voice-pipeline.md</a> — what the server supports upstream.</li>
-<li><a href="../brain/">brain.md</a> — what ZeroClaw/Qwen/OpenRouter expose.</li>
+<li><a href="../brain/">brain.md</a> — what the pi agent / Qwen / llama-swap expose.</li>
 <li><a href="../references/">references.md</a> — upstream source for every capability claim.</li>
 </ul>
 <p>Last verified: 2026-05-18.</p>

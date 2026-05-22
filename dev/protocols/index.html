@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Xiaozhi WebSocket protocol, ACP JSON-RPC, and the emotion frame format.">
+        <meta name="description" content="Xiaozhi WebSocket protocol, pi RPC transport, emotion frame format, and the HTTP APIs served by dotty-behaviour and bridge.py.">
       
       
       
@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1322,10 +1322,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#three-layer-enforcement" class="md-nav__link">
+  <a href="#two-layer-enforcement" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Three-layer enforcement
+        Two-layer enforcement
       
     </span>
   </a>
@@ -1421,116 +1421,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bridge-http-api" class="md-nav__link">
+  <a href="#pi-rpc-pivoicellm-transport" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bridge HTTP API
+        pi RPC — PiVoiceLLM transport
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Bridge HTTP API">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#post-apimessage-legacy-zeroclawllm-path" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/message — legacy ZeroClawLLM path
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-apivoiceescalate-tier1slim-tool-dispatch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/voice/escalate — Tier1Slim tool dispatch
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-apivoiceremember-tier1slim-fact-stash-fire-and-forget" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/voice/remember — Tier1Slim fact-stash (fire-and-forget)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-apivoicememory_log-tier1slim-turn-log-fire-and-forget" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/voice/memory_log — Tier1Slim turn log (fire-and-forget)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-apiperceptionevent-xiaozhi-bridge-perception-relay" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/perception/event — xiaozhi → bridge perception relay
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-health" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GET /health
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-admin-localhost-only" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /admin/* (localhost-only)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#acp-agent-client-protocol" class="md-nav__link">
+  <a href="#http-apis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ACP — Agent Client Protocol
+        HTTP APIs
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ACP — Agent Client Protocol">
+    <nav class="md-nav" aria-label="HTTP APIs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#core-methods" class="md-nav__link">
+  <a href="#dotty-behaviour-perception-vision-audio-calendar-8090" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core methods
+        dotty-behaviour — perception, vision, audio, calendar (:8090)
       
     </span>
   </a>
@@ -1538,21 +1455,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-our-bridge-uses-today" class="md-nav__link">
+  <a href="#bridgepy-dashboard-and-admin-8080" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What our bridge uses today
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#acp-vs-mcp-how-they-differ" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ACP vs MCP — how they differ
+        bridge.py — dashboard and admin (:8080)
       
     </span>
   </a>
@@ -1941,34 +1847,6 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -2682,10 +2560,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#three-layer-enforcement" class="md-nav__link">
+  <a href="#two-layer-enforcement" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Three-layer enforcement
+        Two-layer enforcement
       
     </span>
   </a>
@@ -2781,116 +2659,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bridge-http-api" class="md-nav__link">
+  <a href="#pi-rpc-pivoicellm-transport" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bridge HTTP API
+        pi RPC — PiVoiceLLM transport
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Bridge HTTP API">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#post-apimessage-legacy-zeroclawllm-path" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/message — legacy ZeroClawLLM path
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-apivoiceescalate-tier1slim-tool-dispatch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/voice/escalate — Tier1Slim tool dispatch
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-apivoiceremember-tier1slim-fact-stash-fire-and-forget" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/voice/remember — Tier1Slim fact-stash (fire-and-forget)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-apivoicememory_log-tier1slim-turn-log-fire-and-forget" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/voice/memory_log — Tier1Slim turn log (fire-and-forget)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-apiperceptionevent-xiaozhi-bridge-perception-relay" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /api/perception/event — xiaozhi → bridge perception relay
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-health" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GET /health
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-admin-localhost-only" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /admin/* (localhost-only)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#acp-agent-client-protocol" class="md-nav__link">
+  <a href="#http-apis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ACP — Agent Client Protocol
+        HTTP APIs
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ACP — Agent Client Protocol">
+    <nav class="md-nav" aria-label="HTTP APIs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#core-methods" class="md-nav__link">
+  <a href="#dotty-behaviour-perception-vision-audio-calendar-8090" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core methods
+        dotty-behaviour — perception, vision, audio, calendar (:8090)
       
     </span>
   </a>
@@ -2898,21 +2693,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-our-bridge-uses-today" class="md-nav__link">
+  <a href="#bridgepy-dashboard-and-admin-8080" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What our bridge uses today
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#acp-vs-mcp-how-they-differ" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ACP vs MCP — how they differ
+        bridge.py — dashboard and admin (:8080)
       
     </span>
   </a>
@@ -2961,8 +2745,8 @@
 <li><strong>Xiaozhi WebSocket protocol</strong> — between device and xiaozhi-server. Opus audio + JSON control frames. Supports MCP over JSON-RPC 2.0 in-band. Canonical spec: <code>github.com/78/xiaozhi-esp32/blob/main/docs/websocket.md</code>.</li>
 <li><strong>Emotion channel</strong> — 21 upstream emotion identifiers; the server picks one from the LLM's leading emoji and emits a separate <code>llm</code>-type frame. This stack uses a 9-emoji subset.</li>
 <li><strong>MCP over WS</strong> — the device acts as an MCP server; xiaozhi-server calls <code>tools/list</code> and <code>tools/call</code> against it. Tool names use dotted namespaces like <code>self.audio_speaker.set_volume</code>.</li>
-<li><strong>Bridge HTTP API</strong> — <code>POST /api/message</code> (legacy <code>ZeroClawLLM</code> path), <code>POST /api/voice/escalate</code> + <code>POST /api/voice/remember</code> + <code>POST /api/voice/memory_log</code> (Tier1Slim), <code>POST /api/perception/event</code> (xiaozhi → bridge perception relay).</li>
-<li><strong>Agent Client Protocol (ACP)</strong> — JSON-RPC 2.0 over stdio between the FastAPI bridge and <code>zeroclaw acp</code>. Zed-originated spec, maintained at <code>agentclientprotocol.com</code>.</li>
+<li><strong>pi RPC</strong> — <code>PiClient</code> ↔ the dotty-pi agent communicate as JSONL messages over the stdin/stdout of <code>docker exec -i dotty-pi pi --mode rpc</code>. This is the voice transport for the default <code>PiVoiceLLM</code> provider.</li>
+<li><strong>HTTP APIs</strong> — split across two services: dotty-behaviour (:8090) serves perception, vision, audio, and calendar endpoints; bridge.py (:8080) serves the admin dashboard <code>/ui</code> and admin routes.</li>
 </ul>
 <h2 id="xiaozhi-websocket">Xiaozhi WebSocket<a class="headerlink" href="#xiaozhi-websocket" title="Permanent link">&para;</a></h2>
 <p><strong>Transport.</strong> TLS-optional WebSocket. Our deploy uses plain <code>ws://</code> on LAN. URL is given to the device via the OTA response on boot.</p>
@@ -3175,16 +2959,16 @@
 </code></pre></div>
 <p><code>text</code> contains the emoji character; <code>emotion</code> contains the identifier. The TTS frame that follows has the emoji <strong>stripped</strong> from its text so the speaker doesn't try to read it aloud.</p>
 <h3 id="default-emoji-allowlist">Default emoji allowlist<a class="headerlink" href="#default-emoji-allowlist" title="Permanent link">&para;</a></h3>
-<p><code>bridge.py</code> enforces a 9-emoji subset:</p>
+<p>The persona prompt and xiaozhi-server's top-level <code>prompt:</code> block enforce the following 9-emoji subset:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>😊 😆 😢 😮 🤔 😠 😐 😍 😴
 </code></pre></div>
-<p>If the LLM returns a leading emoji outside the allowlist (or no emoji at all), the bridge prepends 😐. Rationale: smaller set = more predictable face animations, fewer corner-cases in the xiaozhi emoji-stripper.</p>
-<h3 id="three-layer-enforcement">Three-layer enforcement<a class="headerlink" href="#three-layer-enforcement" title="Permanent link">&para;</a></h3>
+<p>Smaller set = more predictable face animations, fewer corner-cases in the xiaozhi emoji-stripper.</p>
+<h3 id="two-layer-enforcement">Two-layer enforcement<a class="headerlink" href="#two-layer-enforcement" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>ZeroClaw persona prompt</strong> — asks for leading emoji.</li>
-<li><strong>xiaozhi-server top-level <code>prompt:</code></strong> — also asks for leading emoji.</li>
-<li><strong>Bridge <code>_ensure_emoji_prefix</code></strong> — last line of defence; prepends 😐 if absent.</li>
+<li><strong>Persona prompt</strong> (<code>personas/dotty_voice.md</code>) — asks for a leading emoji.</li>
+<li><strong>xiaozhi-server top-level <code>prompt:</code></strong> — also asks for a leading emoji.</li>
 </ol>
+<p>(A third bridge-side <code>_ensure_emoji_prefix</code> fallback existed in the retired ZeroClaw voice path; it is not present in the current <code>PiVoiceLLM</code> path.)</p>
 <h2 id="mcp-tools-over-ws">MCP tools over WS<a class="headerlink" href="#mcp-tools-over-ws" title="Permanent link">&para;</a></h2>
 <p>From <code>github.com/78/xiaozhi-esp32/blob/main/docs/mcp-protocol.md</code>.</p>
 <h3 id="advertisement">Advertisement<a class="headerlink" href="#advertisement" title="Permanent link">&para;</a></h3>
@@ -3241,167 +3025,99 @@
 <li><code>McpServer::AddUserOnlyTool</code> — hidden from the default <code>tools/list</code>. Requires <code>withUserTools: true</code>. For privileged actions the LLM shouldn't trigger (e.g. reboot).</li>
 </ul>
 <p>See <a href="../hardware/#on-device-mcp-tools">hardware.md</a> for the default 11-tool MCP surface.</p>
-<p><a id="bridge-http"></a></p>
-<h2 id="bridge-http-api">Bridge HTTP API<a class="headerlink" href="#bridge-http-api" title="Permanent link">&para;</a></h2>
-<p>The FastAPI bridge (<code>bridge.py</code>) listens on port 8080 (LAN-reachable, no auth currently). All payloads are JSON unless noted.</p>
-<h3 id="post-apimessage-legacy-zeroclawllm-path"><code>POST /api/message</code> — legacy <code>ZeroClawLLM</code> path<a class="headerlink" href="#post-apimessage-legacy-zeroclawllm-path" title="Permanent link">&para;</a></h3>
-<p>Used by the <code>ZeroClawLLM</code> provider on every voice turn.</p>
-<p>Request:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;user text&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;channel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stackchan&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;optional&gt;&quot;</span><span class="p">}</span>
+<p><a id="pi-rpc"></a></p>
+<h2 id="pi-rpc-pivoicellm-transport">pi RPC — PiVoiceLLM transport<a class="headerlink" href="#pi-rpc-pivoicellm-transport" title="Permanent link">&para;</a></h2>
+<p>The <code>PiVoiceLLM</code> provider communicates with the dotty-pi agent via <strong>pi RPC mode</strong>: JSONL messages exchanged over the stdin/stdout of a <code>docker exec</code> invocation.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>xiaozhi-server
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  └─ PiClient
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>       └─ docker exec -i dotty-pi pi --mode rpc …
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>                             │           ▲
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>                    JSONL request        │
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>                    (stdin)              │ JSONL response
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>                                        │ (stdout, streamed)
 </code></pre></div>
-<p>Response:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span><span class="nt">&quot;response&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;😊 Sure, the weather is...&quot;</span><span class="p">}</span>
-</code></pre></div>
-<p>The bridge wraps <code>channel == "stackchan"</code> content in the English+emoji sandwich and re-enforces the emoji prefix on the response.</p>
-<h3 id="post-apivoiceescalate-tier1slim-tool-dispatch"><code>POST /api/voice/escalate</code> — Tier1Slim tool dispatch<a class="headerlink" href="#post-apivoiceescalate-tier1slim-tool-dispatch" title="Permanent link">&para;</a></h3>
-<p>Used by <code>Tier1Slim</code> when the small inner-loop model emits a <code>tool_call</code>. Blocks until the result returns (or the per-tool timeout fires).</p>
-<p>Request:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;memory_lookup|think_hard|take_photo|play_song&gt;&quot;</span><span class="p">,</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;xiaozhi session id&gt;&quot;</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
-</code></pre></div>
-<p>Response:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;short string, truncated to 1000 chars&gt;&quot;</span><span class="p">}</span>
-</code></pre></div>
-<p>Timeouts: <code>memory_lookup</code> 5 s, <code>think_hard</code> 30 s, others 5 s (env-overridable via <code>BRIDGE_TIMEOUT_SHORT</code> / <code>BRIDGE_TIMEOUT_LONG</code>).</p>
-<h3 id="post-apivoiceremember-tier1slim-fact-stash-fire-and-forget"><code>POST /api/voice/remember</code> — Tier1Slim fact-stash (fire-and-forget)<a class="headerlink" href="#post-apivoiceremember-tier1slim-fact-stash-fire-and-forget" title="Permanent link">&para;</a></h3>
-<p>Triggered when the model embeds a <code>[REMEMBER: ...]</code> marker in the reply.</p>
-<p>Request:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span><span class="nt">&quot;fact&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&#39;s favourite colour is blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
-</code></pre></div>
-<p>Response: <code>{"ok": true}</code> (Tier1Slim doesn't wait for it; 2 s timeout client-side).</p>
-<h3 id="post-apivoicememory_log-tier1slim-turn-log-fire-and-forget"><code>POST /api/voice/memory_log</code> — Tier1Slim turn log (fire-and-forget)<a class="headerlink" href="#post-apivoicememory_log-tier1slim-turn-log-fire-and-forget" title="Permanent link">&para;</a></h3>
-<p>Posted at end-of-turn so ZeroClaw can index the conversation for future <code>memory_lookup</code>.</p>
-<p>Request:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;what colour is the sky&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;assistant&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;😊 the sky is blue!&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
-</code></pre></div>
-<h3 id="post-apiperceptionevent-xiaozhi-bridge-perception-relay"><code>POST /api/perception/event</code> — xiaozhi → bridge perception relay<a class="headerlink" href="#post-apiperceptionevent-xiaozhi-bridge-perception-relay" title="Permanent link">&para;</a></h3>
-<p>Used by <code>EventTextMessageHandler</code> in <code>custom-providers/xiaozhi-patches/textMessageHandlerRegistry.py</code> to forward firmware <code>event</code> frames.</p>
-<p>Request mirrors the firmware frame:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;face_detected|face_lost|sound_event|state_changed|dance_started|dance_ended|chat_status|...&gt;&quot;</span><span class="p">,</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span><span class="nt">&quot;device_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;xiaozhi device-id&gt;&quot;</span><span class="p">,</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;xiaozhi session id&gt;&quot;</span><span class="p">,</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1715000000.0</span>
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="p">}</span>
-</code></pre></div>
-<p>Response: <code>{"ok": true}</code>. The bridge broadcasts the event to all <code>_perception_listeners</code> and updates <code>_perception_state[device_id]</code> accordingly. Consumer tasks (face_greeter, sound_turner, face_lost_aborter, wake_word_turner, face_identified_refresher, purr_player) each subscribe to the bus and react. See <a href="../architecture/#perception-event-bus">architecture.md</a>.</p>
-<h3 id="get-health"><code>GET /health</code><a class="headerlink" href="#get-health" title="Permanent link">&para;</a></h3>
-<p>Liveness probe. Returns <code>{"ok": true}</code> when the bridge is up and the ACP child is reachable.</p>
-<h3 id="post-admin-localhost-only"><code>POST /admin/*</code> (localhost-only)<a class="headerlink" href="#post-admin-localhost-only" title="Permanent link">&para;</a></h3>
-<p>Administrative mutations — see <a href="../architecture/#bridge-adminadmin-zeroclaw-host-127001-only">architecture.md</a>.</p>
-<p><a id="acp"></a></p>
-<h2 id="acp-agent-client-protocol">ACP — Agent Client Protocol<a class="headerlink" href="#acp-agent-client-protocol" title="Permanent link">&para;</a></h2>
-<p>Canonical spec: <a href="https://agentclientprotocol.com">agentclientprotocol.com</a>. Zed-Industries-originated, JSON-RPC 2.0, designed for editor↔agent interop; reusable for any agent-over-stdio situation.</p>
-<p><strong>Our transport:</strong> <code>zeroclaw acp</code> is spawned with <code>stdin</code>/<code>stdout</code> inherited. The FastAPI bridge reads/writes JSON-RPC 2.0 framed messages (one JSON object per line or Content-Length-prefixed, per ACP spec).</p>
-<h3 id="core-methods">Core methods<a class="headerlink" href="#core-methods" title="Permanent link">&para;</a></h3>
+<p>Each turn is a single JSONL object written to stdin; the agent streams JSONL response chunks back on stdout. Only TTS-bound text chunks are forwarded to xiaozhi-server — tool call details stay internal to the agent loop. The agent exits cleanly after each turn; <code>PiClient</code> re-invokes <code>docker exec</code> for the next turn.</p>
+<p>The dotty-pi agent loads the <strong>dotty-pi-ext extension</strong> at startup, which registers the five voice tools (<code>memory_lookup</code>, <code>remember</code>, <code>think_hard</code>, <code>take_photo</code>, <code>play_song</code>). Tool results never appear in the TTS stream.</p>
+<p><a id="http-apis"></a></p>
+<h2 id="http-apis">HTTP APIs<a class="headerlink" href="#http-apis" title="Permanent link">&para;</a></h2>
+<p>Server-side HTTP is split across two services. All payloads are JSON unless noted.</p>
+<h3 id="dotty-behaviour-perception-vision-audio-calendar-8090">dotty-behaviour — perception, vision, audio, calendar (:8090)<a class="headerlink" href="#dotty-behaviour-perception-vision-audio-calendar-8090" title="Permanent link">&para;</a></h3>
+<p><code>dotty-behaviour</code> is a FastAPI service (port 8090, same Docker host) that owns the ambient behaviour layer.</p>
 <table>
 <thead>
 <tr>
-<th>Method</th>
-<th>Direction</th>
-<th>Params</th>
-<th>Returns / effect</th>
+<th>Endpoint</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>initialize</code></td>
-<td>client → agent</td>
-<td>Protocol version, client capabilities</td>
-<td>Agent capabilities, supported tool-sets</td>
+<td><code>POST /api/perception/event</code></td>
+<td>xiaozhi → dotty-behaviour perception relay (face, sound, state events)</td>
 </tr>
 <tr>
-<td><code>session/new</code></td>
-<td>client → agent</td>
-<td><code>working_directory</code></td>
-<td><code>sessionId</code> and metadata</td>
+<td><code>POST /api/vision/explain</code></td>
+<td>VLM describe-image call</td>
 </tr>
 <tr>
-<td><code>session/prompt</code></td>
-<td>client → agent</td>
-<td><code>sessionId</code>, <code>prompt: ContentBlock[]</code> (text/images/resources)</td>
-<td><code>stopReason: "end_turn" \| "max_tokens" \| "max_turn_requests" \| "refusal" \| "cancelled"</code></td>
+<td><code>POST /api/audio/explain</code></td>
+<td>Audio event explanation</td>
 </tr>
 <tr>
-<td><code>session/update</code></td>
-<td>agent → client (notification)</td>
-<td><code>sessionId</code>, <code>update.sessionUpdate: "plan" \| "agent_message_chunk" \| "tool_call" \| "tool_call_update"</code> with content</td>
-<td>Agent streams progress</td>
+<td><code>POST /api/voice/take_photo</code></td>
+<td>Voice-triggered camera snapshot + VLM describe</td>
 </tr>
 <tr>
-<td><code>session/request_permission</code></td>
-<td>agent → client</td>
-<td><code>sessionId</code>, tool call details</td>
-<td>Client approves/denies tool execution</td>
-</tr>
-<tr>
-<td><code>session/cancel</code></td>
-<td>client → agent</td>
-<td><code>sessionId</code></td>
-<td>Agent halts; pending <code>session/prompt</code> resolves with <code>cancelled</code></td>
+<td><code>GET /api/calendar/*</code></td>
+<td>Calendar context queries</td>
 </tr>
 </tbody>
 </table>
-<h3 id="what-our-bridge-uses-today">What our bridge uses today<a class="headerlink" href="#what-our-bridge-uses-today" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>initialize</code> (once at child startup)</li>
-<li><code>session/new</code> (with session caching — reuses across turns, rotates on idle/turn-count/age)</li>
-<li><code>session/prompt</code> (streaming via <code>session/event</code> chunks; bridge also supports buffered mode)</li>
-<li><code>session/event</code> — tool call/result logging (<code>tool_call</code>, <code>tool_result</code> types) and streaming text chunks</li>
-<li>
-<p><code>session/request_permission</code> — auto-approves tool calls (safety net for tools not in ZeroClaw's <code>auto_approve</code> list)</p>
-</li>
-<li>
-<p><code>session/cancel</code> → sent on barge-in (device emits <code>abort</code>, xiaozhi closes the streaming HTTP connection, bridge cancels the in-flight ACP prompt and drains stale output)</p>
-</li>
-</ul>
-<h3 id="acp-vs-mcp-how-they-differ">ACP vs MCP — how they differ<a class="headerlink" href="#acp-vs-mcp-how-they-differ" title="Permanent link">&para;</a></h3>
+<p><code>POST /api/perception/event</code> is the primary inbound path for firmware <code>event</code> frames forwarded by <code>EventTextMessageHandler</code> in <code>custom-providers/xiaozhi-patches/textMessageHandlerRegistry.py</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;face_detected|face_lost|sound_event|state_changed|dance_started|dance_ended|chat_status|…&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;…&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;…&quot;</span><span class="p">},</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">&quot;device_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;xiaozhi device-id&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;xiaozhi session id&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1715000000.0</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>Response: <code>{"ok": true}</code>. dotty-behaviour broadcasts the event to all perception listeners and updates per-device state. See <a href="../architecture/#perception-event-bus">architecture.md</a> for the 9 ambient consumers.</p>
+<h3 id="bridgepy-dashboard-and-admin-8080">bridge.py — dashboard and admin (:8080)<a class="headerlink" href="#bridgepy-dashboard-and-admin-8080" title="Permanent link">&para;</a></h3>
+<p><code>bridge.py</code> is a FastAPI service (port 8080, same Docker host) that serves the admin dashboard. Its voice and perception relay roles were retired in issue #36 (2026-05-19); it survives as the dashboard service.</p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th>MCP</th>
-<th>ACP</th>
+<th>Endpoint</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Purpose</td>
-<td>Expose tools to a model</td>
-<td>Drive a whole agent</td>
+<td><code>GET /ui</code></td>
+<td>Admin dashboard web UI</td>
 </tr>
 <tr>
-<td>Typical client</td>
-<td>An LLM harness</td>
-<td>A code editor (or here, our bridge)</td>
+<td><code>POST /admin/*</code></td>
+<td>Admin mutations (toggle, kid-mode, smart-mode, set-tier1slim-model, play-asset, etc.)</td>
 </tr>
 <tr>
-<td>Message shapes</td>
-<td><code>tools/list</code>, <code>tools/call</code>, <code>resources/*</code>, <code>prompts/*</code></td>
-<td><code>session/prompt</code>, <code>session/update</code>, <code>session/cancel</code>, <code>session/request_permission</code></td>
-</tr>
-<tr>
-<td>Re-uses MCP</td>
-<td>—</td>
-<td>Yes — shares ContentBlock and resource JSON shapes</td>
+<td><code>GET /health</code></td>
+<td>Liveness probe; returns <code>{"ok": true}</code></td>
 </tr>
 </tbody>
 </table>
-<p>Both are JSON-RPC 2.0. The device's MCP exchanges ride the Xiaozhi WS; the bridge's ACP exchanges ride local stdio.</p>
+<p><code>POST /api/voice/escalate</code> (used by the <code>Tier1Slim</code> alternate provider) is also defined on bridge.py but is non-functional in the current stack — the ZeroClaw voice dispatch layer it depended on was retired in #36. See <a href="../cutover-behaviour/">docs/cutover-behaviour.md</a> for the historical runbook.</p>
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../hardware/">hardware.md</a> — what emits the device-side frames.</li>
 <li><a href="../voice-pipeline/">voice-pipeline.md</a> — what xiaozhi-server does between frames.</li>
-<li><a href="../tier1slim/">tier1slim.md</a> — the Tier1Slim provider that drives <code>/api/voice/escalate</code>.</li>
-<li><a href="../brain/">brain.md</a> — what the bridge does with the ACP results.</li>
+<li><a href="../tier1slim/">tier1slim.md</a> — the Tier1Slim alternate provider and its (now non-functional) escalation wire format.</li>
+<li><a href="../brain/">brain.md</a> — the dotty-pi agent and its tool set.</li>
 <li><a href="../architecture/#perception-event-bus">architecture.md</a> — the perception bus consumers.</li>
 <li><a href="../references/#protocols">references.md</a> — all protocol spec links.</li>
 </ul>
-<p>Last verified: 2026-05-17.</p>
+<p>Last verified: 2026-05-22.</p>
 
 
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="ZeroClaw agent runtime, the model matrix (Tier1Slim inner loop + escalation targets, legacy ZeroClawLLM), and the FastAPI bridge.">
+        <meta name="description" content="The pi agent runtime (dotty-pi container), the model matrix, and the admin dashboard service (bridge.py).">
       
       
       
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#brain-zeroclaw-the-model-matrix-the-bridge" class="md-skip">
+        <a href="#brain-the-pi-agent-the-model-matrix" class="md-skip">
           Skip to content
         </a>
       
@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1189,22 +1189,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#zeroclaw-architecture" class="md-nav__link">
+  <a href="#the-pi-agent-runtime" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ZeroClaw architecture
+        The pi agent runtime
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ZeroClaw architecture">
+    <nav class="md-nav" aria-label="The pi agent runtime">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#workspace-files-the-persona-surface" class="md-nav__link">
+  <a href="#dotty-pi-container" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workspace files — the persona surface
+        dotty-pi container
       
     </span>
   </a>
@@ -1212,10 +1212,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-confusing-acp-terminology-in-zeroclaw" class="md-nav__link">
+  <a href="#dotty-pi-ext-the-five-voice-tools" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The confusing "ACP" terminology in ZeroClaw
+        dotty-pi-ext — the five voice tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-selection-for-dotty-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model selection for dotty-pi
       
     </span>
   </a>
@@ -1228,10 +1239,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-bridge-bridgepy" class="md-nav__link">
+  <a href="#the-bridge-bridgepy-dashboard-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The bridge — bridge.py
+        The bridge — bridge.py (dashboard service)
       
     </span>
   </a>
@@ -1251,10 +1262,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#qwen3-30b-a3b-instruct-2507-legacy-zeroclawllm-path" class="md-nav__link">
+  <a href="#qwen3-30b-a3b-instruct-2507-legacy-path-retired" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Qwen3-30B-A3B-Instruct-2507 (legacy ZeroClawLLM path)
+        Qwen3-30B-A3B-Instruct-2507 (legacy path — retired)
       
     </span>
   </a>
@@ -1273,10 +1284,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#qwen354b-tier1slim-inner-loop" class="md-nav__link">
+  <a href="#qwen354b-pi-outer-agent-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        qwen3.5:4b (Tier1Slim inner loop)
+        qwen3.5:4b (pi outer agent loop)
       
     </span>
   </a>
@@ -1284,10 +1295,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#qwen3627b-think-tier1slim-think_hard-target" class="md-nav__link">
+  <a href="#qwen3627b-think-think_hard-target" class="md-nav__link">
     <span class="md-ellipsis">
       
-        qwen3.6:27b-think (Tier1Slim think_hard target)
+        qwen3.6:27b-think (think_hard target)
       
     </span>
   </a>
@@ -1725,34 +1736,6 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -2360,22 +2343,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#zeroclaw-architecture" class="md-nav__link">
+  <a href="#the-pi-agent-runtime" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ZeroClaw architecture
+        The pi agent runtime
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ZeroClaw architecture">
+    <nav class="md-nav" aria-label="The pi agent runtime">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#workspace-files-the-persona-surface" class="md-nav__link">
+  <a href="#dotty-pi-container" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workspace files — the persona surface
+        dotty-pi container
       
     </span>
   </a>
@@ -2383,10 +2366,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-confusing-acp-terminology-in-zeroclaw" class="md-nav__link">
+  <a href="#dotty-pi-ext-the-five-voice-tools" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The confusing "ACP" terminology in ZeroClaw
+        dotty-pi-ext — the five voice tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-selection-for-dotty-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model selection for dotty-pi
       
     </span>
   </a>
@@ -2399,10 +2393,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-bridge-bridgepy" class="md-nav__link">
+  <a href="#the-bridge-bridgepy-dashboard-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The bridge — bridge.py
+        The bridge — bridge.py (dashboard service)
       
     </span>
   </a>
@@ -2422,10 +2416,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#qwen3-30b-a3b-instruct-2507-legacy-zeroclawllm-path" class="md-nav__link">
+  <a href="#qwen3-30b-a3b-instruct-2507-legacy-path-retired" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Qwen3-30B-A3B-Instruct-2507 (legacy ZeroClawLLM path)
+        Qwen3-30B-A3B-Instruct-2507 (legacy path — retired)
       
     </span>
   </a>
@@ -2444,10 +2438,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#qwen354b-tier1slim-inner-loop" class="md-nav__link">
+  <a href="#qwen354b-pi-outer-agent-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        qwen3.5:4b (Tier1Slim inner loop)
+        qwen3.5:4b (pi outer agent loop)
       
     </span>
   </a>
@@ -2455,10 +2449,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#qwen3627b-think-tier1slim-think_hard-target" class="md-nav__link">
+  <a href="#qwen3627b-think-think_hard-target" class="md-nav__link">
     <span class="md-ellipsis">
       
-        qwen3.6:27b-think (Tier1Slim think_hard target)
+        qwen3.6:27b-think (think_hard target)
       
     </span>
   </a>
@@ -2523,18 +2517,18 @@
   
 
 
-<h1 id="brain-zeroclaw-the-model-matrix-the-bridge">Brain — ZeroClaw + the model matrix + the bridge<a class="headerlink" href="#brain-zeroclaw-the-model-matrix-the-bridge" title="Permanent link">&para;</a></h1>
+<h1 id="brain-the-pi-agent-the-model-matrix">Brain — the pi agent + the model matrix<a class="headerlink" href="#brain-the-pi-agent-the-model-matrix" title="Permanent link">&para;</a></h1>
 <h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The "brain" is two cooperating pieces: <strong><a href="https://github.com/zeroclaw-labs/zeroclaw">ZeroClaw</a></strong> (a Rust AI-agent runtime, MIT/Apache-2.0 dual-licensed) on the ZeroClaw host, plus a <strong>FastAPI bridge</strong> (<code>bridge.py</code>) that fronts it over HTTP.</li>
-<li>The bridge accepts POSTs from the voice path and translates them into <strong>ACP (Agent Client Protocol) JSON-RPC 2.0 over stdio</strong> against a long-running <code>zeroclaw acp</code> child.</li>
-<li><strong>Which LLM runs which turn depends on the active voice provider.</strong> Two paths coexist:</li>
-<li><strong>Tier1Slim path (default in <code>.config.yaml</code>)</strong> — small/fast model (<code>qwen3.5:4b</code> on a local llama-swap by default) handles every conversational turn; only tool calls escalate to the bridge. Smart-mode flips the inner-loop model to a cloud model in-process.</li>
-<li><strong>ZeroClawLLM path (legacy)</strong> — every turn runs through ZeroClaw with <a href="https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507">Qwen3-30B-A3B-Instruct-2507</a> (a 30.5 B-param MoE, 3.3 B active per token) via OpenRouter.</li>
-<li>The bridge picks the smart-mode dispatch path based on the <code>DOTTY_VOICE_PROVIDER</code> env var: <code>"tier1slim"</code> → hot-swap via <code>/xiaozhi/admin/set-tier1slim-model</code>; <code>"zeroclaw"</code> → rewrite ZeroClaw's <code>config.toml</code> and restart the daemon.</li>
-<li>Persona lives in two different places depending on path: Tier1Slim reads <code>personas/dotty_voice.md</code>; ZeroClawLLM reads <code>~/.zeroclaw/workspace/{SOUL,IDENTITY,MEMORY,AGENTS}.md</code>. See <a href="../cookbook/change-persona/">change-persona.md</a>.</li>
-<li>Known weak spot of Qwen3: it leaks Chinese on long-context English-only prompts. Both paths compensate — the bridge wraps <code>channel="stackchan"</code> turns in an English+emoji sandwich; Tier1Slim appends an English-only suffix per turn.</li>
+<li>The "brain" is the <strong><code>dotty-pi</code> Docker container</strong> running the pi coding agent with the <code>dotty-pi-ext</code> extension.</li>
+<li><strong><code>PiVoiceLLM</code></strong> (the default xiaozhi LLM provider) translates each voice turn into a pi RPC request via <code>docker exec -i dotty-pi pi --mode rpc</code>. TTS-bound text streams back to xiaozhi-server; tool dispatch happens entirely inside the container.</li>
+<li>The <code>dotty-pi-ext</code> extension exposes <strong>five voice tools</strong> to the agent loop: <code>memory_lookup</code>, <code>remember</code>, <code>think_hard</code>, <code>take_photo</code>, <code>play_song</code>.</li>
+<li><strong>Which LLM runs which turn:</strong> the pi outer loop targets <code>qwen3.5:4b</code> (local llama-swap, ~500 ms warm); <code>think_hard</code> escalates directly to <code>qwen3.6:27b-think</code> (co-resident on llama-swap). Smart-mode flips the inner-loop model to a cloud model.</li>
+<li>Two documented alternate voice providers exist: <strong><code>Tier1Slim</code></strong> (handles plain turns directly against llama-swap, escalates tool calls via POST) and <strong><code>OpenAICompat</code></strong>. See <a href="../llm-backends/">llm-backends.md</a>.</li>
 </ul>
+<blockquote>
+<p><strong>Cutover note (2026-05-19, issue #36):</strong> The brain previously ran as the ZeroClaw Rust agent on a Raspberry Pi, fronted by a FastAPI bridge (<code>bridge.py</code>) under systemd. ZeroClaw and the RPi host are retired. <code>bridge.py</code> survives as the admin dashboard service (port 8080, <code>/ui</code>) on the Docker host; its voice and perception roles moved to <code>PiVoiceLLM</code>/<code>dotty-pi</code> and <code>dotty-behaviour</code> respectively.</p>
+</blockquote>
 <h2 id="model-matrix">Model matrix<a class="headerlink" href="#model-matrix" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2547,313 +2541,168 @@
 </thead>
 <tbody>
 <tr>
-<td>Tier1Slim inner loop (smart_mode OFF)</td>
+<td>PiVoiceLLM outer agent loop</td>
 <td><code>qwen3.5:4b</code></td>
-<td>local llama-swap (<code>TIER1SLIM_LOCAL_URL</code>, defaults to <code>http://localhost:8080/v1</code>)</td>
-<td>Every plain conversational turn. ~500 ms warm.</td>
+<td>local llama-swap</td>
+<td>Every voice turn. ~500 ms warm.</td>
 </tr>
 <tr>
-<td>Tier1Slim inner loop (smart_mode ON)</td>
+<td>pi tool: <code>think_hard</code></td>
+<td><code>qwen3.6:27b-think</code></td>
+<td>local llama-swap</td>
+<td>Multi-step reasoning; direct POST from dotty-pi-ext, no agent overhead.</td>
+</tr>
+<tr>
+<td>pi tool: <code>memory_lookup</code></td>
+<td>(no LLM call — FTS5)</td>
+<td>brain.db inside dotty-pi</td>
+<td><code>"do you remember…"</code> queries.</td>
+</tr>
+<tr>
+<td>pi tool: <code>take_photo</code></td>
+<td><code>google/gemini-2.0-flash-001</code> (<code>VLM_MODEL</code>)</td>
+<td>dotty-behaviour → OpenRouter</td>
+<td>Camera describe.</td>
+</tr>
+<tr>
+<td>pi tool: <code>play_song</code></td>
+<td>(no LLM call)</td>
+<td>Firmware via <code>/xiaozhi/admin/play-asset</code></td>
+<td>Song request.</td>
+</tr>
+<tr>
+<td>Smart-mode inner loop</td>
 <td><code>anthropic/claude-sonnet-4-6</code> (<code>SMART_MODEL</code>)</td>
 <td>OpenRouter</td>
 <td>Every conversational turn while smart_mode is on.</td>
 </tr>
 <tr>
-<td>Tier1Slim escalation: <code>think_hard</code></td>
-<td><code>qwen3.6:27b-think</code></td>
-<td>local llama-swap</td>
-<td>Multi-step reasoning, 3+ digit arithmetic, anything the small model would have to guess at.</td>
-</tr>
-<tr>
-<td>Tier1Slim escalation: <code>memory_lookup</code></td>
-<td>(no LLM call — FTS)</td>
-<td>ZeroClaw memory</td>
-<td><code>"do you remember…"</code> queries.</td>
-</tr>
-<tr>
-<td>Tier1Slim escalation: <code>take_photo</code></td>
-<td><code>google/gemini-2.0-flash-001</code> (<code>VLM_MODEL</code>)</td>
-<td>OpenRouter (or local Ollama if <code>VLM_API_URL</code> is repointed)</td>
-<td>Camera describe.</td>
-</tr>
-<tr>
-<td>Tier1Slim escalation: <code>play_song</code></td>
-<td>(no LLM call)</td>
-<td>Firmware via xiaozhi <code>/xiaozhi/admin/play-asset</code></td>
-<td>Song request.</td>
-</tr>
-<tr>
-<td>ZeroClawLLM (legacy single tier)</td>
-<td><code>Qwen3-30B-A3B-Instruct-2507</code></td>
+<td>Vision narrative (security/scene synthesis)</td>
+<td><code>VISION_MODEL</code> (<code>google/gemini-2.0-flash-001</code>)</td>
 <td>OpenRouter</td>
-<td>Every turn when <code>selected_module.LLM = ZeroClawLLM</code>.</td>
-</tr>
-<tr>
-<td>Vision narrative LLM (security/scene synthesis)</td>
-<td><code>VISION_MODEL</code> (<code>google/gemini-2.0-flash-001</code> by default)</td>
-<td>OpenRouter</td>
-<td>Bridge-internal — describes the camera frame for journaling and security mode.</td>
+<td>dotty-behaviour internal — camera frame description.</td>
 </tr>
 <tr>
 <td>Audio captioning (security mode)</td>
-<td><code>AUDIO_CAPTION_MODEL</code> (<code>google/gemini-2.5-flash</code> by default)</td>
+<td><code>AUDIO_CAPTION_MODEL</code> (<code>google/gemini-2.5-flash</code>)</td>
 <td>OpenRouter</td>
-<td>Bridge-internal — <code>what does Dotty hear</code> describer.</td>
+<td>dotty-behaviour internal — ambient sound description.</td>
+</tr>
+<tr>
+<td>Tier1Slim inner loop (alternate provider, smart_mode OFF)</td>
+<td><code>qwen3.5:4b</code></td>
+<td>local llama-swap</td>
+<td>Every plain turn when Tier1Slim is selected.</td>
+</tr>
+<tr>
+<td>Tier1Slim inner loop (alternate provider, smart_mode ON)</td>
+<td><code>anthropic/claude-sonnet-4-6</code></td>
+<td>OpenRouter</td>
+<td>Every turn when Tier1Slim + smart_mode is on.</td>
 </tr>
 </tbody>
 </table>
-<p>The full Tier1Slim wire format, escalation payload, and <code>set_runtime()</code> hot-swap are documented in <a href="../tier1slim/">tier1slim.md</a>.</p>
-<h2 id="zeroclaw-architecture">ZeroClaw architecture<a class="headerlink" href="#zeroclaw-architecture" title="Permanent link">&para;</a></h2>
-<p>From <a href="https://github.com/zeroclaw-labs/zeroclaw">github.com/zeroclaw-labs/zeroclaw</a> (see <a href="../references/#brain">references.md</a>):</p>
+<h2 id="the-pi-agent-runtime">The pi agent runtime<a class="headerlink" href="#the-pi-agent-runtime" title="Permanent link">&para;</a></h2>
+<h3 id="dotty-pi-container">dotty-pi container<a class="headerlink" href="#dotty-pi-container" title="Permanent link">&para;</a></h3>
+<p><code>dotty-pi</code> is a pinned <code>node:25.9-alpine3.23</code> image with <code>@earendil-works/pi-coding-agent</code> installed globally. It idles via <code>sleep infinity</code>; voice turns invoke pi on demand via <code>docker exec -i</code> from <code>PiClient</code> (in <code>custom-providers/pi_voice/pi_client.py</code>).</p>
+<p>The runtime contract:
+1. <strong>xiaozhi-server</strong> calls <code>PiVoiceLLM.generate()</code> with the dialogue.
+2. <strong>PiClient</strong> runs <code>docker exec -i dotty-pi pi --mode rpc</code> — JSONL messages over stdin/stdout.
+3. <strong>pi</strong> runs the prompt against llama-swap (<code>qwen3.5:4b</code> by default) with the <code>dotty-pi-ext</code> extension loaded.
+4. Thinking deltas and extension UI requests are filtered by PiClient; only TTS-bound text chunks reach xiaozhi-server.
+5. <code>PiVoiceLLM</code> holds one long-lived <code>PiClient</code>; between turns it issues <code>new_session</code> to reset pi's working state without re-spawning the process.</p>
+<p>Appdata layout on the Docker host:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/mnt/user/appdata/dotty-pi/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── agent/
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   └── models.json          # provider config (llama-swap endpoints + aliases)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── sessions/                # pi session state
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── persona/                 # Dotty persona files
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── memory/
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   └── brain.db             # FTS5 full-text store
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>└── extensions/
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    └── dotty-pi-ext/        # voice-tool extension
+</code></pre></div>
+<h3 id="dotty-pi-ext-the-five-voice-tools">dotty-pi-ext — the five voice tools<a class="headerlink" href="#dotty-pi-ext-the-five-voice-tools" title="Permanent link">&para;</a></h3>
+<p><code>dotty-pi-ext</code> is the pi extension that exposes Dotty's voice tools to the agent loop. Installed inside the container at <code>/root/.pi/extensions/dotty-pi-ext/</code>.</p>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Role</th>
+<th>Tool</th>
+<th>What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Gateway</strong></td>
-<td>Control plane: HTTP / WS / SSE, sessions, config, cron, webhooks, web dashboard (localhost:42617 by default)</td>
+<td><code>memory_lookup(query)</code></td>
+<td>FTS5 search against <code>brain.db</code>; returns top-3 snippets, ≤200 chars each.</td>
 </tr>
 <tr>
-<td><strong>Runtime</strong></td>
-<td>Agent execution. Two modes: <strong>Native</strong> (direct process, default, fastest) or <strong>Docker</strong> (sandboxed)</td>
+<td><code>remember(fact)</code></td>
+<td>Stores a durable fact (≤300 codepoints) into <code>brain.db</code> with <code>category=core</code>, <code>importance=0.7</code>.</td>
 </tr>
 <tr>
-<td><strong>Channels</strong></td>
-<td>Pluggable inputs. Supports WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Matrix, IRC, Email, Bluesky, Nostr, Mattermost, Nextcloud Talk, DingTalk, Lark, QQ, Reddit, LinkedIn, Twitter, MQTT, WeChat Work, and others. This bridge uses <code>channel="stackchan"</code> as an arbitrary string identifier — ZeroClaw treats it as just another channel.</td>
+<td><code>think_hard(question)</code></td>
+<td>Direct POST to llama-swap <code>qwen3.6:27b-think</code> (<code>enable_thinking=false</code>, 200-token cap, terse answer).</td>
 </tr>
 <tr>
-<td><strong>Providers</strong></td>
-<td>LLM backends. OpenAI, Anthropic (API or OAuth), Gemini, and 17+ OpenAI-compatible endpoints (including OpenRouter, Ollama, GLM). Failover + multi-account auth profiles supported.</td>
+<td><code>take_photo()</code></td>
+<td>GET to <code>dotty-behaviour /api/voice/take_photo</code> — returns latest cached vision description if ≤30 s old.</td>
 </tr>
 <tr>
-<td><strong>Memory</strong></td>
-<td>Pluggable backends. SQLite is the default; PostgreSQL and Markdown are options. Hybrid keyword+vector search per upstream wiki.</td>
-</tr>
-<tr>
-<td><strong>Tools / MCP</strong></td>
-<td>70+ built-in tools plus bidirectional MCP — ZeroClaw is both an MCP client (consumes external servers) and an MCP server (can expose its internals to other agents).</td>
+<td><code>play_song(name)</code></td>
+<td>Resolves free-form name against <code>/xiaozhi/admin/songs</code> catalogue (60 s cache), then POSTs <code>/xiaozhi/admin/play-asset</code>.</td>
 </tr>
 </tbody>
 </table>
-<p>Resource claims from upstream: ~8.8 MB static binary, &lt;5 MB runtime RAM on release builds. The Pi can comfortably run it.</p>
-<h3 id="workspace-files-the-persona-surface">Workspace files — the persona surface<a class="headerlink" href="#workspace-files-the-persona-surface" title="Permanent link">&para;</a></h3>
-<p>Under <code>/root/.zeroclaw/workspace/</code>:</p>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Upstream description</th>
-<th>What we use it for</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>SOUL.md</code></td>
-<td>"Core identity and operating principles"</td>
-<td>The configured persona's voice, values, role in the household. The dedicated <code>channel="stackchan"</code> section was removed after bridge-level English-only enforcement subsumed it.</td>
-</tr>
-<tr>
-<td><code>IDENTITY.md</code></td>
-<td>Agent personality and role definition</td>
-<td>Name, backstory, household/family context specific to your deployment.</td>
-</tr>
-<tr>
-<td><code>USER.md</code></td>
-<td>User context and preferences</td>
-<td>Per-user context; optional. Not heavily populated in our deploy.</td>
-</tr>
-<tr>
-<td><code>MEMORY.md</code></td>
-<td>"Long-term facts and lessons learned"</td>
-<td>Git-visible core memories. Complemented by an SQLite <code>brain.db</code>.</td>
-</tr>
-<tr>
-<td><code>AGENTS.md</code></td>
-<td>"Session conventions and initialization rules"</td>
-<td>Cross-agent behavioral guardrails. Self-modifying per upstream — the agent writes to it.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Important</strong>: the bridge wraps voice turns in a hard English+emoji sandwich <strong>outside</strong> of ZeroClaw's persona files. The enforcement lives in <code>bridge.py</code>, not in <code>SOUL.md</code>, because a persona-level constraint wasn't strong enough to keep Qwen3 from leaking Chinese mid-session. See <a href="#qwen3-caveat-chinese-leak-and-long-context-drift">Qwen3 caveat</a>.</p>
-<h3 id="the-confusing-acp-terminology-in-zeroclaw">The confusing "ACP" terminology in ZeroClaw<a class="headerlink" href="#the-confusing-acp-terminology-in-zeroclaw" title="Permanent link">&para;</a></h3>
-<p>ZeroClaw uses the acronym <strong>ACP</strong> in two different contexts. Don't conflate them:</p>
-<ol>
-<li><strong>Autonomy Control (ACP Mode)</strong> — ZeroClaw's README describes autonomy <em>levels</em> (<code>ReadOnly</code>, <code>Supervised</code>, <code>Full</code>) under a heading that calls them "ACP Mode". This is about how much the agent is allowed to do without asking.</li>
-<li><strong>Agent Client Protocol</strong> — the <code>zeroclaw acp</code> CLI subcommand launches ZeroClaw as an ACP server speaking JSON-RPC 2.0 over stdio. This is the Zed-originated <a href="https://agentclientprotocol.com">Agent Client Protocol</a> — unrelated to autonomy levels, despite sharing an acronym.</li>
-</ol>
-<p>Our bridge uses the <strong>second</strong> one. The robot's autonomy mode is whatever ZeroClaw's <code>config.toml</code> sets (likely <code>Supervised</code>), and is separate from the stdio protocol.</p>
-<p>See <a href="../protocols/#acp">protocols.md</a> for the ACP wire format.</p>
-<h2 id="the-bridge-bridgepy">The bridge — <code>bridge.py</code><a class="headerlink" href="#the-bridge-bridgepy" title="Permanent link">&para;</a></h2>
-<p>Lives at <code>&lt;BRIDGE_PATH&gt;/bridge.py</code>, runs under systemd (<code>zeroclaw-bridge.service</code>).</p>
-<p><strong>HTTP surface:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Endpoint</th>
-<th>Caller</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>POST /api/message</code></td>
-<td><code>ZeroClawLLM</code> (legacy single-tier)</td>
-<td>Accept a message + channel, return a response string.</td>
-</tr>
-<tr>
-<td><code>POST /api/voice/escalate</code></td>
-<td><code>Tier1Slim</code></td>
-<td>Dispatch a tool call (<code>memory_lookup</code> / <code>think_hard</code> / <code>take_photo</code> / <code>play_song</code>) and return the result.</td>
-</tr>
-<tr>
-<td><code>POST /api/voice/remember</code></td>
-<td><code>Tier1Slim</code></td>
-<td>Fire-and-forget: persist a <code>[REMEMBER: ...]</code> fact extracted from the model's reply.</td>
-</tr>
-<tr>
-<td><code>POST /api/voice/memory_log</code></td>
-<td><code>Tier1Slim</code></td>
-<td>Fire-and-forget: log the completed turn so ZeroClaw indexes it for future recall.</td>
-</tr>
-<tr>
-<td><code>POST /api/perception/event</code></td>
-<td>xiaozhi-server perception relay</td>
-<td>Receive <code>face_detected</code> / <code>face_lost</code> / <code>sound_event</code> / <code>state_changed</code> events from the firmware via xiaozhi.</td>
-</tr>
-<tr>
-<td><code>GET /health</code></td>
-<td>health checks</td>
-<td>Liveness probe.</td>
-</tr>
-<tr>
-<td><code>POST /admin/*</code> (localhost-only)</td>
-<td>operator scripts</td>
-<td>Runtime mutations (kid-mode, persona, model, safety).</td>
-</tr>
-</tbody>
-</table>
-<p>See <a href="../protocols/">protocols.md</a> for exact wire formats.</p>
-<p><strong>Per-turn responsibilities on the <code>ZeroClawLLM</code> path:</strong></p>
-<ol>
-<li>Spawn (or reuse) a <code>zeroclaw acp</code> child, holding stdin/stdout open.</li>
-<li>Send JSON-RPC <code>session/new</code> to get a fresh session_id. <em>(Note: currently one <code>session/new</code> per turn — see session reuse in <a href="../latent-capabilities/#brain-unused">latent-capabilities.md</a>.)</em></li>
-<li>Wrap the user content in the English+emoji sandwich when <code>channel == "stackchan"</code>.</li>
-<li>Send JSON-RPC <code>session/prompt</code> with the wrapped content.</li>
-<li>Wait for the terminal result (not streamed — see <a href="../latent-capabilities/#brain-unused">latent-capabilities.md</a>).</li>
-<li>Run <code>_ensure_emoji_prefix()</code> — if the first non-whitespace char isn't in the 9-emoji allowlist (😊😆😢😮🤔😠😐😍😴), prepend 😐.</li>
-<li>Return JSON <code>{"response": "&lt;cleaned text&gt;"}</code>.</li>
-</ol>
-<p><strong>Per-turn responsibilities on the <code>Tier1Slim</code> path:</strong></p>
-<p>The bridge doesn't see plain conversational turns at all — they happen entirely inside Tier1Slim against llama-swap. The bridge is invoked only when the small model emits a <code>tool_call</code>, at which point it:</p>
-<ol>
-<li>Looks up the tool name and dispatches to ZeroClaw (<code>memory_lookup</code>), llama-swap's <code>qwen3.6:27b-think</code> (<code>think_hard</code>), the VLM (<code>take_photo</code>), or xiaozhi's <code>/xiaozhi/admin/play-asset</code> (<code>play_song</code>).</li>
-<li>Returns the result string truncated to 1000 chars.</li>
-<li>Separately, accepts <code>/api/voice/remember</code> and <code>/api/voice/memory_log</code> posts so future <code>memory_lookup</code> calls find the new content.</li>
-</ol>
+<p>In addition, an <code>agent_end</code> handler in the extension automatically writes a <code>category=conversation</code> row to <code>brain.db</code> after every completed user prompt — the agent does not decide to log; every successful turn is recorded.</p>
+<h3 id="model-selection-for-dotty-pi">Model selection for dotty-pi<a class="headerlink" href="#model-selection-for-dotty-pi" title="Permanent link">&para;</a></h3>
+<p>The outer pi loop must target <code>qwen3.5:4b</code> — <strong>not</strong> <code>qwen3.6:27b</code>. llama-swap groups models into matrix sets: <code>voice</code> (<code>qwen3.5:4b</code> + <code>qwen3.6:27b-think</code>) and <code>coding</code> (<code>qwen3.6:27b</code> alone). Requesting the coding-set model evicts both voice models; reloading either voice model is a 30–50 s cold hit. <code>think_hard</code> calls <code>qwen3.6:27b-think</code> directly from the extension, which is in the <code>voice</code> set and resident alongside <code>4b</code>. See <a href="../cookbook/llama-swap-concurrent-models/">cookbook/llama-swap-concurrent-models.md</a>.</p>
+<h2 id="the-bridge-bridgepy-dashboard-service">The bridge — <code>bridge.py</code> (dashboard service)<a class="headerlink" href="#the-bridge-bridgepy-dashboard-service" title="Permanent link">&para;</a></h2>
+<p><code>bridge.py</code> was the original HTTP→ZeroClaw translator, running under systemd on the RPi. Post-cutover (#36) it runs as a Docker container on the same Docker host, port 8080. Its <strong>voice path</strong> (<code>/api/message</code>, <code>/api/voice/*</code>) and <strong>perception relay</strong> (<code>/api/perception/event</code>) roles are retired — those functions moved to <code>PiVoiceLLM</code>/<code>dotty-pi</code> and <code>dotty-behaviour</code>. What remains:</p>
+<ul>
+<li><strong>Admin dashboard</strong> (<code>/ui</code>) — the operator web UI for monitoring turns, toggling kid-mode/smart-mode, viewing scene context, and LED state.</li>
+<li><strong><code>/admin/*</code> endpoints</strong> (localhost-only) — runtime toggles for kid-mode, smart-mode, safety allowlist.</li>
+</ul>
+<p>A dashboard port to <code>dotty-behaviour</code> is still pending; until then, bridge.py's dashboard panels that relied on the bridge's own perception bus may show stale or empty data.</p>
+<p>See <a href="../protocols/">protocols.md</a> for the admin endpoint wire formats.</p>
 <h2 id="the-llms">The LLMs<a class="headerlink" href="#the-llms" title="Permanent link">&para;</a></h2>
-<h3 id="qwen3-30b-a3b-instruct-2507-legacy-zeroclawllm-path">Qwen3-30B-A3B-Instruct-2507 (legacy <code>ZeroClawLLM</code> path)<a class="headerlink" href="#qwen3-30b-a3b-instruct-2507-legacy-zeroclawllm-path" title="Permanent link">&para;</a></h3>
-<p>From the <a href="https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507">HuggingFace card</a>:</p>
-<table>
-<thead>
-<tr>
-<th>Fact</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Total parameters</td>
-<td>30.5 B</td>
-</tr>
-<tr>
-<td>Activated per token</td>
-<td>3.3 B</td>
-</tr>
-<tr>
-<td>Non-embedding params</td>
-<td>29.9 B</td>
-</tr>
-<tr>
-<td>Layers</td>
-<td>48</td>
-</tr>
-<tr>
-<td>Attention heads</td>
-<td>32 Q / 4 KV (GQA)</td>
-</tr>
-<tr>
-<td>Experts</td>
-<td>128 total, 8 active per token</td>
-</tr>
-<tr>
-<td>Native context</td>
-<td>262 144 tokens (256 K)</td>
-</tr>
-<tr>
-<td>Extended context</td>
-<td>up to 1 M tokens with Dual Chunk Attention + MInference sparse attention</td>
-</tr>
-<tr>
-<td>Mode</td>
-<td>Non-thinking only (no <code>&lt;think&gt;</code> blocks)</td>
-</tr>
-<tr>
-<td>Recommended sampling</td>
-<td>T=0.7, top_p=0.8, top_k=20, min_p=0, presence_penalty 0–2</td>
-</tr>
-<tr>
-<td>Tool calling</td>
-<td>Supported (OpenAI-compatible; Qwen-Agent framework recommended for full features)</td>
-</tr>
-<tr>
-<td>Suggested output length</td>
-<td>16 384 tokens</td>
-</tr>
-</tbody>
-</table>
-<p>The "2507" suffix indicates the 2025 revision (the HF card calls it the May 2025 update; the YYMM reading would be July 2025 — these conflict in upstream copy, treat the revision semantically rather than calendar-pinning it).</p>
+<h3 id="qwen3-30b-a3b-instruct-2507-legacy-path-retired">Qwen3-30B-A3B-Instruct-2507 (legacy path — retired)<a class="headerlink" href="#qwen3-30b-a3b-instruct-2507-legacy-path-retired" title="Permanent link">&para;</a></h3>
+<p>Previously used by the ZeroClawLLM provider via OpenRouter. Not used in the current architecture.</p>
 <h3 id="qwen3-caveat-chinese-leak-and-long-context-drift">Qwen3 caveat — Chinese leak and long-context drift<a class="headerlink" href="#qwen3-caveat-chinese-leak-and-long-context-drift" title="Permanent link">&para;</a></h3>
-<p>Qwen3 is multilingual by training and occasionally <strong>leaks Chinese mid-response</strong> when:
-- Context is long (persona + memory + history = lots of tokens before the user turn).
-- System-prompt adherence is weakened by MoE expert routing.</p>
-<p>Observed symptom in our deploy: the model would start a response in English and drop a Chinese character or phrase partway through. <code>en-*</code> EdgeTTS voices return silent audio on non-English input, so the whole response sounded like a dead mic — it was a language bug, not a TTS bug.</p>
-<p><strong>Our mitigation, layered:</strong></p>
+<p>Qwen3 is multilingual by training and occasionally <strong>leaks Chinese mid-response</strong> when context is long or system-prompt adherence is weakened by MoE expert routing. Observed symptom: the model starts a response in English and drops a Chinese character or phrase partway through; <code>en-*</code> EdgeTTS voices return silent audio on non-English input, making it sound like a dead mic.</p>
+<p><strong>Mitigation in the current stack:</strong></p>
 <ol>
-<li>ZeroClaw's own system prompt has English hard rules.</li>
-<li>xiaozhi-server's top-level <code>prompt:</code> is also English-only.</li>
-<li>The bridge adds <strong>both a prefix and a suffix</strong> around every voice turn — the suffix sits at the end-of-prompt position (max attention) and reiterates the constraint. 8/8 adversarial prompts (broken English, embedded Japanese, short utterances) passed cleanly after this change.</li>
+<li>The pi agent persona (<code>persona/dotty_voice.md</code>) has English hard rules.</li>
+<li>xiaozhi-server's top-level <code>prompt:</code> in <code>data/.config.yaml</code> is also English-only.</li>
+<li><code>custom-providers/textUtils.py</code> appends a per-turn English-only suffix (used by Tier1Slim and PiVoiceLLM).</li>
 </ol>
-<h3 id="qwen354b-tier1slim-inner-loop">qwen3.5:4b (Tier1Slim inner loop)<a class="headerlink" href="#qwen354b-tier1slim-inner-loop" title="Permanent link">&para;</a></h3>
-<p>Local on llama-swap (Unraid, dual RTX 3060). Fast: ~500 ms warm round-trip including TTS dispatch. Trained for tool calling, which is what lets the four-tool catalogue work reliably at 4 B. See <a href="../tier1slim/">tier1slim.md</a> for the wire format.</p>
-<h3 id="qwen3627b-think-tier1slim-think_hard-target">qwen3.6:27b-think (Tier1Slim <code>think_hard</code> target)<a class="headerlink" href="#qwen3627b-think-tier1slim-think_hard-target" title="Permanent link">&para;</a></h3>
-<p>Local on the same llama-swap, separate alias. ~18 tok/s generation, ~30 s cold-load. Co-resident with <code>qwen3.5:4b</code> under the <code>voice</code> matrix set in <code>llama-swap/config.yaml</code> so an escalation doesn't evict the inner loop. See <a href="../cookbook/llama-swap-concurrent-models/">cookbook/llama-swap-concurrent-models.md</a>.</p>
+<h3 id="qwen354b-pi-outer-agent-loop">qwen3.5:4b (pi outer agent loop)<a class="headerlink" href="#qwen354b-pi-outer-agent-loop" title="Permanent link">&para;</a></h3>
+<p>Local on llama-swap (dual RTX 3060). Fast: ~500 ms warm round-trip including TTS dispatch. Trained for tool calling, which is what lets the five-tool catalogue work reliably at 4 B parameters. See the dotty-pi-ext tool table above.</p>
+<h3 id="qwen3627b-think-think_hard-target">qwen3.6:27b-think (think_hard target)<a class="headerlink" href="#qwen3627b-think-think_hard-target" title="Permanent link">&para;</a></h3>
+<p>Local on the same llama-swap, separate alias. ~18 tok/s generation, ~30–50 s cold-load. Co-resident with <code>qwen3.5:4b</code> under the <code>voice</code> matrix set in <code>llama-swap/config.yaml</code> so an escalation doesn't evict the inner loop. See <a href="../cookbook/llama-swap-concurrent-models/">cookbook/llama-swap-concurrent-models.md</a>.</p>
 <h3 id="cloud-models-smart_mode-visual-audio">Cloud models (smart_mode + visual + audio)<a class="headerlink" href="#cloud-models-smart_mode-visual-audio" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Smart-mode inner loop:</strong> <code>anthropic/claude-sonnet-4-6</code> (<code>SMART_MODEL</code> env var). Used by Tier1Slim when smart_mode is on; flipped in-process via <code>set_runtime()</code>.</li>
-<li><strong>VLM (<code>take_photo</code>, security camera frames):</strong> <code>google/gemini-2.0-flash-001</code> (<code>VLM_MODEL</code>).</li>
-<li><strong>Audio captioning (security mode):</strong> <code>google/gemini-2.5-flash</code> (<code>AUDIO_CAPTION_MODEL</code>).</li>
+<li><strong>Smart-mode inner loop:</strong> <code>anthropic/claude-sonnet-4-6</code> (<code>SMART_MODEL</code> env var). Used when smart_mode is on.</li>
+<li><strong>VLM (<code>take_photo</code>, security camera frames):</strong> <code>google/gemini-2.0-flash-001</code> (<code>VLM_MODEL</code>). Served by dotty-behaviour.</li>
+<li><strong>Audio captioning (security mode):</strong> <code>google/gemini-2.5-flash</code> (<code>AUDIO_CAPTION_MODEL</code>). Served by dotty-behaviour.</li>
 </ul>
 <h2 id="openrouter">OpenRouter<a class="headerlink" href="#openrouter" title="Permanent link">&para;</a></h2>
-<p>Routing: OpenRouter fronts cloud models (<code>SMART_MODEL</code>, <code>VLM_MODEL</code>, <code>AUDIO_CAPTION_MODEL</code>, and the legacy ZeroClaw path's Qwen3-30B). It handles multiple upstream providers and exposes an OpenAI-compatible API. ZeroClaw's config references it via an <code>openrouter</code> provider section with an encrypted API key; the bridge reads <code>OPENROUTER_API_KEY</code> from the systemd unit's environment for the VLM and audio-caption calls.</p>
+<p>Routing: OpenRouter fronts cloud models (<code>SMART_MODEL</code>, <code>VLM_MODEL</code>, <code>AUDIO_CAPTION_MODEL</code>). It handles multiple upstream providers and exposes an OpenAI-compatible API. The bridge reads <code>OPENROUTER_API_KEY</code> from its container environment for dashboard-adjacent calls; dotty-behaviour reads its own copy for vision and audio-caption calls.</p>
 <p>Observability OpenRouter itself offers (not currently surfaced in this stack):
 - Per-request latency + cost dashboards.
 - Multi-model A/B routing.
 - Per-provider failover for the same model.</p>
-<p>If per-turn latency ever needs deeper analysis than ZeroClaw's <code>state/costs.jsonl</code> and <code>state/runtime-trace.jsonl</code>, OpenRouter's dashboard is where to look next.</p>
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../tier1slim/">tier1slim.md</a> — the default voice path.</li>
-<li><a href="../protocols/#acp">protocols.md</a> — exact ACP RPC surface the bridge speaks.</li>
-<li><a href="../voice-pipeline/">voice-pipeline.md</a> — what drives the bridge.</li>
-<li><a href="../llm-backends/">llm-backends.md</a> — choosing between Tier1Slim, ZeroClawLLM, OpenAICompat.</li>
-<li><a href="../latent-capabilities/#brain-unused">latent-capabilities.md</a> — streaming, session reuse, tool-use, MCP-server mode.</li>
-<li><a href="../references/#brain">references.md</a> — ZeroClaw, ACP, Qwen3, OpenRouter links.</li>
+<li><a href="../voice-pipeline/">voice-pipeline.md</a> — what xiaozhi-server runs.</li>
+<li><a href="../architecture/">architecture.md</a> — full topology and data-flow diagrams.</li>
+<li><a href="../protocols/">protocols.md</a> — pi RPC mode wire format, admin endpoints.</li>
+<li><a href="../llm-backends/">llm-backends.md</a> — choosing between PiVoiceLLM, Tier1Slim, OpenAICompat.</li>
+<li><a href="../latent-capabilities/">latent-capabilities.md</a> — streaming, session reuse, tool-use, MCP-server mode.</li>
+<li><a href="../references/">references.md</a> — Qwen3, OpenRouter, pi coding agent links.</li>
+<li><a href="../cutover-behaviour/">cutover-behaviour.md</a> — historical runbook for the #36 ZeroClaw → pi-agent cutover.</li>
 </ul>
-<p>Last verified: 2026-05-17.</p>
+<p>Last verified: 2026-05-22.</p>
 
 
 

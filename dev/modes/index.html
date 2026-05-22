@@ -494,7 +494,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1514,34 +1514,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2355,7 +2327,7 @@
 </table>
 <p>The firmware boots into <code>idle</code> with both toggles <strong>off</strong>. The bridge resyncs toggles from disk on the first turn after each reconnect. State transitions land via voice phrases, camera edges (<code>face_detected</code> → <code>talk</code>), head-pet hold (sleep → idle), or <code>/xiaozhi/admin/set-state</code> from the dashboard.</p>
 <p><strong>Speech sub-states</strong> are conveyed by face animations (eye gestures, talking mouth) and the dedicated <strong>listening pixel</strong> at right-ring index 11. <code>thinking</code> and <code>speaking</code> have no LED — they live on the face. <code>listening</code> lights pixel 11 red so the user knows when their voice is being captured as a turn.</p>
-<p><strong>Smart-mode flip is in-process</strong> when <code>DOTTY_VOICE_PROVIDER=tier1slim</code> (the recommended default): the bridge calls <code>/xiaozhi/admin/set-tier1slim-model</code> to mutate the live Tier1Slim provider's model/url/api_key with no docker restart. Legacy <code>=zeroclaw</code> still rewrites ZeroClaw's <code>config.toml</code> and restarts the daemon.</p>
+<p><strong>Smart-mode flip is in-process</strong> when <code>DOTTY_VOICE_PROVIDER=tier1slim</code>: the bridge calls <code>/xiaozhi/admin/set-tier1slim-model</code> to mutate the live Tier1Slim provider's model/url/api_key with no docker restart. For the default <code>PiVoiceLLM</code> path, smart-mode model-swap is v2 scope (see <code>docs/cutover-behaviour.md</code>).</p>
 <hr />
 <h2 id="states-mutually-exclusive">States (mutually exclusive)<a class="headerlink" href="#states-mutually-exclusive" title="Permanent link">&para;</a></h2>
 <table>
@@ -2381,13 +2353,13 @@
 <td>dim green <code>(0,60,0)</code></td>
 <td>NORMAL (face_tracking overlay active)</td>
 <td>Conversation engaged. Listening pixel (right 11) lights red while the user has the turn; <code>thinking</code> and <code>speaking</code> are face-animation only.</td>
-<td>xiaozhi → Tier1Slim → llama-swap (default), or xiaozhi → ZeroClawLLM → bridge → ACP (legacy)</td>
+<td>xiaozhi → PiVoiceLLM → dotty-pi (default), or xiaozhi → Tier1Slim → llama-swap (alternate)</td>
 </tr>
 <tr>
 <td><code>story_time</code></td>
 <td>warm <code>(100,40,0)</code></td>
 <td>NORMAL</td>
-<td>Long-running interactive story. Bridge bypasses ZeroClaw, calls OpenRouter directly with story persona + rolling context.</td>
+<td>Long-running interactive story. Bridge calls OpenRouter directly with story persona + rolling context, bypassing the standard LLM provider.</td>
 <td>bridge → direct OpenRouter (Phase 7 pending)</td>
 </tr>
 <tr>
@@ -2443,13 +2415,13 @@
 <td><code>kid_mode</code></td>
 <td>salmon pink <code>(220, 80, 80)</code> at index <strong>8</strong> (G == B so PY32 RGB565 quantization stays warm)</td>
 <td>Guardrails only — content sandwich, camera tools denied, kid-safe persona. Does not pick the model. Bridge-side hot-reload via <code>_apply_kid_mode()</code> (no daemon restart).</td>
-<td><code>/root/zeroclaw-bridge/state/kid-mode</code></td>
+<td><code>bridge</code> container state file</td>
 </tr>
 <tr>
 <td><code>smart_mode</code></td>
 <td>orange <code>(168, 80, 0)</code> at index <strong>9</strong></td>
-<td>Voice-LLM model selector. ON → <code>SMART_MODEL</code> (<code>claude-sonnet-4-6</code> by default) via OpenRouter; OFF → local default. Flip is in-process when <code>DOTTY_VOICE_PROVIDER=tier1slim</code>; daemon-restart when <code>=zeroclaw</code>.</td>
-<td><code>/root/zeroclaw-bridge/state/smart-mode</code></td>
+<td>Voice-LLM model selector. ON → <code>SMART_MODEL</code> (<code>claude-sonnet-4-6</code> by default) via OpenRouter; OFF → local default. Flip is instantaneous when <code>DOTTY_VOICE_PROVIDER=tier1slim</code> (in-process hot-swap); v2 scope for <code>PiVoiceLLM</code>.</td>
+<td><code>bridge</code> container state file</td>
 </tr>
 </tbody>
 </table>
@@ -2595,7 +2567,7 @@
 <tr>
 <td><code>POST /admin/smart-mode</code></td>
 <td><code>{"enabled": bool, "device_id": "&lt;optional&gt;"}</code></td>
-<td>Persists + flips voice provider's model. When <code>DOTTY_VOICE_PROVIDER=tier1slim</code>: in-process hot-swap via <code>/xiaozhi/admin/set-tier1slim-model</code>. When <code>=zeroclaw</code>: rewrites <code>config.toml</code> + restarts daemon. Also pushes the smart pip.</td>
+<td>Persists + flips voice provider's model. When <code>DOTTY_VOICE_PROVIDER=tier1slim</code>: in-process hot-swap via <code>/xiaozhi/admin/set-tier1slim-model</code>. For <code>PiVoiceLLM</code>: model-swap is v2 scope. Also pushes the smart pip.</td>
 <td>bridge (localhost-only)</td>
 </tr>
 <tr>
@@ -2665,9 +2637,9 @@
 </tr>
 <tr>
 <td><code>talk</code></td>
-<td>xiaozhi → Tier1Slim → llama-swap (default), or xiaozhi → ZeroClawLLM → bridge → ZeroClaw ACP (legacy). Smart-mode swaps the inner-loop model.</td>
-<td>yes (FTS via <code>memory_lookup</code> tool / full ZeroClaw memory)</td>
-<td>yes (4-tool Tier1 catalogue / full ZeroClaw MCP)</td>
+<td>xiaozhi → PiVoiceLLM → dotty-pi (default), or xiaozhi → Tier1Slim → llama-swap (alternate). Smart-mode swaps the inner-loop model.</td>
+<td>yes (FTS via <code>memory_lookup</code> / <code>remember</code> tools in dotty-pi-ext)</td>
+<td>yes (5-tool dotty-pi-ext catalogue)</td>
 </tr>
 <tr>
 <td><code>story_time</code></td>
@@ -2695,7 +2667,7 @@
 </tr>
 </tbody>
 </table>
-<p><code>smart_mode</code> flips the inner-loop model and is sticky across turns. With <code>DOTTY_VOICE_PROVIDER=tier1slim</code> (the recommended default) the flip is instantaneous — Tier1Slim's <code>set_runtime()</code> mutates the live provider; no docker restart and no daemon restart. <code>story_time</code> is the only voice path that bypasses both ZeroClaw and Tier1Slim, with its own session memory (Phase 7).</p>
+<p><code>smart_mode</code> flips the inner-loop model and is sticky across turns. With <code>DOTTY_VOICE_PROVIDER=tier1slim</code> the flip is instantaneous — Tier1Slim's <code>set_runtime()</code> mutates the live provider; no docker restart. For the default <code>PiVoiceLLM</code> path, smart-mode model-swap is v2 scope. <code>story_time</code> is the only voice path with its own session memory (Phase 7).</p>
 <hr />
 <h2 id="implementation-status">Implementation status<a class="headerlink" href="#implementation-status" title="Permanent link">&para;</a></h2>
 <table>

@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1299,10 +1299,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#layer-1-zeroclaw-agent-prompt-zeroclaw-host" class="md-nav__link">
+  <a href="#layer-1-agent-persona-prompt-dotty-pi-container" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer 1 -- ZeroClaw Agent Prompt (ZeroClaw host)
+        Layer 1 -- Agent Persona Prompt (dotty-pi container)
       
     </span>
   </a>
@@ -1321,10 +1321,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#layer-3-bridge-prefix-suffix-sandwich-zeroclaw-host-bridgepy" class="md-nav__link">
+  <a href="#layer-3-bridge-prefix-suffix-sandwich-bridgepy-tier1slim" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer 3 -- Bridge Prefix + Suffix Sandwich (ZeroClaw host, bridge.py)
+        Layer 3 -- Bridge Prefix + Suffix Sandwich (bridge.py / Tier1Slim)
       
     </span>
   </a>
@@ -1902,34 +1902,6 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -2566,10 +2538,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#layer-1-zeroclaw-agent-prompt-zeroclaw-host" class="md-nav__link">
+  <a href="#layer-1-agent-persona-prompt-dotty-pi-container" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer 1 -- ZeroClaw Agent Prompt (ZeroClaw host)
+        Layer 1 -- Agent Persona Prompt (dotty-pi container)
       
     </span>
   </a>
@@ -2588,10 +2560,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#layer-3-bridge-prefix-suffix-sandwich-zeroclaw-host-bridgepy" class="md-nav__link">
+  <a href="#layer-3-bridge-prefix-suffix-sandwich-bridgepy-tier1slim" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer 3 -- Bridge Prefix + Suffix Sandwich (ZeroClaw host, bridge.py)
+        Layer 3 -- Bridge Prefix + Suffix Sandwich (bridge.py / Tier1Slim)
       
     </span>
   </a>
@@ -2896,7 +2868,7 @@ the TTS length rule (default 1-2 short sentences, up to 6 for open-ended
 asks). Only the child-specific rules (4-9) are removed.</p>
 <h3 id="hot-reload-no-daemon-restart">Hot-reload (no daemon restart)<a class="headerlink" href="#hot-reload-no-daemon-restart" title="Permanent link">&para;</a></h3>
 <p>Both the bridge's <code>POST /admin/kid-mode</code> endpoint and the dashboard toggle persist the new value and call <code>_apply_kid_mode(enabled)</code>, which atomically re-binds every kid-mode-derived module global (<code>KID_MODE</code>, <code>VISION_SYSTEM_PROMPT</code>, <code>MCP_TOOL_DENYLIST</code>, <code>VOICE_TURN_SUFFIX</code>, <code>VOICE_TURN_SUFFIX_SHORT</code>) in a single store-global pass. Readers see either the old or new value, never a torn intermediate, and the cost per turn is unchanged. <strong>No daemon restart is required</strong> to flip kid-mode at runtime.</p>
-<p>The xiaozhi-server side of kid-mode lives in the active LLM provider's persona / suffix. For <code>Tier1Slim</code>, <code>KID_MODE</code> is read at module import and baked into <code>_TURN_SUFFIX</code>; a flip there does currently require a container restart to take effect on Tier1Slim's side (the bridge side rebinds instantly, but the suffix already loaded into the live <code>Tier1Slim</code> instance is unchanged). For <code>ZeroClawLLM</code>, the suffix is generated per-turn by the bridge so the flip lands on the very next turn with no restart at all.</p>
+<p>The xiaozhi-server side of kid-mode lives in the active LLM provider's persona / suffix. For <code>Tier1Slim</code>, <code>KID_MODE</code> is read at module import and baked into <code>_TURN_SUFFIX</code>; a flip there does currently require a container restart to take effect on Tier1Slim's side (the bridge side rebinds instantly, but the suffix already loaded into the live <code>Tier1Slim</code> instance is unchanged). For <code>PiVoiceLLM</code>, the persona is loaded per-session by the <code>dotty-pi</code> agent, so the flip lands on the very next turn with no restart at all.</p>
 <h2 id="guardrail-details">Guardrail details<a class="headerlink" href="#guardrail-details" title="Permanent link">&para;</a></h2>
 <p>This is an honest accounting: it describes what is enforced today, where the
 enforcement code lives, and what gaps remain.</p>
@@ -2907,11 +2879,11 @@ speaker. Each layer reinforces the same rules so that a failure in one layer
 is caught by the next.</p>
 <blockquote>
 <p><strong>Provider-dependent layering.</strong> The exact layering depends on which LLM provider is active:
-- <strong><code>Tier1Slim</code></strong> (current default) — Layer 1 is <code>personas/dotty_voice.md</code>; Layer 2 is <strong>skipped</strong> (Tier1Slim deliberately discards xiaozhi's top-level <code>prompt:</code> because the 4 B chat template only honours one system message); Layer 3 is <code>_TURN_SUFFIX</code> appended per-turn by Tier1Slim itself (read from <code>build_turn_suffix(KID_MODE)</code> at module import). Layer 3b/3c only apply to escalated tool calls that pass through the bridge.
-- <strong><code>ZeroClawLLM</code></strong> (legacy) — all three layers fire on every turn as described below.</p>
+- <strong><code>PiVoiceLLM</code></strong> (current default) — Layer 1 is <code>personas/dotty_voice.md</code> (loaded by the <code>dotty-pi</code> agent); Layer 2 is the <code>prompt:</code> block in <code>.config.yaml</code> injected by xiaozhi-server; Layer 3 enforcement (suffix sandwich, emoji fallback, content filter) was part of the retired ZeroClaw bridge and is not present on the <code>PiVoiceLLM</code> path — Layers 1 and 2 are load-bearing.
+- <strong><code>Tier1Slim</code></strong> (alternate) — Layer 1 is <code>personas/dotty_voice.md</code>; Layer 2 is <strong>skipped</strong> (Tier1Slim deliberately discards xiaozhi's top-level <code>prompt:</code> because the 4 B chat template only honours one system message); Layer 3 is <code>_TURN_SUFFIX</code> appended per-turn by Tier1Slim itself (read from <code>build_turn_suffix(KID_MODE)</code> at module import). Layer 3b/3c only apply to escalated tool calls that pass through the bridge.</p>
 </blockquote>
-<h3 id="layer-1-zeroclaw-agent-prompt-zeroclaw-host">Layer 1 -- ZeroClaw Agent Prompt (ZeroClaw host)<a class="headerlink" href="#layer-1-zeroclaw-agent-prompt-zeroclaw-host" title="Permanent link">&para;</a></h3>
-<p>The ZeroClaw agent's own persona prompt sets the baseline: stay cheerful,
+<h3 id="layer-1-agent-persona-prompt-dotty-pi-container">Layer 1 -- Agent Persona Prompt (dotty-pi container)<a class="headerlink" href="#layer-1-agent-persona-prompt-dotty-pi-container" title="Permanent link">&para;</a></h3>
+<p>The <code>dotty-pi</code> agent's persona prompt (<code>personas/dotty_voice.md</code>) sets the baseline: stay cheerful,
 age-appropriate, begin every reply with an emoji. This is the "inner" system
 prompt that the LLM sees at the top of its context.</p>
 <h3 id="layer-2-xiaozhi-server-system-prompt-server">Layer 2 -- xiaozhi-server System Prompt (server)<a class="headerlink" href="#layer-2-xiaozhi-server-system-prompt-server" title="Permanent link">&para;</a></h3>
@@ -2927,9 +2899,11 @@ TTS-friendly style. Relevant excerpt:</p>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="no">- Keep replies short and TTS-friendly: complete sentences, no lists, no</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="no">markdown, no code blocks.</span>
 </code></pre></div>
-<h3 id="layer-3-bridge-prefix-suffix-sandwich-zeroclaw-host-bridgepy">Layer 3 -- Bridge Prefix + Suffix Sandwich (ZeroClaw host, <code>bridge.py</code>)<a class="headerlink" href="#layer-3-bridge-prefix-suffix-sandwich-zeroclaw-host-bridgepy" title="Permanent link">&para;</a></h3>
-<p>This is the strongest enforcement layer. Every turn on the <code>stackchan</code>
-channel is wrapped in a prefix and a suffix before being sent to the LLM:</p>
+<h3 id="layer-3-bridge-prefix-suffix-sandwich-bridgepy-tier1slim">Layer 3 -- Bridge Prefix + Suffix Sandwich (<code>bridge.py</code> / <code>Tier1Slim</code>)<a class="headerlink" href="#layer-3-bridge-prefix-suffix-sandwich-bridgepy-tier1slim" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Note:</strong> This layer applied to the retired <code>ZeroClawLLM</code> path and the <code>Tier1Slim</code> alternate provider. On the current default <code>PiVoiceLLM</code> path, Layers 1 and 2 are the active enforcement layers.</p>
+</blockquote>
+<p>On the <code>Tier1Slim</code> path, every turn is wrapped in a prefix and a suffix before being sent to the LLM:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>VOICE_TURN_PREFIX + context + user_message + suffix
 </code></pre></div>
 <p>The suffix is placed at the very end of the prompt -- the position with the
@@ -2937,16 +2911,12 @@ highest attention weight in transformer models. This means the hard
 constraints in the suffix are the last thing the model reads before
 generating its reply, making them the hardest to override.</p>
 <p><strong>Per-session suffix caching.</strong> The full ~600-token suffix
-(<code>VOICE_TURN_SUFFIX</code>) is sent on the first turn of each ACP session.
+(<code>VOICE_TURN_SUFFIX</code>) is sent on the first turn of each session.
 Subsequent turns receive a shorter reminder
 (<code>VOICE_TURN_SUFFIX_SHORT</code>) that explicitly restates the English-only,
 emoji-leader, and child-safe constraints.
 This saves ~550 tokens per turn while the full rules remain in the LLM's
-conversation history from turn 0. Sessions rotate on idle timeout (5 min),
-turn count (50), or wall-clock age (30 min), at which point the full suffix
-is re-sent. The suffix choice is made inside <code>app_lock</code> (via a <code>prepare</code>
-callback on <code>ACPClient.prompt()</code>) to avoid a TOCTOU race where session
-rotation could send a short suffix on a fresh session's first turn.</p>
+conversation history from turn 0.</p>
 <p><strong>Why a suffix, not just a system prompt?</strong> System prompts are seen once and
 can be diluted by long conversations. The suffix is re-injected on every
 single turn, and its position at the end of the context window gives it
@@ -3082,12 +3052,10 @@ additional layers are needed).</p>
 parses it into a facial expression on the robot's screen. If the emoji is
 missing, the face stays blank. Three layers enforce it:</p>
 <ol>
-<li><strong>ZeroClaw agent prompt</strong> -- tells the model to begin with an emoji.</li>
+<li><strong>Agent persona prompt</strong> (<code>personas/dotty_voice.md</code>, loaded by <code>dotty-pi</code>) -- tells the model to begin with an emoji.</li>
 <li><strong>xiaozhi-server system prompt</strong> (<code>.config.yaml</code> <code>prompt:</code> block) --
    repeats the rule with the exact emoji set.</li>
-<li><strong><code>_ensure_emoji_prefix</code> in <code>bridge.py</code></strong> -- programmatic fallback. If
-   the first non-whitespace character is not one of the nine allowed emojis,
-   the neutral face <code>😐</code> is prepended.</li>
+<li><strong><code>_ensure_emoji_prefix</code> in <code>bridge.py</code></strong> -- programmatic fallback available on the <code>Tier1Slim</code> path. On the default <code>PiVoiceLLM</code> path, Layers 1 and 2 are load-bearing.</li>
 </ol>
 <p>Allowed emojis and their face mappings:</p>
 <table>
@@ -3156,7 +3124,7 @@ than exposing raw error text or going silent:</p>
 <td><code>😐 I'm thinking too slowly right now, try again.</code></td>
 </tr>
 <tr>
-<td>ZeroClaw binary missing</td>
+<td>dotty-pi container unavailable</td>
 <td><code>😐 My AI brain is offline.</code></td>
 </tr>
 <tr>
@@ -3240,8 +3208,8 @@ inappropriate content through).</p>
 </tr>
 <tr>
 <td>LLM provider system prompt</td>
-<td><code>.config.yaml</code></td>
-<td><code>LLM.ZeroClawLLM.system_prompt</code></td>
+<td><code>personas/dotty_voice.md</code></td>
+<td>loaded by <code>dotty-pi</code> agent</td>
 </tr>
 </tbody>
 </table>
@@ -3268,15 +3236,11 @@ refuse+redirect, refuse+log, and refuse+alert.</p>
 <h3 id="per-channel-model-override">Per-Channel Model Override<a class="headerlink" href="#per-channel-model-override" title="Permanent link">&para;</a></h3>
 <p>The current system uses the same LLM for all channels. A planned improvement
 is to route the <code>stackchan</code> channel to a model with stronger built-in safety
-(e.g., Claude Haiku) via ZeroClaw's model routing, as an additional layer.</p>
+(e.g., Claude Haiku), as an additional layer.</p>
 <hr />
 <h2 id="how-to-customize">How to Customize<a class="headerlink" href="#how-to-customize" title="Permanent link">&para;</a></h2>
 <h3 id="modifying-the-topic-blocklist">Modifying the Topic Blocklist<a class="headerlink" href="#modifying-the-topic-blocklist" title="Permanent link">&para;</a></h3>
-<p>Edit <code>VOICE_TURN_SUFFIX</code> in <code>bridge.py</code> (lines 25-46). The blocked
-topics are in rule 5, as a bulleted list. Add or remove entries, then
-restart the bridge service:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zeroclaw-bridge
-</code></pre></div>
+<p>Edit <code>VOICE_TURN_SUFFIX</code> in <code>bridge.py</code> (lines 25-46) for the <code>Tier1Slim</code> path, or edit rule 5 in <code>personas/dotty_voice.md</code> for the <code>PiVoiceLLM</code> path. After editing, restart the relevant container.</p>
 <h3 id="changing-the-self-harm-response">Changing the Self-Harm Response<a class="headerlink" href="#changing-the-self-harm-response" title="Permanent link">&para;</a></h3>
 <p>Edit rule 6 in <code>VOICE_TURN_SUFFIX</code>. Be careful here -- the current
 wording was chosen to acknowledge distress without attempting counseling.</p>

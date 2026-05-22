@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1520,34 +1520,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2319,18 +2291,15 @@
 <li><strong>Calendar context injection</strong> -- Google Calendar events surfaced to the LLM for contextual reminders</li>
 <li><strong>Length-aware brevity</strong> -- default 1-2 short sentences, up to 6 for open-ended asks (story, explanation, list); cap enforced in code via <code>MAX_SENTENCES</code></li>
 <li><strong>ASR noise filtering</strong> -- rejects punctuation-only / sub-threshold utterances</li>
-<li><strong>ACP session caching</strong> -- long-lived sessions with idle/turn-count/wall-clock rotation</li>
-<li><strong>Single-host deployment</strong> -- <code>compose.all-in-one.yml</code> runs everything on one machine</li>
-<li><strong>Multi-host deployment</strong> -- documented split across Docker host + ZeroClaw host</li>
+<li><strong>Single-host deployment</strong> -- all four server services (xiaozhi-server, dotty-pi, dotty-behaviour, bridge.py) run as Docker containers on one machine</li>
 <li><strong><code>make setup</code> wizard</strong> -- interactive first-run: name your robot, fetch models, validate config</li>
 <li><strong>MkDocs Material docs site</strong> -- architecture, protocols, quickstart, troubleshooting, FAQ</li>
-<li><strong>Kid Mode channel routing</strong> -- voice channels are kid-safe by default; the bridge's kid-mode sandwich (English-pin, emoji prefix, topic blocklist, jailbreak resistance) only applies when the inbound <code>channel</code> is in <code>VOICE_CHANNELS</code>, so messaging-platform channels (Discord, Telegram, etc.) skip it automatically. Pair with a separate ZeroClaw daemon on a more capable model for an unrestricted chat surface</li>
-<li><strong>Bridge <code>/admin/*</code> endpoints</strong> -- localhost-only HTTP API for runtime config mutation: toggle kid-mode (<code>/admin/kid-mode</code>), flip smart-mode (<code>/admin/smart-mode</code>), overwrite persona files (<code>/admin/persona</code>), swap a daemon's <code>default_model</code> in its <code>config.toml</code> (<code>/admin/model</code>), and amend the MCP tool allowlist (<code>/admin/safety</code>, py_compile-validated). Paths and systemd unit names are env-configurable</li>
+<li><strong>Kid Mode channel routing</strong> -- voice channels are kid-safe by default; the kid-mode sandwich (English-pin, emoji prefix, topic blocklist, jailbreak resistance) only applies when the inbound <code>channel</code> is in <code>VOICE_CHANNELS</code>, so messaging-platform channels (Discord, Telegram, etc.) skip it automatically</li>
 <li><strong><code>/xiaozhi/admin/*</code> endpoints</strong> -- live-session control surface on xiaozhi-server: <code>set-state</code>, <code>set-toggle</code>, <code>set-tier1slim-model</code>, <code>set-face-identified</code>, <code>set-head-angles</code>, <code>inject-text</code>, <code>abort</code>, <code>take-photo</code>, <code>play-asset</code>, <code>songs</code>, <code>say</code>, <code>devices</code>. See <a href="https://brettkinny.github.io/dotty-stackchan/latest/architecture/#admin-surface-two-services-two-prefixes"><code>architecture.md</code></a></li>
-<li><strong>Two-tier voice LLM (Tier1Slim)</strong> -- <code>qwen3.5:4b</code> on local llama-swap handles plain conversational turns directly; tool calls (<code>memory_lookup</code>, <code>think_hard</code>, <code>take_photo</code>, <code>play_song</code>) escalate to the bridge via <code>/api/voice/escalate</code>. Default LLM since commit <code>b73f583</code>. See <a href="https://brettkinny.github.io/dotty-stackchan/latest/tier1slim/"><code>tier1slim.md</code></a></li>
-<li><strong>Smart-mode hot-swap</strong> -- when <code>DOTTY_VOICE_PROVIDER=tier1slim</code>, smart-mode flips call <code>/xiaozhi/admin/set-tier1slim-model</code> to mutate the live provider's <code>model</code> / <code>url</code> / <code>api_key</code> in place — no docker restart, no daemon restart, instant. Legacy <code>=zeroclaw</code> path still rewrites <code>config.toml</code> and restarts the daemon</li>
+<li><strong>Two-tier voice LLM (Tier1Slim)</strong> -- alternate LLM provider: <code>qwen3.5:4b</code> on local llama-swap handles plain conversational turns directly; tool-call escalation path is non-functional post-#36 (escalation targeted the retired ZeroClaw bridge). Kept as a chitchat-only rollback behind <code>selected_module.LLM: Tier1Slim</code>. Default since commit <code>b73f583</code>; superseded by <code>PiVoiceLLM</code>. See <a href="https://brettkinny.github.io/dotty-stackchan/latest/tier1slim/"><code>tier1slim.md</code></a></li>
+<li><strong>Smart-mode hot-swap</strong> -- when <code>DOTTY_VOICE_PROVIDER=tier1slim</code>, smart-mode flip calls <code>/xiaozhi/admin/set-tier1slim-model</code> to mutate the live provider's <code>model</code> / <code>url</code> / <code>api_key</code> in place — no docker restart, no daemon restart, instant. The <code>PiVoiceLLM</code> path does not yet implement model-swap (v2 scope)</li>
 <li><strong>llama-swap voice/coding matrix</strong> -- <code>qwen3.5:4b</code> (voice inner loop) + <code>qwen3.6:27b-think</code> (think_hard target) co-resident under the <code>voice</code> matrix set; <code>qwen3.6:27b</code> for <code>pi</code> CLI runs alone under <code>coding</code>. See <a href="https://brettkinny.github.io/dotty-stackchan/latest/cookbook/llama-swap-concurrent-models/"><code>cookbook/llama-swap-concurrent-models.md</code></a></li>
-<li><strong>Perception event bus</strong> -- firmware <code>face_detected</code> / <code>face_lost</code> / <code>sound_event</code> / <code>state_changed</code> frames relay through xiaozhi's <code>EventTextMessageHandler</code> to the bridge's <code>/api/perception/event</code>, fanned out to six consumer tasks (face_greeter, sound_turner, face_lost_aborter, wake_word_turner, face_identified_refresher, purr_player)</li>
+<li><strong>Perception event bus</strong> -- firmware <code>face_detected</code> / <code>face_lost</code> / <code>sound_event</code> / <code>state_changed</code> frames relay through xiaozhi's <code>EventTextMessageHandler</code> to <code>dotty-behaviour</code>'s <code>/api/perception/event</code>, fanned out to six consumer tasks (face_greeter, sound_turner, face_lost_aborter, wake_word_turner, face_identified_refresher, purr_player)</li>
 <li><strong>Fully-local backend support</strong> -- <code>compose.local.override.yml</code> for Ollama (single binary, simple) plus llama-swap recipe for concurrent multi-model serving. Both shipped; choose based on whether you need multiple models resident at once</li>
 <li><strong>Voice catalog + install helper</strong> -- <code>docs/voice-catalog.md</code> (12 Piper + 6 EdgeTTS) + <code>make voice-install</code> -- shipped</li>
 <li><strong>Versioned docs via <code>mike</code></strong> -- <code>/latest/</code>, <code>/v0.1/</code>, <code>/dev/</code> URL structure shipped</li>
@@ -2356,7 +2325,7 @@
 <li><strong>First-audio latency reduction</strong> -- two-tier path lands inner-loop turns under 1 s warm; further improvements queued (escalation parallelism, llama.cpp MTP PR #22673 for ~1.5-2× on think_hard)</li>
 <li><strong>ASR accuracy for children's speech</strong> -- post-ASR corrections live; Whisper Phase 1 scaffold landed at v0.1; A/B verification pending</li>
 <li><strong>Face detection + tracking</strong> -- shipped firmware-side; smoother+faster tuning queued (EMA 0.5, speed 500, deadband, MSR thr 0.40). Flash + bench-test pending</li>
-<li><strong>Layer 4 identity (description-based)</strong> -- shipped + deployed. VLM (Gemini 2.0 Flash) returns a free-form description plus a roster name match against <code>~/.zeroclaw/household.yaml</code>'s <code>appearance:</code> field. No biometrics, no persistent identifiers. The earlier dlib biometric scaffold (<code>bridge/face_db.py</code> + <code>face_recognizer.py</code> + on-device <code>FaceRecognizer</code> + <code>ParentalGate</code> + 4 MCP tools) was removed — description-based covers the use case and biometrics conflicted with the no-storage identity posture</li>
+<li><strong>Layer 4 identity (description-based)</strong> -- shipped + deployed. VLM (Gemini 2.0 Flash) returns a free-form description plus a roster name match against <code>household.yaml</code>'s <code>appearance:</code> field. No biometrics, no persistent identifiers. The earlier dlib biometric scaffold (<code>bridge/face_db.py</code> + <code>face_recognizer.py</code> + on-device <code>FaceRecognizer</code> + <code>ParentalGate</code> + 4 MCP tools) was removed — description-based covers the use case and biometrics conflicted with the no-storage identity posture</li>
 <li><strong>Layer 6 proactive greetings</strong> -- <code>bridge/proactive_greeter.py</code> + lifespan wiring shipped. Cooldown + time-of-day windowing + kid-safe sandwich + calendar-aware prompt + template fallback. Depends on Layer 4 for named greetings; works today with <code>face_detected</code> (unknown identity) for generic</li>
 <li><strong>Layer 1 privacy-indicator LEDs</strong> -- firmware scaffold drives mic/camera state via RAII peripheral guards. Camera <code>VIDIOC_STREAMOFF</code> wiring deferred (closes the always-streaming hole; queued)</li>
 <li><strong>Wake word "Hey Dotty"</strong> -- interim shipped: firmware default switched Chinese → English "Hi, ESP". Custom "Hey Dotty" microWakeWord roadmap documented (<code>docs/wake-word.md</code>); needs sample collection + Colab training (~2 weeks calendar)</li>
@@ -2377,7 +2346,7 @@
 <li><strong>Runtime OTA provisioning</strong> -- captive-portal WiFi + OTA URL setup on first boot (no rebuild to retarget)</li>
 <li><strong>Layer 2.5 stereo mic + camera person tracking</strong> -- sound-source localization + camera fusion for 360° awareness in idle mode</li>
 <li><strong>Phase 3 continuous vision classifier</strong> -- EfficientDet/YOLOX at 1Hz on the Docker host GPU once dual RTX 3060s land</li>
-<li><strong>Sleep-mode "dream" memory compaction</strong> -- while Dotty is in <code>sleep</code> state (idle, overnight), a background pass feeds the day's ZeroClaw memory writes (perception events, conversation turns, declared facts, scene snapshots) to the smart model for compaction + summarisation. Two outputs: rewrite/prune the raw memory store (drop duplicates and low-signal perception spam, keep durable facts and notable events), and emit a separate human-readable daily summary that next-day turns can pull as "yesterday's context". Sleep-state-gated so the heavy LLM call never runs during interactive states. Pairs with the per-person memory and ambient scene memory work</li>
+<li><strong>Sleep-mode "dream" memory compaction</strong> -- while Dotty is in <code>sleep</code> state (idle, overnight), a background pass feeds the day's memory writes (perception events, conversation turns, declared facts, scene snapshots) to the smart model for compaction + summarisation. Two outputs: rewrite/prune the raw memory store (drop duplicates and low-signal perception spam, keep durable facts and notable events), and emit a separate human-readable daily summary that next-day turns can pull as "yesterday's context". Sleep-state-gated so the heavy LLM call never runs during interactive states. Pairs with the per-person memory and ambient scene memory work</li>
 <li><strong>Variant board port guide</strong> -- walkthrough for adding support for other ESP32-S3 boards</li>
 </ul>
 <h2 id="community-wishlist">Community wishlist<a class="headerlink" href="#community-wishlist" title="Permanent link">&para;</a></h2>

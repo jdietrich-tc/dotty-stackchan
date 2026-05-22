@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../advanced/multi-host/" class="md-tabs__link">
+        <a href="../../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1397,21 +1397,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#switch-to-a-different-shipped-persona-tier1slim-or-generic-providers" class="md-nav__link">
+  <a href="#switch-to-a-different-shipped-persona" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Switch to a different shipped persona (Tier1Slim or generic providers)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#edit-zeroclaws-persona" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Edit ZeroClaw's persona
+        Switch to a different shipped persona
       
     </span>
   </a>
@@ -1630,34 +1619,6 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -2254,21 +2215,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#switch-to-a-different-shipped-persona-tier1slim-or-generic-providers" class="md-nav__link">
+  <a href="#switch-to-a-different-shipped-persona" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Switch to a different shipped persona (Tier1Slim or generic providers)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#edit-zeroclaws-persona" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Edit ZeroClaw's persona
+        Switch to a different shipped persona
       
     </span>
   </a>
@@ -2342,18 +2292,18 @@
 <tbody>
 <tr>
 <td><code>default.md</code></td>
-<td>Cheerful, curious desktop robot. The general-purpose persona used by <code>ZeroClawLLM</code> and other generic providers.</td>
-<td><code>ZeroClawLLM</code>, <code>OpenAICompat</code></td>
+<td>Cheerful, curious desktop robot. The general-purpose persona for generic providers.</td>
+<td><code>OpenAICompat</code></td>
 </tr>
 <tr>
 <td><code>dotty_voice.md</code></td>
-<td>Voice-tuned variant of <code>default.md</code> — same character but pruned for short replies, with the 4-tool catalogue and <code>[REMEMBER: ...]</code> markers baked in.</td>
-<td><code>Tier1Slim</code></td>
+<td>Voice-tuned variant of <code>default.md</code> — same character but pruned for short replies, with the tool catalogue and <code>[REMEMBER: ...]</code> markers baked in.</td>
+<td><code>PiVoiceLLM</code>, <code>Tier1Slim</code></td>
 </tr>
 <tr>
 <td><code>smart.md</code></td>
 <td>More capable, allowed longer answers — for when <code>smart_mode</code> is on and the cloud model is doing the heavy lifting.</td>
-<td>optional override for either provider</td>
+<td>optional override</td>
 </tr>
 </tbody>
 </table>
@@ -2368,12 +2318,12 @@
 </thead>
 <tbody>
 <tr>
-<td><code>Tier1Slim</code> (current default)</td>
-<td><code>LLM.Tier1Slim.persona_file</code> in <code>.config.yaml</code>. Defaults to <code>personas/dotty_voice.md</code>.</td>
+<td><code>PiVoiceLLM</code> (current default)</td>
+<td>The persona file configured in the pi agent's extension (<code>dotty-pi-ext</code>). Defaults to <code>personas/dotty_voice.md</code>.</td>
 </tr>
 <tr>
-<td><code>ZeroClawLLM</code></td>
-<td>ZeroClaw's own workspace files: <code>~/.zeroclaw/workspace/{SOUL,IDENTITY,MEMORY,AGENTS}.md</code> on the ZeroClaw host. <strong>The <code>persona_file</code> key is ignored</strong> — ZeroClaw doesn't read it.</td>
+<td><code>Tier1Slim</code></td>
+<td><code>LLM.Tier1Slim.persona_file</code> in <code>.config.yaml</code>. Defaults to <code>personas/dotty_voice.md</code>.</td>
 </tr>
 <tr>
 <td><code>OpenAICompat</code> (and similar generic providers)</td>
@@ -2381,10 +2331,9 @@
 </tr>
 </tbody>
 </table>
-<p>Setting <code>persona_file</code> for a <code>ZeroClawLLM</code> selection is a silent no-op — edit the workspace files instead, or switch the provider first.</p>
-<h2 id="switch-to-a-different-shipped-persona-tier1slim-or-generic-providers">Switch to a different shipped persona (Tier1Slim or generic providers)<a class="headerlink" href="#switch-to-a-different-shipped-persona-tier1slim-or-generic-providers" title="Permanent link">&para;</a></h2>
+<h2 id="switch-to-a-different-shipped-persona">Switch to a different shipped persona<a class="headerlink" href="#switch-to-a-different-shipped-persona" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Edit <code>.config.yaml</code>:</li>
+<li>Edit <code>.config.yaml</code> (or the pi agent persona config for <code>PiVoiceLLM</code>):</li>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">LLM</span><span class="p">:</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">Tier1Slim</span><span class="p">:</span>
@@ -2392,16 +2341,6 @@
 </code></pre></div>
 <ol>
 <li>Restart: <code>docker compose restart xiaozhi-server</code>.</li>
-</ol>
-<h2 id="edit-zeroclaws-persona">Edit ZeroClaw's persona<a class="headerlink" href="#edit-zeroclaws-persona" title="Permanent link">&para;</a></h2>
-<ol>
-<li>SSH to the ZeroClaw host.</li>
-<li>Edit the relevant file under <code>~/.zeroclaw/workspace/</code>:</li>
-<li><code>SOUL.md</code> — voice, values, and role in the household.</li>
-<li><code>IDENTITY.md</code> — name, backstory, family context.</li>
-<li><code>USER.md</code> — per-user preferences (optional).</li>
-<li><code>MEMORY.md</code> — long-term facts; the agent also writes to this.</li>
-<li>No restart needed — ZeroClaw hot-reads these on each turn.</li>
 </ol>
 <h2 id="create-your-own-persona">Create your own persona<a class="headerlink" href="#create-your-own-persona" title="Permanent link">&para;</a></h2>
 <ol>
@@ -2413,7 +2352,7 @@
 <p>Edit the top-level <code>prompt:</code> block in <code>.config.yaml</code> directly. This is the xiaozhi-server system prompt; it gets injected alongside the persona file for most providers. Note: <code>Tier1Slim</code> deliberately <strong>discards</strong> the top-level prompt when a <code>persona_file</code> is set (the 4 B chat template only honours one system message). For <code>Tier1Slim</code>, edit the persona file instead.</p>
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Always keep the emoji-leader rule in any persona — removing it breaks face animations and <code>_ensure_emoji_prefix</code> in the bridge will paper over it with 😐.</li>
+<li>Always keep the emoji-leader rule in any persona — removing it breaks face animations. The persona prompt and the xiaozhi-server system prompt are the two enforcement layers.</li>
 <li>See <a href="../../tier1slim/">tier1slim.md</a> for why Tier1Slim treats persona files differently from other providers.</li>
 <li>See <a href="../../protocols/">protocols.md</a> for the emoji → face frame mapping.</li>
 </ul>

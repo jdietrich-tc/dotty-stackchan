@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Prometheus metrics and a starter Grafana dashboard for the zeroclaw-bridge.">
+        <meta name="description" content="Prometheus metrics and a starter Grafana dashboard for the bridge dashboard service.">
       
       
       
@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1644,34 +1644,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2346,9 +2318,9 @@
 
 
 <h1 id="observability">Observability<a class="headerlink" href="#observability" title="Permanent link">&para;</a></h1>
-<p>The zeroclaw-bridge exposes a Prometheus exposition endpoint at <code>/metrics</code>
-covering first-audio latency, request rate / errors per endpoint, ACP
-session state, perception events, calendar health, and Kid Mode state.
+<p>The <code>bridge.py</code> dashboard service exposes a Prometheus exposition endpoint at <code>/metrics</code>
+covering first-audio latency, request rate / errors per endpoint,
+perception events, calendar health, and Kid Mode state.
 A starter Grafana dashboard lives at
 <a href="https://github.com/BrettKinny/dotty-stackchan/blob/main/monitoring/grafana-dashboard.json"><code>monitoring/grafana-dashboard.json</code></a>.</p>
 <p>These metrics are the <strong>measurement prerequisite</strong> for the
@@ -2364,8 +2336,8 @@ the bridge port to the public internet.</p>
 <h2 id="enable">Enable<a class="headerlink" href="#enable" title="Permanent link">&para;</a></h2>
 <p>Metrics are on by default once the bridge has its dependency installed:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>bridge/requirements.txt<span class="w">   </span><span class="c1"># picks up prometheus-client</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zeroclaw-bridge<span class="w">        </span><span class="c1"># or `docker compose restart bridge`</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;BRIDGE_HOST&gt;:8080/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>bridge<span class="w">            </span><span class="c1"># or restart however you deployed it</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
 </code></pre></div>
 <p>If <code>prometheus-client</code> is missing the bridge still serves traffic — it
 just returns a <code>503</code> from <code>/metrics</code> so you (and your alerting) can
@@ -2377,13 +2349,13 @@ notice the degraded state instead of waiting on a timeout.</p>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/metrics</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&lt;BRIDGE_HOST&gt;:8080&quot;</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&lt;XIAOZHI_HOST&gt;:8080&quot;</span><span class="p p-Indicator">]</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="nt">labels</span><span class="p">:</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">          </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeroclaw-bridge</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">          </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dotty-bridge</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home</span>
 </code></pre></div>
-<p>Replace <code>&lt;BRIDGE_HOST&gt;</code> with the LAN address of the box running the
-bridge. Reload Prometheus (<code>SIGHUP</code> or <code>/-/reload</code>) and confirm the
+<p>Replace <code>&lt;XIAOZHI_HOST&gt;</code> with the LAN address of the Docker host running
+the bridge. Reload Prometheus (<code>SIGHUP</code> or <code>/-/reload</code>) and confirm the
 target shows <code>UP</code> under <strong>Status → Targets</strong>.</p>
 <h2 id="import-the-grafana-dashboard">Import the Grafana dashboard<a class="headerlink" href="#import-the-grafana-dashboard" title="Permanent link">&para;</a></h2>
 <ol>
@@ -2395,7 +2367,7 @@ target shows <code>UP</code> under <strong>Status → Targets</strong>.</p>
 </ol>
 <p>The dashboard ships with eight panels: first-audio latency
 (P50/P95/P99), request rate by endpoint, error rate by
-endpoint+kind, active ACP sessions, Smart-Mode invocation rate,
+endpoint+kind, active sessions (legacy panel — always 0), Smart-Mode invocation rate,
 perception events per minute (stacked by type), calendar fetch
 failure rate, and a Kid Mode single-stat toggle.</p>
 <h2 id="what-each-metric-means">What each metric means<a class="headerlink" href="#what-each-metric-means" title="Permanent link">&para;</a></h2>
@@ -2431,7 +2403,7 @@ failure rate, and a Kid Mode single-stat toggle.</p>
 <tr>
 <td><code>dotty_active_acp_sessions</code></td>
 <td>Gauge</td>
-<td>Live ACP child sessions. The bridge is single-child so this is normally 0 (idle) or 1 (in flight).</td>
+<td>Legacy metric from the retired ZeroClaw path — retained in the schema but always 0.</td>
 </tr>
 <tr>
 <td><code>dotty_calendar_fetch_failures_total{kind}</code></td>
@@ -2467,7 +2439,7 @@ home-deployed robot:</p>
   <code>sum(rate(dotty_calendar_fetch_failures_total[15m])) &gt; 0.005</code> for 30 m.</li>
 <li><strong>Bridge target down.</strong>
   <code>up{job="dotty-bridge"} == 0</code> for 5 m. Catches the case where
-  systemd / Docker hasn't restarted the bridge.</li>
+  Docker hasn't restarted the bridge container.</li>
 </ul>
 <h2 id="adding-new-metrics">Adding new metrics<a class="headerlink" href="#adding-new-metrics" title="Permanent link">&para;</a></h2>
 <p><code>bridge/metrics.py</code> is the single source of truth. New metrics belong

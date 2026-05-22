@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1520,34 +1520,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2390,8 +2362,8 @@ typical hobby project; when Kid Mode is active the threat model escalates
 further because children become the audience:</p>
 <ul>
 <li><strong>Voice pipeline exposure:</strong> ASR transcripts, LLM prompts, and TTS audio
-  traverse the LAN between the device, the Docker host, and the ZeroClaw host. An
-  attacker on the LAN could intercept or inject traffic.</li>
+  traverse the LAN between the device and the Docker host. An attacker on the
+  LAN could intercept or inject traffic.</li>
 <li><strong>Kid Mode safety:</strong> When Kid Mode is active, children are the intended
   audience. Prompt injection or jailbreaks that bypass the content-safety
   enforcement layer could expose a child to harmful content.</li>
@@ -2404,12 +2376,14 @@ further because children become the audience:</p>
 </ul>
 <h2 id="what-is-in-scope">What is in scope<a class="headerlink" href="#what-is-in-scope" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The FastAPI bridge (<code>bridge.py</code>) and its ACP session handling</li>
-<li>Custom xiaozhi-server providers (<code>zeroclaw.py</code>, <code>edge_stream.py</code>,
+<li>The admin dashboard service (<code>bridge.py</code>) and its HTTP endpoints</li>
+<li>The <code>dotty-pi</code> agent container and <code>dotty-behaviour</code> perception service</li>
+<li>Custom xiaozhi-server providers (<code>pi_voice/</code>, <code>tier1_slim/</code>, <code>edge_stream.py</code>,
   <code>fun_local.py</code>, <code>piper_local.py</code>)</li>
-<li>Docker Compose configuration and container security</li>
-<li>Content-safety prompt enforcement (prompt sandwich, emoji prefix enforcement,
-  Kid Mode filtering)</li>
+<li>Docker Compose configuration and container security (including the
+  <code>/var/run/docker.sock</code> bind-mount used by <code>PiVoiceLLM</code>)</li>
+<li>Content-safety prompt enforcement (persona prompt sandwich, emoji prefix
+  enforcement, Kid Mode filtering)</li>
 <li>The bridge Docker image and its CI pipeline</li>
 <li>Documentation that could lead to insecure deployments if followed as-is</li>
 </ul>
@@ -2417,8 +2391,7 @@ further because children become the audience:</p>
 <ul>
 <li>Upstream xiaozhi-esp32-server vulnerabilities (report to
   <a href="https://github.com/xinnan-tech/xiaozhi-esp32-server">xinnan-tech/xiaozhi-esp32-server</a>)</li>
-<li>Upstream ZeroClaw vulnerabilities (report to
-  <a href="https://github.com/zeroclaw-labs/zeroclaw">zeroclaw-labs/zeroclaw</a>)</li>
+<li>Upstream pi coding agent vulnerabilities (report to the <code>@earendil-works/pi-coding-agent</code> maintainer)</li>
 <li>Upstream M5Stack StackChan firmware vulnerabilities (report to
   <a href="https://github.com/m5stack/StackChan">m5stack/StackChan</a>)</li>
 <li>LLM model behavior that is not caused by this project's prompts or code</li>

@@ -494,7 +494,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1514,34 +1514,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2174,10 +2146,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-install-the-bridge" class="md-nav__link">
+  <a href="#5-bring-up-the-containers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Install the bridge
+        5. Bring up the containers
       
     </span>
   </a>
@@ -2372,7 +2344,7 @@ alternative configurations.</p>
 </tr>
 <tr>
 <td><strong>Linux or macOS host with Docker</strong></td>
-<td>Runs the voice pipeline. Any distro works.</td>
+<td>Runs all four server-side containers. Any distro works.</td>
 </tr>
 <tr>
 <td><strong>2.4 GHz WiFi</strong></td>
@@ -2417,42 +2389,45 @@ OpenAI-compatible key). You can skip this if you're running fully local
 supports multiple resident models). See
 <a href="../cookbook/run-fully-local/">cookbook/run-fully-local.md</a> and
 <a href="../cookbook/llama-swap-concurrent-models/">cookbook/llama-swap-concurrent-models.md</a>.</p>
-<p>The shipped <code>.config.yaml</code> selects <code>Tier1Slim</code> as the default LLM,
-which expects a llama-swap (or other OpenAI-compatible) endpoint at the
-URL pointed to by <code>LLM.Tier1Slim.url</code> (and a matching <code>api_key</code>). If
-that endpoint isn't reachable, either:
-- stand up llama-swap (cookbook above), or
-- switch <code>selected_module.LLM</code> to <code>OpenAICompat</code> and point it at any
-  cloud OpenAI-compatible API, or
-- switch to <code>ZeroClawLLM</code> and run the full ZeroClaw agent on a second
-  host (see <a href="../SETUP/">SETUP.md</a>).</p>
+<p>The shipped <code>.config.yaml</code> selects <code>PiVoiceLLM</code> as the default LLM
+provider, which runs the <code>dotty-pi</code> container (the pi coding agent)
+on the same Docker host. Alternate providers — <code>Tier1Slim</code> (small
+model inner loop, no agent overhead) and <code>OpenAICompat</code> (any
+OpenAI-compatible cloud endpoint) — are available via
+<code>selected_module.LLM</code> in <code>data/.config.yaml</code>.</p>
 <h2 id="4-run-setup">4. Run setup<a class="headerlink" href="#4-run-setup" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>make<span class="w"> </span>setup
 </code></pre></div>
 <p>The interactive wizard prompts for your server IP, robot name, timezone,
 and LLM provider. It downloads the ASR and TTS models (~100 MB),
 substitutes placeholders in config files, and starts the Docker
-container.</p>
+containers.</p>
 <p>Verify everything is healthy:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>make<span class="w"> </span>doctor
 </code></pre></div>
 <p>All checks should pass (green). If any fail, see
 <a href="../troubleshooting/">troubleshooting.md</a>.</p>
-<h2 id="5-install-the-bridge">5. Install the bridge<a class="headerlink" href="#5-install-the-bridge" title="Permanent link">&para;</a></h2>
-<p>This step depends on which deployment shape you picked (see the table in the <a href="../README.md#get-it-running">README</a>).</p>
-<p><strong>Single-host (compose.all-in-one):</strong> the bridge runs as a container in the same compose stack. There is no separate install step — skip to step 6.</p>
-<p><strong>Multi-host (default <code>make setup</code>):</strong> install the bridge natively on the host that will run it. From a checkout of this repo <em>on that host</em> (not the Docker host):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>scripts/install-bridge.sh<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>--bridge-dir<span class="w"> </span>/root/zeroclaw-bridge<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>--zeroclaw-bin<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>which<span class="w"> </span>zeroclaw<span class="k">)</span><span class="s2">&quot;</span>
-</code></pre></div>
-<p>The script copies <code>bridge.py</code> + the <code>custom-providers/</code> and <code>bridge/</code> trees into the install dir, creates a Python venv, writes a systemd unit, runs an import smoke test, and starts the service. Health check at <code>http://&lt;ZEROCLAW_HOST&gt;:8080/health</code> should return <code>{"status":"ok",...}</code>.</p>
-<p>If the bridge host is a different machine from the Docker host, clone the repo there first.</p>
+<h2 id="5-bring-up-the-containers">5. Bring up the containers<a class="headerlink" href="#5-bring-up-the-containers" title="Permanent link">&para;</a></h2>
+<p>All four server-side services run as Docker containers on the same host.
+<code>docker compose up -d</code> (from <code>docker-compose.yml.template</code> after <code>make
+setup</code> substitutes your placeholders) starts the main <code>xiaozhi-esp32-server</code>
+container. The brain container and the perception/dashboard container
+are brought up separately:</p>
+<ul>
+<li><strong>dotty-pi</strong> (the voice-tool brain): see <a href="../dotty-pi/README.md">dotty-pi/README.md</a>
+  for build and run instructions.</li>
+<li><strong>dotty-behaviour</strong> (perception bus + admin dashboard): see
+  <a href="../dotty-behaviour/README.md">dotty-behaviour/README.md</a> for build and
+  run instructions. The <code>scripts/deploy-behaviour.sh</code> helper deploys it.</li>
+<li><strong>bridge.py</strong> (admin dashboard service, <code>:8080</code>): runs as a container
+  on the same host; started via the compose file.</li>
+</ul>
+<p>No separate host, no systemd bridge unit, no SSH to a second machine.</p>
 <h2 id="6-connect-the-robot">6. Connect the robot<a class="headerlink" href="#6-connect-the-robot" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Power on the robot (USB-C or battery).</li>
 <li>On the device screen, navigate to <strong>Settings &gt; Advanced Options</strong>.</li>
-<li>Enter the OTA URL: <code>http://&lt;YOUR_SERVER_IP&gt;:8003/xiaozhi/ota/</code></li>
+<li>Enter the OTA URL: <code>http://&lt;XIAOZHI_HOST&gt;:8003/xiaozhi/ota/</code></li>
 <li>The robot connects via WebSocket and shows a face.</li>
 </ol>
 <h2 id="7-first-voice-turn">7. First voice turn<a class="headerlink" href="#7-first-voice-turn" title="Permanent link">&para;</a></h2>
@@ -2505,7 +2480,7 @@ latency is roughly 5 seconds, dominated by the LLM round-trip.</p>
 <tbody>
 <tr>
 <td><code>&lt;XIAOZHI_HOST&gt;</code></td>
-<td>LAN IP of the server running xiaozhi-server. The robot reaches this on WiFi, so it must be a LAN IP, not a Tailscale/VPN IP.</td>
+<td>LAN IP of the server running all Docker containers. The robot reaches this on WiFi, so it must be a LAN IP, not a Tailscale/VPN IP.</td>
 </tr>
 <tr>
 <td><code>&lt;XIAOZHI_USER&gt;</code></td>
@@ -2517,31 +2492,7 @@ latency is roughly 5 seconds, dominated by the LLM round-trip.</p>
 </tr>
 <tr>
 <td><code>&lt;XIAOZHI_PATH&gt;</code></td>
-<td>Path on the server where you clone/install xiaozhi-server (e.g. <code>/opt/xiaozhi-server/</code> or <code>/srv/xiaozhi-server/</code>).</td>
-</tr>
-<tr>
-<td><code>&lt;ZEROCLAW_HOST&gt;</code></td>
-<td>LAN IP of the host running ZeroClaw + the bridge. Anything that runs the <code>zeroclaw</code> binary works (a small Linux box, your existing home server, or the same server as xiaozhi-server).</td>
-</tr>
-<tr>
-<td><code>&lt;ZEROCLAW_USER&gt;</code></td>
-<td>SSH user on the ZeroClaw host (whatever your distro defaults to).</td>
-</tr>
-<tr>
-<td><code>&lt;ZEROCLAW_HOME&gt;</code></td>
-<td>Home directory on the ZeroClaw host for the user that owns the bridge (e.g. <code>/root/</code> or <code>/home/&lt;user&gt;/</code>).</td>
-</tr>
-<tr>
-<td><code>&lt;BRIDGE_PATH&gt;</code></td>
-<td>Full path to the zeroclaw-bridge working directory (e.g. <code>/root/zeroclaw-bridge/</code>).</td>
-</tr>
-<tr>
-<td><code>&lt;ZEROCLAW_BIN&gt;</code></td>
-<td>Absolute path to the <code>zeroclaw</code> binary (cargo default: <code>~/.cargo/bin/zeroclaw</code>).</td>
-</tr>
-<tr>
-<td><code>&lt;ZEROCLAW_CFG&gt;</code></td>
-<td>ZeroClaw config file path (default: <code>/root/.zeroclaw/config.toml</code>).</td>
+<td>Path on the server where you clone/install this repo (e.g. <code>/opt/xiaozhi-server/</code> or <code>/srv/xiaozhi-server/</code>).</td>
 </tr>
 <tr>
 <td><code>&lt;YOUR_NAME&gt;</code></td>
@@ -2553,39 +2504,47 @@ latency is roughly 5 seconds, dominated by the LLM round-trip.</p>
 </tr>
 </tbody>
 </table>
-<p>Port numbers (<code>8000</code>, <code>8003</code>, <code>8080</code>, <code>18789</code>, <code>42617</code>) are product-generic and should not be changed unless you also reconfigure the respective services.</p>
+<p>Port numbers (<code>8000</code>, <code>8003</code>, <code>8080</code>, <code>8090</code>) are product-generic and should not be changed unless you also reconfigure the respective services.</p>
 <p>Files you will definitely need to edit before first run:</p>
 <ul>
-<li><code>.config.yaml</code> — replace <code>&lt;XIAOZHI_HOST&gt;</code>, <code>&lt;ZEROCLAW_HOST&gt;</code>, and customise the <code>prompt:</code> block.</li>
+<li><code>.config.yaml</code> — replace <code>&lt;XIAOZHI_HOST&gt;</code> and customise the <code>prompt:</code> block.</li>
 <li><code>docker-compose.yml</code> — set <code>TZ</code> to your timezone.</li>
-<li><code>zeroclaw-bridge.service</code> — only if you're installing the bridge by hand. <code>scripts/install-bridge.sh</code> (see step 5) writes its own copy with the right paths and you shouldn't need to touch this file.</li>
 </ul>
 <hr />
 <h2 id="deployment-layout">Deployment layout<a class="headerlink" href="#deployment-layout" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TB
-    subgraph DockerHost_fs["Server filesystem - &amp;lt;XIAOZHI_PATH&amp;gt;"]
-        direction TB
-        UA1["data/.config.yaml&lt;br/&gt;(override - voice, persona, endpoints)"]
-        UA2["models/SenseVoiceSmall/&lt;br/&gt;(model.pt + configs)"]
-        UA3["custom-providers/zeroclaw/&lt;br/&gt;(zeroclaw.py + __init__.py)"]
-        UA3b["custom-providers/edge_stream/&lt;br/&gt;(edge_stream.py + __init__.py)"]
-        UA3d["custom-providers/piper_local/&lt;br/&gt;(piper_local.py + __init__.py)"]
-        UA3c["custom-providers/asr/fun_local.py&lt;br/&gt;(patched ASR - language key)"]
-        UA4["tmp/&lt;br/&gt;(TTS audio scratch)"]
-        UA5["repo/&lt;br/&gt;(git clone, reference only)"]
-        UA6["docker-compose.yml"]
-    end
-
-    subgraph ZCHost_fs["ZeroClaw host filesystem"]
-        direction TB
-        RA["&amp;lt;BRIDGE_PATH&amp;gt;"]
-        RA1["bridge.py"]
-        RA2[".venv/&lt;br/&gt;(fastapi + uvicorn)"]
-        RB["/etc/systemd/system/&lt;br/&gt;zeroclaw-bridge.service"]
-        RC["~/.zeroclaw/&lt;br/&gt;(agent persona config)"]
-        RA --&gt; RA1 &amp; RA2
-    end</code></pre>
-<p>Container volume mounts:</p>
+<p>All four containers run on the single Docker host (<code>&lt;XIAOZHI_HOST&gt;</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Purpose</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>xiaozhi-esp32-server</code></td>
+<td>Voice pipeline: ASR, TTS, WebSocket to StackChan</td>
+<td>8000 (WS), 8003 (OTA/HTTP)</td>
+</tr>
+<tr>
+<td><code>dotty-pi</code></td>
+<td>pi coding agent — the voice-tool brain</td>
+<td>internal (via <code>docker exec</code>)</td>
+</tr>
+<tr>
+<td><code>dotty-behaviour</code></td>
+<td>Perception bus + ambient consumers + calendar</td>
+<td>8090</td>
+</tr>
+<tr>
+<td><code>bridge.py</code></td>
+<td>Admin dashboard</td>
+<td>8080</td>
+</tr>
+</tbody>
+</table>
+<p>Container volume mounts for <code>xiaozhi-esp32-server</code>:</p>
 <table>
 <thead>
 <tr>
@@ -2616,9 +2575,14 @@ latency is roughly 5 seconds, dominated by the LLM round-trip.</p>
 <td>Scratch</td>
 </tr>
 <tr>
-<td><code>custom-providers/zeroclaw/</code></td>
-<td><code>/opt/xiaozhi-esp32-server/core/providers/llm/zeroclaw/</code></td>
-<td>Custom LLM provider (directory mount)</td>
+<td><code>custom-providers/pi_voice/</code></td>
+<td><code>/opt/xiaozhi-esp32-server/core/providers/llm/pi_voice/</code></td>
+<td>PiVoiceLLM provider (directory mount)</td>
+</tr>
+<tr>
+<td><code>custom-providers/tier1_slim/</code></td>
+<td><code>/opt/xiaozhi-esp32-server/core/providers/llm/tier1_slim/</code></td>
+<td>Tier1Slim alternate provider</td>
 </tr>
 <tr>
 <td><code>custom-providers/edge_stream/edge_stream.py</code></td>
@@ -2637,7 +2601,7 @@ latency is roughly 5 seconds, dominated by the LLM round-trip.</p>
 </tr>
 </tbody>
 </table>
-<p>The full file inventory (with <code>/etc/systemd/system/</code> paths and the bare-metal venv) lives in <a href="../architecture/#deployment-files-this-repo">architecture.md</a>.</p>
+<p>The full file inventory lives in <a href="../architecture/#deployment-files-this-repo">architecture.md</a>.</p>
 <hr />
 <h2 id="endpoints">Endpoints<a class="headerlink" href="#endpoints" title="Permanent link">&para;</a></h2>
 <table>
@@ -2660,84 +2624,62 @@ latency is roughly 5 seconds, dominated by the LLM round-trip.</p>
 <td>The robot after OTA handshake</td>
 </tr>
 <tr>
-<td>Bridge (chat)</td>
-<td><code>http://&lt;ZEROCLAW_HOST&gt;:8080/api/message</code></td>
-<td>xiaozhi-server's ZeroClawLLM</td>
+<td>Perception / ambient events</td>
+<td><code>http://&lt;XIAOZHI_HOST&gt;:8090</code></td>
+<td>xiaozhi-server → dotty-behaviour</td>
 </tr>
 <tr>
-<td>Bridge (health)</td>
-<td><code>http://&lt;ZEROCLAW_HOST&gt;:8080/health</code></td>
-<td>Humans, monitoring</td>
-</tr>
-<tr>
-<td>Bridge (dashboard)</td>
-<td><code>http://&lt;ZEROCLAW_HOST&gt;:8080/ui</code></td>
+<td>Admin dashboard</td>
+<td><code>http://&lt;XIAOZHI_HOST&gt;:8080/ui</code></td>
 <td>Humans (LAN-only HTMX UI)</td>
 </tr>
 <tr>
-<td>ZeroClaw gateway</td>
-<td><code>http://127.0.0.1:42617</code> (host-local)</td>
-<td>ZeroClaw's web UI only</td>
+<td>Bridge health</td>
+<td><code>http://&lt;XIAOZHI_HOST&gt;:8080/health</code></td>
+<td>Humans, monitoring</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="reboot-survival">Reboot survival<a class="headerlink" href="#reboot-survival" title="Permanent link">&para;</a></h2>
-<p>Both services restart themselves without manual intervention:</p>
-<table>
-<thead>
-<tr>
-<th>Host</th>
-<th>Mechanism</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Server</td>
-<td>Container <code>restart: unless-stopped</code> in <code>docker-compose.yml</code> + ensure dockerd starts at boot on your distro.</td>
-</tr>
-<tr>
-<td>ZeroClaw host</td>
-<td><code>zeroclaw-bridge.service</code> is <code>enabled</code>, <code>Restart=on-failure</code>.</td>
-</tr>
-</tbody>
-</table>
-<p>Caveat: if you run <code>docker compose down</code>, the container is marked stopped and won't come back on reboot. Use <code>docker compose restart</code> or <code>docker restart xiaozhi-esp32-server</code> for transient restarts instead.</p>
+<p>All containers use <code>restart: unless-stopped</code>. Ensure dockerd starts at
+boot on your distro. Use <code>docker compose restart</code> or
+<code>docker restart &lt;container&gt;</code> for transient restarts rather than <code>docker
+compose down</code> (which marks the container stopped and prevents
+auto-restart on reboot).</p>
 <hr />
 <h2 id="common-operations">Common operations<a class="headerlink" href="#common-operations" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Tail xiaozhi-server logs (voice pipeline)</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ssh<span class="w"> </span>&lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt;<span class="w"> </span><span class="s1">&#39;docker logs -f xiaozhi-esp32-server&#39;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Tail bridge logs</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>ssh<span class="w"> </span>&lt;ZEROCLAW_USER&gt;@&lt;ZEROCLAW_HOST&gt;<span class="w"> </span><span class="s1">&#39;sudo journalctl -u zeroclaw-bridge -f&#39;</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Restart voice pipeline after config change</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>ssh<span class="w"> </span>&lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt;<span class="w"> </span><span class="s1">&#39;cd &lt;XIAOZHI_PATH&gt; &amp;&amp; docker compose restart&#39;</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># Restart the bridge</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>ssh<span class="w"> </span>&lt;ZEROCLAW_USER&gt;@&lt;ZEROCLAW_HOST&gt;<span class="w"> </span><span class="s1">&#39;sudo systemctl restart zeroclaw-bridge&#39;</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="c1"># Smoke test full round-trip</span>
-<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://&lt;ZEROCLAW_HOST&gt;:8080/api/message<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;content-type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;content&quot;:&quot;hello&quot;,&quot;channel&quot;:&quot;dotty&quot;}&#39;</span>
-<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
-<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="c1"># Bridge health</span>
-<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>curl<span class="w"> </span>http://&lt;ZEROCLAW_HOST&gt;:8080/health
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Tail xiaozhi-server logs (voice pipeline)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ssh<span class="w"> </span>&lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt;<span class="w"> </span><span class="s1">&#39;docker logs -f xiaozhi-esp32-server&#39;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Tail dotty-behaviour logs (perception + dashboard)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>ssh<span class="w"> </span>&lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt;<span class="w"> </span><span class="s1">&#39;docker logs -f dotty-behaviour&#39;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># Tail dotty-pi logs (brain container)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>ssh<span class="w"> </span>&lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt;<span class="w"> </span><span class="s1">&#39;docker logs -f dotty-pi&#39;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># Restart voice pipeline after config change</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>ssh<span class="w"> </span>&lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt;<span class="w"> </span><span class="s1">&#39;cd &lt;XIAOZHI_PATH&gt; &amp;&amp; docker compose restart&#39;</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># Admin dashboard</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>open<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/ui
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># Bridge health</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>curl<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/health
 </code></pre></div>
 <h3 id="changing-voice">Changing voice<a class="headerlink" href="#changing-voice" title="Permanent link">&para;</a></h3>
 <p>The default TTS is <code>LocalPiper</code> (offline, runs inside the container). To change the Piper voice, edit <code>TTS.LocalPiper.voice</code> and the corresponding <code>model_path</code> / <code>config_path</code> in <code>data/.config.yaml</code>. To switch to cloud EdgeTTS instead, set <code>selected_module.TTS: EdgeTTS</code> and edit <code>TTS.EdgeTTS.voice</code> (any Microsoft Edge Neural voice ID works, e.g. <code>en-US-AvaNeural</code>). Restart the container after changes.</p>
 <h3 id="changing-persona-the-robots-personality">Changing persona (the robot's personality)<a class="headerlink" href="#changing-persona-the-robots-personality" title="Permanent link">&para;</a></h3>
-<p>Where the persona lives depends on which LLM provider is active. With the shipped default (<code>selected_module.LLM: Tier1Slim</code>), edit <code>personas/dotty_voice.md</code> and <code>docker compose restart</code> — Tier1Slim deliberately ignores the top-level <code>prompt:</code> block because the 4 B chat template only honours one system message. With <code>selected_module.LLM: ZeroClawLLM</code>, the persona lives in <code>&lt;ZEROCLAW_CFG&gt;</code> plus the workspace files at <code>~/.zeroclaw/workspace/{SOUL,IDENTITY}.md</code> on the ZeroClaw host; the <code>prompt:</code> key in <code>data/.config.yaml</code> is then a secondary hint that the bridge passes to ZeroClaw as context. Full instructions: <a href="../cookbook/change-persona/">cookbook/change-persona.md</a>.</p>
+<p>Edit <code>personas/dotty_voice.md</code> (for the <code>PiVoiceLLM</code> / <code>Tier1Slim</code> paths) and restart the relevant container. The <code>prompt:</code> key in <code>data/.config.yaml</code> is also injected as a secondary system message. Full instructions: <a href="../cookbook/change-persona/">cookbook/change-persona.md</a>.</p>
 <h3 id="changing-vad-sensitivity">Changing VAD sensitivity<a class="headerlink" href="#changing-vad-sensitivity" title="Permanent link">&para;</a></h3>
 <p><code>VAD.SileroVAD.min_silence_duration_ms</code> in <code>data/.config.yaml</code>. Default: 700 ms. Lower = cuts off quicker. Higher = waits longer for slow speakers.</p>
 <h3 id="changing-the-llm-model">Changing the LLM model<a class="headerlink" href="#changing-the-llm-model" title="Permanent link">&para;</a></h3>
-<p>For the <code>Tier1Slim</code> path (default): edit <code>LLM.Tier1Slim.model</code> (or repoint <code>url</code> / <code>api_key</code>) in <code>data/.config.yaml</code> and <code>docker compose restart</code>. Or for in-flight swaps, use the bridge's <code>/admin/smart-mode</code> toggle — it calls <code>/xiaozhi/admin/set-tier1slim-model</code> to hot-swap without a restart (see <a href="../tier1slim/">tier1slim.md</a>). For the legacy <code>ZeroClawLLM</code> path: edit <code>default_model</code> near the top of <code>&lt;ZEROCLAW_CFG&gt;</code> on the ZeroClaw host (provider and encrypted api_key live next to it). ACP mode caches config in the long-running child, so restart the bridge (<code>sudo systemctl restart zeroclaw-bridge</code>) after editing. Confirm with <code>sudo &lt;ZEROCLAW_BIN&gt; status | grep Model</code>.</p>
+<p>For the <code>PiVoiceLLM</code> path (default): see <a href="../dotty-pi/README.md">dotty-pi/README.md</a> for the model selection rules — in particular, the llama-swap matrix DSL constraint that prevents the voice-model set from being evicted. For the <code>Tier1Slim</code> path: edit <code>LLM.Tier1Slim.model</code> (or repoint <code>url</code> / <code>api_key</code>) in <code>data/.config.yaml</code> and <code>docker compose restart</code>. Or for in-flight swaps, use the bridge's <code>/admin/smart-mode</code> toggle — it calls <code>/xiaozhi/admin/set-tier1slim-model</code> to hot-swap without a restart (see <a href="../tier1slim/">tier1slim.md</a>).</p>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>make<span class="w"> </span>doctor<span class="w">          </span><span class="c1"># health checks</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>make<span class="w"> </span>logs<span class="w">            </span><span class="c1"># tail server logs</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>curl<span class="w"> </span>http://&lt;YOUR_SERVER_IP&gt;:8080/health<span class="w">   </span><span class="c1"># test the bridge</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>make<span class="w"> </span>doctor<span class="w">          </span><span class="c1"># health checks</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>make<span class="w"> </span>logs<span class="w">            </span><span class="c1"># tail server logs</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>curl<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/health<span class="w">   </span><span class="c1"># test the bridge/dashboard</span>
 </code></pre></div>
 <p>See <a href="../troubleshooting/">troubleshooting.md</a> for common issues.</p>
 

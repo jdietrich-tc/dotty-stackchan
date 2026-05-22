@@ -16,7 +16,7 @@
         <link rel="prev" href="../add-emoji/">
       
       
-        <link rel="next" href="../../advanced/multi-host/">
+        <link rel="next" href="../../advanced/variant-port-guide/">
       
       
         
@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../advanced/multi-host/" class="md-tabs__link">
+        <a href="../../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1616,34 +1616,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2291,7 +2263,7 @@ removes child-specific rules while keeping core voice constraints.</p>
 <p>Set the environment variable (in <code>.env</code> or the shell environment):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">DOTTY_KID_MODE</span><span class="o">=</span><span class="nb">false</span>
 </code></pre></div>
-<p>Restart the bridge: <code>systemctl restart zeroclaw-bridge</code></p>
+<p>Restart the bridge container: <code>docker compose restart bridge</code></p>
 <h2 id="what-changes-removed">What changes (removed)<a class="headerlink" href="#what-changes-removed" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

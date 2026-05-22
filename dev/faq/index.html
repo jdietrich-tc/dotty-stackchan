@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1520,34 +1520,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2392,56 +2364,50 @@
 <h1 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h1>
 <hr />
 <h3 id="what-hardware-do-i-need">What hardware do I need?<a class="headerlink" href="#what-hardware-do-i-need" title="Permanent link">&para;</a></h3>
-<p>The verified setup is an <strong>M5Stack CoreS3</strong> mounted in the <strong>M5Stack StackChan servo kit</strong> (2x feedback servos — yaw continuous-rotation + SCS0009 pitch — for pan/tilt, 12 RGB LEDs, 3D-printed chassis). You also need a Docker-capable host on your LAN (a spare PC or any Linux box with Docker) and a ZeroClaw host for the agent brain.</p>
+<p>The verified setup is an <strong>M5Stack CoreS3</strong> mounted in the <strong>M5Stack StackChan servo kit</strong> (2x feedback servos — yaw continuous-rotation + SCS0009 pitch — for pan/tilt, 12 RGB LEDs, 3D-printed chassis). You also need a Docker-capable host on your LAN (a spare PC or any Linux box with Docker) to run the voice and brain containers.</p>
 <p>See <a href="../hardware-support/">hardware-support.md</a> for the full spec table and support tiers.</p>
 <hr />
 <h3 id="can-i-use-a-different-llm">Can I use a different LLM?<a class="headerlink" href="#can-i-use-a-different-llm" title="Permanent link">&para;</a></h3>
-<p>Yes. The LLM is pluggable at two levels:</p>
+<p>Yes. The LLM is pluggable via <code>selected_module.LLM</code> in <code>data/.config.yaml</code>:</p>
 <ol>
-<li><strong>At the ZeroClaw level</strong> (the brain): change the <code>default_model</code> and provider in ZeroClaw's <code>config.toml</code> on the ZeroClaw host. ZeroClaw supports OpenAI-compatible APIs, Anthropic, Gemini, Ollama, and 17+ other backends. Restart the bridge after changing.</li>
-<li><strong>At the xiaozhi-server level</strong>: if you want to bypass ZeroClaw entirely, swap the <code>selected_module</code> for LLM in <code>data/.config.yaml</code> to any of the built-in providers (OpenAI-compatible, Ollama, Dify, FastGPT, etc.). You lose ZeroClaw's agent features (memory, tools, persona files) but gain a simpler stack.</li>
+<li><strong><code>PiVoiceLLM</code> (the default)</strong> routes voice turns to the <code>dotty-pi</code> container — the pi agent — which runs a local model on llama-swap. To change the model, see <a href="../dotty-pi/README.md">dotty-pi/README.md</a> for the model-selection rules.</li>
+<li><strong><code>Tier1Slim</code></strong> runs a small/fast model directly against any OpenAI-compatible endpoint.</li>
+<li><strong><code>OpenAICompat</code></strong> points straight at OpenAI, OpenRouter, Ollama, or any OpenAI-compatible API.</li>
 </ol>
-<p>The reference config uses Qwen3-30B-A3B via OpenRouter. Any model that handles English well and can follow emoji-prefix instructions will work. Larger models give better persona adherence; smaller models respond faster.</p>
+<p>See <a href="../llm-backends/">llm-backends.md</a> for the full comparison. Any model that handles English well and can follow emoji-prefix instructions will work. Larger models give better persona adherence; smaller models respond faster.</p>
 <hr />
 <h3 id="is-it-fully-offline">Is it fully offline?<a class="headerlink" href="#is-it-fully-offline" title="Permanent link">&para;</a></h3>
 <p>Almost, and it can be with two swaps:</p>
 <ul>
 <li><strong>ASR</strong> (speech recognition): already fully local. FunASR runs on your server.</li>
 <li><strong>TTS</strong> (speech synthesis): local if you use Piper TTS. EdgeTTS requires internet (it hits Microsoft's servers).</li>
-<li><strong>LLM</strong>: cloud by default (OpenRouter). Swap in Ollama pointing at a local model for fully offline inference.</li>
+<li><strong>LLM</strong>: local by default — the <code>dotty-pi</code> agent runs against a local llama-swap model. Cloud is only used if you switch to a cloud backend or turn on smart-mode.</li>
 </ul>
-<p>With Piper TTS and a local Ollama model, nothing leaves your LAN. The trade-off is that local LLMs need a GPU or beefy CPU to run at conversational speed.</p>
+<p>With Piper TTS and the default local model, nothing leaves your LAN. The trade-off is that local LLMs need a GPU or beefy CPU to run at conversational speed.</p>
 <hr />
 <h3 id="how-much-does-it-cost-to-run">How much does it cost to run?<a class="headerlink" href="#how-much-does-it-cost-to-run" title="Permanent link">&para;</a></h3>
 <p><strong>Hardware (one-time):</strong>
 - M5Stack StackChan kit: check current pricing on the <a href="https://shop.m5stack.com/">M5Stack store</a>. Expect roughly $60-80 USD for the CoreS3 + servo kit.
-- Docker host: whatever you already have. Any machine that can run Docker and has a few GB of RAM.
-- ZeroClaw host: any Pi 3 or later. The ZeroClaw binary is ~9 MB and uses &lt;5 MB RAM.</p>
+- Docker host: whatever you already have. Any machine that can run Docker (and, for the local LLM, a GPU or beefy CPU).</p>
 <p><strong>Recurring:</strong>
-- Electricity for the hosts (negligible for most home setups).
-- LLM API costs if using a cloud provider. OpenRouter pricing for Qwen3-30B-A3B is on the order of $0.10-0.30 per million tokens — casual household use is pennies per day. Check <a href="https://openrouter.ai/qwen/qwen3-30b-a3b-instruct-2507">OpenRouter's pricing page</a> for current rates.
-- $0 if you run a local model via Ollama.</p>
+- Electricity for the host (negligible for most home setups).
+- LLM API costs <strong>only</strong> if you use a cloud backend or turn on smart-mode — the default local model is free beyond electricity. Cloud backends (OpenRouter, OpenAI, etc.) are pay-per-token.</p>
 <hr />
 <h3 id="is-it-safe-for-kids">Is it safe for kids?<a class="headerlink" href="#is-it-safe-for-kids" title="Permanent link">&para;</a></h3>
 <p><strong>Kid Mode is ON by default</strong> (<code>DOTTY_KID_MODE=true</code>). It enforces child-safe guardrails. You can disable it with <code>DOTTY_KID_MODE=false</code> for general-purpose use.</p>
 <p>What Kid Mode enforces:
-- Per-turn sandwich enforcement in the bridge forces the LLM to respond in English with an emoji prefix, which limits the scope of unexpected output.
-- The ZeroClaw persona files (<code>SOUL.md</code>, <code>IDENTITY.md</code>) define the robot's personality and boundaries with kid-safe defaults.
+- Per-turn sandwich enforcement forces the LLM to respond in English with an emoji prefix, which limits the scope of unexpected output.
+- The persona prompt (<code>personas/dotty_voice.md</code>) defines the robot's personality and boundaries with kid-safe defaults.
 - Content and tone are constrained to be age-appropriate.</p>
 <p>What Kid Mode does <strong>not</strong> do:
-- Content-filter the LLM's output at a network level. If the LLM says something inappropriate, the bridge passes it through.
+- Content-filter the LLM's output at a network level. If the LLM says something inappropriate, the stack passes it through.
 - Prevent a determined child from asking adversarial questions.
 - Guarantee the LLM won't hallucinate inappropriate content (no model can).</p>
 <p>This is a self-hosted system — you control the prompt, the model, and every log. That's more control than any cloud voice assistant gives you, but it's not a substitute for parental judgment.</p>
 <hr />
 <h3 id="can-i-change-the-robots-personality">Can I change the robot's personality?<a class="headerlink" href="#can-i-change-the-robots-personality" title="Permanent link">&para;</a></h3>
-<p>Yes. The persona is defined in Markdown files on the ZeroClaw host:</p>
-<ul>
-<li><code>~/.zeroclaw/workspace/SOUL.md</code> — core identity and values.</li>
-<li><code>~/.zeroclaw/workspace/IDENTITY.md</code> — name, backstory, role.</li>
-</ul>
-<p>These are hot-read by ZeroClaw — edit them and the next conversation turn picks up the changes, no restart needed.</p>
-<p>There's also a secondary <code>prompt:</code> key in <code>data/.config.yaml</code> on the server that gets injected as a system message. ZeroClaw's own persona files take precedence, but this is a useful place for voice-pipeline-level hints.</p>
+<p>Yes. The persona is a Markdown file — <code>personas/dotty_voice.md</code>, loaded by the active LLM provider. Edit it and restart the relevant container.</p>
+<p>There's also a secondary <code>prompt:</code> key in <code>data/.config.yaml</code> that gets injected as a system message — a useful place for voice-pipeline-level hints. Full instructions: <a href="../cookbook/change-persona/">cookbook/change-persona.md</a>.</p>
 <hr />
 <h3 id="what-voices-are-available">What voices are available?<a class="headerlink" href="#what-voices-are-available" title="Permanent link">&para;</a></h3>
 <p>Depends on which TTS provider you use:</p>
@@ -2467,7 +2433,7 @@
 <li><a href="../troubleshooting/">troubleshooting.md</a> — symptom-based debugging guide.</li>
 <li><a href="../SETUP/">SETUP.md</a> — deployment guide.</li>
 </ul>
-<p>Last verified: 2026-05-17.</p>
+<p>Last verified: 2026-05-22.</p>
 
 
 

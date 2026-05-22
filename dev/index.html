@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="advanced/multi-host/" class="md-tabs__link">
+        <a href="advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1620,34 +1620,6 @@
   
   
     <li class="md-nav__item">
-      <a href="advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2327,16 +2299,12 @@ re-verify claims against the canonical specs rather than trusting our paraphrase
 <td><a href="voice-pipeline/">voice-pipeline.md</a></td>
 </tr>
 <tr>
-<td>Understand the default voice LLM (Tier1Slim + escalation)</td>
-<td><a href="tier1slim/">tier1slim.md</a></td>
-</tr>
-<tr>
-<td>Understand the brain (model matrix + ZeroClaw)</td>
+<td>Understand the brain (the pi agent + model matrix)</td>
 <td><a href="brain/">brain.md</a></td>
 </tr>
 <tr>
-<td>Run different models on voice vs. Discord</td>
-<td><a href="multi-daemon-split/">multi-daemon-split.md</a></td>
+<td>Understand the Tier1Slim voice LLM (alternate backend)</td>
+<td><a href="tier1slim/">tier1slim.md</a></td>
 </tr>
 <tr>
 <td>Know what's on the wire between components</td>
@@ -2370,15 +2338,14 @@ re-verify claims against the canonical specs rather than trusting our paraphrase
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── architecture.md          ← high-level data flow, actor responsibilities
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── hardware.md              ← M5Stack StackChan body + firmware lineage + MCP tool catalog
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── voice-pipeline.md        ← xiaozhi-esp32-server, FunASR/Whisper, VAD, Piper/EdgeTTS
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── tier1slim.md             ← two-tier voice LLM provider + escalation contract
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── brain.md                 ← model matrix (Tier1Slim + ZeroClaw), bridge, OpenRouter
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── multi-daemon-split.md    ← split voice + Discord across two ZeroClaw daemons
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── protocols.md             ← Xiaozhi WebSocket, MCP-over-WS, ACP JSON-RPC, emotion
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── interaction-map.md       ← every cross-layer signal: source, dest, protocol, notes
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── modes.md                 ← behavioural mode taxonomy + LED contract + transitions
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── latent-capabilities.md   ← upstream features we could wire up (cross-refs ROADMAP.md)
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── llm-backends.md          ← side-by-side comparison of LLM backend options
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>└── references.md            ← canonical URLs, licenses, model cards, spec docs
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── brain.md                 ← the pi agent runtime + model matrix + dashboard service
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── tier1slim.md             ← Tier1Slim voice LLM provider (alternate) + escalation contract
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── protocols.md             ← Xiaozhi WebSocket, MCP-over-WS, pi RPC, emotion
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── interaction-map.md       ← every cross-layer signal: source, dest, protocol, notes
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── modes.md                 ← behavioural mode taxonomy + LED contract + transitions
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── latent-capabilities.md   ← upstream features we could wire up (cross-refs ROADMAP.md)
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── llm-backends.md          ← side-by-side comparison of LLM backend options
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>└── references.md            ← canonical URLs, licenses, model cards, spec docs
 </code></pre></div>
 <h2 id="conventions-these-docs-follow">Conventions these docs follow<a class="headerlink" href="#conventions-these-docs-follow" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2387,14 +2354,14 @@ re-verify claims against the canonical specs rather than trusting our paraphrase
 <li><strong>Grep-bait headers</strong> — e.g. <code>## MCP tool handshake</code>, <code>## session/prompt</code> — so you can navigate by header search.</li>
 <li><strong>Relative links only</strong> — <code>[voice-pipeline.md](./voice-pipeline.md)</code>; never absolute paths.</li>
 <li><strong>Freshness footer</strong> — every non-index file ends with <code>Last verified: YYYY-MM-DD</code>.</li>
-<li><strong>Placeholders for per-deployment values</strong> — <code>&lt;XIAOZHI_HOST&gt;</code>, <code>&lt;ZEROCLAW_HOST&gt;</code>, etc. (mapping lives with the deployer, not in this repo).</li>
+<li><strong>Placeholders for per-deployment values</strong> — <code>&lt;XIAOZHI_HOST&gt;</code>, <code>&lt;XIAOZHI_USER&gt;</code>, etc. (mapping lives with the deployer, not in this repo).</li>
 <li><strong>Soft claims where unverified</strong> — if a fact came from a secondary source or we couldn't verify, the text says so rather than pretending to cite upstream.</li>
 </ul>
 <h2 id="relationship-to-the-rest-of-the-repo">Relationship to the rest of the repo<a class="headerlink" href="#relationship-to-the-rest-of-the-repo" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>../README.md</code> — deployment &amp; ops (commands, layout, troubleshooting).</li>
 <li><code>../CLAUDE.md</code> — agent orientation for this repo specifically.</li>
-<li><code>../bridge.py</code>, <code>../zeroclaw.py</code>, <code>../edge_stream.py</code>, <code>../fun_local.py</code>, <code>../piper_local.py</code> — canonical source for the custom provider patches.</li>
+<li><code>../bridge.py</code>, <code>../custom-providers/</code> — canonical source for the dashboard service and the custom ASR/LLM/TTS provider patches.</li>
 <li>These <code>docs/</code> — the <em>why</em> and the <em>what else is possible</em> behind the above.</li>
 </ul>
 <h2 id="when-docs-here-are-stale">When docs here are stale<a class="headerlink" href="#when-docs-here-are-stale" title="Permanent link">&para;</a></h2>
@@ -2431,7 +2398,7 @@ re-verify claims against the canonical specs rather than trusting our paraphrase
 </tbody>
 </table>
 <p>If you're reading this a year from now, treat the protocol + model claims as <em>starting points for re-verification</em>, not ground truth.</p>
-<p>Last verified: 2026-05-17.</p>
+<p>Last verified: 2026-05-22.</p>
 
 
 

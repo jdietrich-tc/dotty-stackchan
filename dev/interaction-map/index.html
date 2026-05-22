@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Signal flow between StackChan firmware, xiaozhi-server, and zeroclaw-bridge.">
+        <meta name="description" content="Signal flow between StackChan firmware, xiaozhi-server, and the dotty-pi agent.">
       
       
       
@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1520,34 +1520,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2334,7 +2306,7 @@
 <ol>
 <li><strong>StackChan firmware</strong> -- ESP32-S3 (m5stack/StackChan). The physical robot.</li>
 <li><strong>xiaozhi-esp32-server</strong> -- Docker on a Linux host. Voice I/O pipeline (ASR, TTS, VAD, emotion parsing).</li>
-<li><strong>zeroclaw-bridge</strong> -- FastAPI on ZeroClaw host. LLM brain interface (HTTP to ZeroClaw ACP-over-stdio).</li>
+<li><strong>dotty-pi</strong> -- the pi coding agent (Docker container on the same host). The LLM brain; reached by xiaozhi-server's <code>PiVoiceLLM</code> provider via <code>docker exec</code> pi RPC. (Ambient perception runs in a sibling <code>dotty-behaviour</code> container — see <a href="../architecture/">architecture.md</a>.)</li>
 </ol>
 <hr />
 <h2 id="audio-speech">Audio &amp; Speech<a class="headerlink" href="#audio-speech" title="Permanent link">&para;</a></h2>
@@ -2400,17 +2372,17 @@
 <tbody>
 <tr>
 <td>LLM request</td>
-<td>xiaozhi (ZeroClawLLM provider)</td>
-<td>bridge</td>
-<td>HTTP POST <code>/api/message/stream</code></td>
-<td>Carries the user text; bridge wraps it in ACP JSON-RPC to ZeroClaw</td>
+<td>xiaozhi (PiVoiceLLM provider)</td>
+<td>dotty-pi</td>
+<td><code>docker exec</code> pi RPC (JSONL over stdio)</td>
+<td>Carries the user text; pi runs the agent loop and tools inside the container</td>
 </tr>
 <tr>
 <td>LLM response</td>
-<td>bridge</td>
+<td>dotty-pi</td>
 <td>xiaozhi</td>
-<td>NDJSON streaming (HTTP chunked)</td>
-<td>Each chunk is one partial sentence; bridge enforces emoji prefix</td>
+<td>JSONL text chunks over stdio</td>
+<td>Only TTS-bound text streams back; tool dispatch stays inside the agent</td>
 </tr>
 <tr>
 <td>Sentence chunks</td>
@@ -2435,10 +2407,10 @@
 <tbody>
 <tr>
 <td>Emoji in LLM text</td>
-<td>bridge (LLM output)</td>
+<td>dotty-pi (agent output)</td>
 <td>xiaozhi</td>
-<td>First char of NDJSON response text</td>
-<td>Three-layer enforcement: ZeroClaw prompt, xiaozhi system prompt, <code>_ensure_emoji_prefix</code> fallback</td>
+<td>First char of the response text</td>
+<td>Two-layer enforcement: the pi agent persona prompt + the xiaozhi system prompt</td>
 </tr>
 <tr>
 <td>Emotion frame</td>
@@ -2449,9 +2421,9 @@
 </tr>
 <tr>
 <td>Thinking emotion</td>
-<td>bridge</td>
-<td>xiaozhi (forwarded to StackChan)</td>
-<td>Emitted before LLM call starts</td>
+<td>xiaozhi-server</td>
+<td>StackChan</td>
+<td>Emitted before the LLM call starts</td>
 <td>Shows thinking face while waiting for first token</td>
 </tr>
 <tr>

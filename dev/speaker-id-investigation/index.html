@@ -494,7 +494,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1514,34 +1514,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2241,7 +2213,7 @@ similar latent capabilities the deployment doesn't expose.</p>
 fork) wires:</p>
 <ul>
 <li><code>self._asr</code> (ASR module instance, line 60)</li>
-<li><code>self._llm</code> (LLM provider — currently the ZeroClaw bridge)</li>
+<li><code>self._llm</code> (LLM provider — currently <code>PiVoiceLLM</code>)</li>
 <li><code>self._memory</code> (initialised but disabled — <code>Memory: nomem</code> in
   <code>.config.yaml</code>)</li>
 </ul>
@@ -2249,9 +2221,8 @@ fork) wires:</p>
 <code>voice_id</code>, <code>speaker_id</code> across <code>xiaozhi-patches/</code> returns zero
 matches (other than the unrelated "small speaker" persona text in the
 config).</p>
-<p><code>custom-providers/zeroclaw/zeroclaw.py:_payload()</code> builds a metadata
-dict: <code>{provider: "zeroclaw", smart_mode: ...}</code>. There is no slot for
-a speaker hint coming from xiaozhi.</p>
+<p><code>custom-providers/pi_voice/pi_voice.py</code> builds a metadata dict for the
+pi RPC call. There is no slot for a speaker hint coming from xiaozhi.</p>
 <h2 id="what-it-would-take-to-wire-it">What it would take to wire it<a class="headerlink" href="#what-it-would-take-to-wire-it" title="Permanent link">&para;</a></h2>
 <p>To turn "voiceprint exists upstream" into "Signal E in the resolver":</p>
 <ol>
@@ -2267,8 +2238,8 @@ a speaker hint coming from xiaozhi.</p>
    recognised speaker id (and confidence) to the LLM call metadata so
    the bridge can read it. This is one extra field on the dict already
    passed to the <code>LLMProvider</code>.</li>
-<li><strong>Provider passthrough</strong> — <code>custom-providers/zeroclaw/zeroclaw.py</code>
-   forwards xiaozhi metadata into the bridge's <code>MessageIn.metadata</code>.
+<li><strong>Provider passthrough</strong> — <code>custom-providers/pi_voice/pi_voice.py</code>
+   forwards xiaozhi metadata into the pi RPC request.
    Add a passthrough for <code>speaker_id</code> / <code>speaker_confidence</code>.</li>
 <li><strong>Resolver Signal E</strong> — extend <code>bridge/speaker.py:_signal_perception</code>
    (or a new <code>_signal_voiceprint</code>) to read <code>payload.metadata</code> and

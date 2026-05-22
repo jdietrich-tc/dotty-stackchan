@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://brettkinny.github.io/dotty-stackchan/dev/advanced/variant-port-guide/">
       
       
-        <link rel="prev" href="../multi-host/">
+        <link rel="prev" href="../../cookbook/disable-kid-mode/">
       
       
         <link rel="next" href="../../emoji-mapping/">
@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../multi-host/" class="md-tabs__link">
+        <a href="./" class="md-tabs__link">
           
   
   
@@ -1522,34 +1522,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -2507,7 +2479,7 @@
 
 
 <h1 id="variant-port-guide">Variant port guide<a class="headerlink" href="#variant-port-guide" title="Permanent link">&para;</a></h1>
-<p>Dotty's server stack (xiaozhi-server, bridge, ZeroClaw) is protocol-agnostic — it doesn't care which ESP32-S3 board is on the other end of the WebSocket. All the interesting porting work is in the firmware.</p>
+<p>Dotty's server stack (xiaozhi-server, bridge, dotty-pi, dotty-behaviour) is protocol-agnostic — it doesn't care which ESP32-S3 board is on the other end of the WebSocket. All the interesting porting work is in the firmware.</p>
 <p>This guide explains how to bring up the voice pipeline on a different ESP32-S3 board, and what hardware adaptation is needed to get the robot-body features (servos, LEDs, display) working.</p>
 <h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
 <table>
@@ -2533,7 +2505,7 @@
 </table>
 <hr />
 <h2 id="server-side-nothing-to-change">Server side: nothing to change<a class="headerlink" href="#server-side-nothing-to-change" title="Permanent link">&para;</a></h2>
-<p>xiaozhi-server, the bridge, and ZeroClaw run on the server host — not on the device. They communicate over the Xiaozhi WebSocket protocol, which is board-agnostic.</p>
+<p>xiaozhi-server, the bridge, dotty-pi, and dotty-behaviour all run on the Docker host — not on the device. They communicate over the Xiaozhi WebSocket protocol, which is board-agnostic.</p>
 <p>The only server-side value that varies per board is the OTA firmware filename, which you set in the device's <code>sdkconfig</code> before flashing.</p>
 <hr />
 <h2 id="firmware-path-decision">Firmware path decision<a class="headerlink" href="#firmware-path-decision" title="Permanent link">&para;</a></h2>
@@ -2661,7 +2633,7 @@
 <li><strong>WebSocket handshake</strong> — <code>tools/list</code> in the server logs should list all advertised MCP tools.</li>
 <li><strong>Voice round-trip</strong> — speak a simple phrase and confirm ASR → LLM → TTS returns audio to the device.</li>
 <li><strong>MCP tool call</strong> — send a test instruction through the bridge:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://&lt;ZEROCLAW_HOST&gt;:8080/api/message<span class="w"> </span><span class="se">\</span>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/api/message<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;content&quot;:&quot;Turn your head to the right&quot;}&#39;</span>
 </code></pre></div></li>

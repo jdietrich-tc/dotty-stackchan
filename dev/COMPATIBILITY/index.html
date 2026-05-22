@@ -498,7 +498,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../advanced/multi-host/" class="md-tabs__link">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1520,34 +1520,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2426,9 +2398,9 @@
 <h1 id="firmware-server-compatibility-policy">Firmware / Server Compatibility Policy<a class="headerlink" href="#firmware-server-compatibility-policy" title="Permanent link">&para;</a></h1>
 <h2 id="what-this-document-covers">What this document covers<a class="headerlink" href="#what-this-document-covers" title="Permanent link">&para;</a></h2>
 <p>This document defines the contract between the StackChan firmware and the
-server-side components: xiaozhi-esp32-server, zeroclaw-bridge (<code>bridge.py</code>),
-and the ZeroClaw agent. It describes what each component exposes, what counts
-as a breaking change, and how to upgrade safely.</p>
+server-side components: xiaozhi-esp32-server, the <code>dotty-pi</code> agent container,
+dotty-behaviour, and the <code>bridge.py</code> dashboard service. It describes what each
+component exposes, what counts as a breaking change, and how to upgrade safely.</p>
 <p>For protocol wire formats see <a href="https://brettkinny.github.io/dotty-stackchan/latest/protocols/">protocols.md</a>.</p>
 <h2 id="compatibility-matrix">Compatibility matrix<a class="headerlink" href="#compatibility-matrix" title="Permanent link">&para;</a></h2>
 <table>
@@ -2454,16 +2426,22 @@ as a breaking change, and how to upgrade safely.</p>
 <td>Rebuild image only after checking upstream changelog for provider API or config schema changes</td>
 </tr>
 <tr>
-<td>zeroclaw-bridge (<code>bridge.py</code>)</td>
-<td>unversioned (HEAD)</td>
-<td>HTTP API (<code>/api/message</code>, <code>/api/message/stream</code>, <code>/health</code>), ACP JSON-RPC 2.0 over stdio</td>
-<td>Endpoint signatures and NDJSON streaming format are stable; changes require updating the custom LLM provider in lockstep</td>
+<td>dotty-pi (pi agent)</td>
+<td><code>dotty-pi:0.1.0</code></td>
+<td>pi RPC (JSONL over stdio), the five <code>dotty-pi-ext</code> voice tools</td>
+<td>Pin the image tag; pi-version or model changes need end-to-end cutover testing</td>
 </tr>
 <tr>
-<td>ZeroClaw</td>
-<td>latest (<code>zeroclaw acp</code>)</td>
-<td>ACP protocol (session management, <code>session/prompt</code>, <code>session/update</code>), tool surface</td>
-<td>Bridge auto-approves tool calls; new ZeroClaw versions that change ACP semantics require bridge review</td>
+<td>dotty-behaviour</td>
+<td><code>dotty-behaviour:0.1.0</code></td>
+<td>HTTP API (<code>/api/perception/*</code>, <code>/api/vision/*</code>, <code>/api/audio/*</code>, <code>/health</code>)</td>
+<td>Endpoint signatures stable; perception event-schema changes require firmware + xiaozhi review</td>
+</tr>
+<tr>
+<td>bridge.py (dashboard)</td>
+<td>unversioned (HEAD)</td>
+<td><code>/ui</code> dashboard, <code>/admin/*</code>, <code>/health</code></td>
+<td>Dashboard/admin service only post-#36; admin route changes require updating dashboard callers</td>
 </tr>
 </tbody>
 </table>
@@ -2475,17 +2453,17 @@ as a breaking change, and how to upgrade safely.</p>
 <li><strong>WebSocket frame shape</strong> -- changes to the JSON message-type catalog
   (<code>hello</code>, <code>listen</code>, <code>stt</code>, <code>tts</code>, <code>llm</code>, <code>mcp</code>, <code>abort</code>) or binary audio
   framing versions.</li>
-<li><strong>Emotion-emoji protocol</strong> -- changes to the emoji allowlist in <code>bridge.py</code>
-  (<code>_ensure_emoji_prefix</code>), the upstream 21-emotion catalog, or the
+<li><strong>Emotion-emoji protocol</strong> -- changes to the emoji allowlist (enforced in
+  the persona prompts), the upstream 21-emotion catalog, or the
   <code>llm</code>-type frame format.</li>
 <li><strong>OTA handshake</strong> -- changes to the OTA endpoint (<code>/ota/</code>), expected
   headers, or firmware version negotiation.</li>
 <li><strong>Config schema</strong> -- structural changes to <code>.config.yaml</code> (new required
   keys, renamed sections, removed defaults).</li>
-<li><strong>Bridge HTTP API</strong> -- changes to request/response shapes on <code>/api/message</code>
-  or <code>/api/message/stream</code>, or to the NDJSON streaming format.</li>
-<li><strong>ACP session semantics</strong> -- changes to <code>session/new</code>, <code>session/prompt</code>, or
-  <code>session/request_permission</code> behavior between ZeroClaw and the bridge.</li>
+<li><strong>dotty-behaviour HTTP API</strong> -- changes to request/response shapes on
+  <code>/api/perception/*</code>, <code>/api/vision/*</code>, or <code>/api/audio/*</code>.</li>
+<li><strong>pi RPC</strong> -- changes to the JSONL message shapes exchanged between
+  <code>PiClient</code> and the <code>dotty-pi</code> agent.</li>
 </ul>
 <h2 id="versioning-strategy">Versioning strategy<a class="headerlink" href="#versioning-strategy" title="Permanent link">&para;</a></h2>
 <p>No formal versioning is adopted yet (tracked in
@@ -2504,9 +2482,9 @@ compatibility matrix"). When adopted, the plan is:</p>
    compatible with the versions of the other components you are running.</li>
 <li><strong>Back up before upgrading.</strong> Run <code>scripts/backup.sh</code> (or the equivalent
    manual steps) to snapshot config, persona files, and bridge state.</li>
-<li><strong>Upgrade one component at a time.</strong> Validate with a round-trip test
-   (<code>curl -X POST http://&lt;ZEROCLAW_HOST&gt;:8080/api/message ...</code>) before moving to the
-   next component.</li>
+<li><strong>Upgrade one component at a time.</strong> Validate with a health check
+   (<code>curl http://&lt;XIAOZHI_HOST&gt;:8090/health</code> and <code>:8080/health</code>) plus a live
+   voice turn before moving to the next component.</li>
 <li><strong>Tail logs during validation.</strong> Watch both the xiaozhi-server container
    logs and the bridge journal simultaneously to catch mismatches early.</li>
 <li><strong>Roll back if broken.</strong> Restore from the backup taken in step 2 and
@@ -2531,7 +2509,7 @@ compatibility matrix"). When adopted, the plan is:</p>
 <tbody>
 <tr>
 <td><strong>Major</strong></td>
-<td>Breaking change to bridge HTTP API, NDJSON streaming format, or ACP session semantics</td>
+<td>Breaking change to the dotty-behaviour HTTP API or the pi RPC message format</td>
 <td>Breaking change to WebSocket frame shape, MCP tool surface, or OTA handshake</td>
 </tr>
 <tr>
@@ -2568,7 +2546,7 @@ deploys from the tag.</p>
 row) in the compatibility matrix above so operators can verify which server
 versions work with which firmware versions.</p>
 <hr />
-<p>Last verified: 2026-05-17.</p>
+<p>Last verified: 2026-05-22.</p>
 
 
 

@@ -500,7 +500,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../advanced/multi-host/" class="md-tabs__link">
+        <a href="../../advanced/variant-port-guide/" class="md-tabs__link">
           
   
   
@@ -1616,34 +1616,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/multi-host/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-host deployment
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../advanced/variant-port-guide/" class="md-nav__link">
         
   
@@ -2303,8 +2275,8 @@ recognize the emoji, the face stays on the previous expression (no crash).
 See <a href="../../protocols/">protocols.md</a> and the upstream
 <a href="https://xiaozhi.dev/en/docs/development/emotion/">emotion docs</a>.</p>
 <h2 id="4-restart">4. Restart<a class="headerlink" href="#4-restart" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zeroclaw-bridge<span class="w">          </span><span class="c1"># ZeroClaw host</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>xiaozhi-server<span class="w">      </span><span class="c1"># Docker host (if config changed)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>bridge<span class="w">              </span><span class="c1"># bridge container (if bridge.py changed)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>xiaozhi-server<span class="w">      </span><span class="c1"># xiaozhi container (if config changed)</span>
 </code></pre></div>
 <p>Current set: 😊 smile, 😆 laugh, 😢 sad, 😮 surprise, 🤔 thinking,
 😠 angry, 😐 neutral, 😍 love, 😴 sleepy.</p>
