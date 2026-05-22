@@ -2376,10 +2376,11 @@
 <h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The robot body is the <strong>M5Stack StackChan</strong> kit: an M5Stack <strong>CoreS3</strong> (ESP32-S3) head on a 2-servo chassis.</li>
-<li>The CoreS3 supplies the SoC, display, camera, mic array, speaker, IMU, proximity, microSD, NFC, IR — all integrated.</li>
-<li>The <em>StackChan kit</em> adds the head-yaw servo, head-pitch servo, 12 RGB LEDs, 3-zone touch panel, 700 mAh supplementary battery, USB-C, and the 3D-printed body.</li>
+<li>The CoreS3 supplies the SoC, display, camera, mic array, speaker, IMU, proximity, microSD — all integrated. NFC and the IR tx/rx pair physically live on the kit body, not the CoreS3 (see the kit table below).</li>
+<li>The <em>StackChan kit</em> adds the head-yaw servo, head-pitch servo, 12 RGB LEDs, 3-zone touch panel, 550 mAh supplementary battery, USB-C, NFC, an IR tx/rx pair, an IO expander, a dedicated battery monitor, and the 3D-printed body. A separate handheld ESP-NOW remote controller ships in the same box (M5Stack's product page describes it as an ESP-NOW wireless remote).</li>
 <li>Firmware on the device is built from <a href="https://github.com/m5stack/StackChan"><code>m5stack/StackChan</code></a> — an Arduino C++ codebase that bundles the <strong>XiaoZhi AI agent</strong> client. It is <strong>not</strong> the same codebase as <code>meganetaaan/stack-chan</code> (the original Moddable/JS project) or <code>78/xiaozhi-esp32</code> (generic voice-assistant firmware).</li>
 <li>The device advertises itself over the Xiaozhi WebSocket protocol and exposes <strong>on-device tools via MCP</strong> (see <a href="../protocols/">protocols.md</a>).</li>
+<li>Canonical hardware reference: <a href="https://docs.m5stack.com/en/StackChan"><code>docs.m5stack.com/en/StackChan</code></a> (kit-level) and <a href="https://docs.m5stack.com/en/core/CoreS3"><code>docs.m5stack.com/en/core/CoreS3</code></a> (head unit). See <a href="../references/#hardware">references.md</a>.</li>
 </ul>
 <h2 id="the-soc-and-board-m5stack-cores3">The SoC and board: M5Stack CoreS3<a class="headerlink" href="#the-soc-and-board-m5stack-cores3" title="Permanent link">&para;</a></h2>
 <p>All values from <a href="https://docs.m5stack.com/en/core/CoreS3"><code>docs.m5stack.com/en/core/CoreS3</code></a> (see <a href="../references/#hardware">references.md</a>).</p>
@@ -2449,28 +2450,32 @@
 </tr>
 <tr>
 <td>Wi-Fi</td>
-<td>2.4 GHz only</td>
+<td>2.4 GHz, IEEE 802.11 b/g/n</td>
 </tr>
 <tr>
 <td>BLE</td>
-<td>Yes</td>
+<td>Bluetooth 5 LE</td>
 </tr>
 <tr>
 <td>USB</td>
-<td>USB-C (device + power)</td>
+<td>USB-C (USB CDC + full-speed OTG, power + data)</td>
+</tr>
+<tr>
+<td>Touch (display)</td>
+<td>FT6336U capacitive multi-touch (over the 320×240 panel)</td>
 </tr>
 <tr>
 <td>Dimensions</td>
-<td>54.0 × 54.0 × 15.5 mm (unit only)</td>
+<td>54.0 × 54.0 × 15.5 mm (CoreS3 unit only)</td>
 </tr>
 <tr>
 <td>Weight</td>
-<td>72.7 g (unit only)</td>
+<td>72.7 g (CoreS3 unit only)</td>
 </tr>
 </tbody>
 </table>
 <h2 id="what-the-stackchan-kit-adds-on-top">What the StackChan kit adds on top<a class="headerlink" href="#what-the-stackchan-kit-adds-on-top" title="Permanent link">&para;</a></h2>
-<p>Values from <a href="https://github.com/m5stack/StackChan"><code>m5stack/StackChan</code> README</a> (see <a href="../references/#hardware">references.md</a>):</p>
+<p>Values from the <a href="https://docs.m5stack.com/en/StackChan">M5Stack StackChan product docs</a> and the <a href="https://github.com/m5stack/StackChan"><code>m5stack/StackChan</code> firmware README</a> (see <a href="../references/#hardware">references.md</a>):</p>
 <table>
 <thead>
 <tr>
@@ -2480,40 +2485,91 @@
 </thead>
 <tbody>
 <tr>
-<td>Head-yaw servo</td>
-<td>Feedback servo, 360° horizontal rotation</td>
+<td>Head-yaw servo (X axis)</td>
+<td>Feedback servo, 360° continuous horizontal rotation</td>
 </tr>
 <tr>
-<td>Head-pitch servo</td>
-<td>Feedback servo, 90° vertical movement</td>
+<td>Head-pitch servo (Y axis)</td>
+<td>SCS0009 feedback servo, 90° vertical movement — <strong>recommended operating range 5°–85°</strong></td>
 </tr>
 <tr>
 <td>Front-panel LEDs</td>
-<td>12 × RGB, arranged in two rows</td>
+<td>12 × WS2812C RGB, arranged in two rows</td>
 </tr>
 <tr>
-<td>Touch panel</td>
-<td>3-zone (beyond the display's own touch)</td>
+<td>3-zone touch panel</td>
+<td>Si12T driver (separate from the CoreS3 display's FT6336U)</td>
 </tr>
 <tr>
 <td>NFC</td>
-<td>Yes, reader + writer</td>
+<td>ST25R3916 reader/writer (I2C <code>0x50</code>)</td>
 </tr>
 <tr>
 <td>IR</td>
-<td>Transmitter + receiver</td>
+<td>IRM56384 transmitter + receiver pair</td>
+</tr>
+<tr>
+<td>Battery monitor</td>
+<td>INA226AIDGSR coulomb counter (I2C <code>0x41</code>)</td>
+</tr>
+<tr>
+<td>IO expander</td>
+<td>PY32L020 (I2C <code>0x6F</code> or <code>0x71</code>; drives IO1, IO14, VM_EN, RGB power)</td>
 </tr>
 <tr>
 <td>Supplementary battery</td>
-<td>700 mAh</td>
+<td>550 mAh (per M5Stack product docs)</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>USB-C (power + data)</td>
+</tr>
+<tr>
+<td>Buttons</td>
+<td>Power, reset; power-indicator LED</td>
+</tr>
+<tr>
+<td>Wireless extras</td>
+<td>ESP-NOW supported (peer-to-peer over the 2.4 GHz radio, no AP needed); companion <strong>StackChan World</strong> mobile app (iOS / Android)</td>
 </tr>
 <tr>
 <td>Chassis</td>
 <td>3D-printed body, base, feet (STL published)</td>
 </tr>
+<tr>
+<td>Dimensions (assembled)</td>
+<td>54.0 × 70.5 × 61.5 mm, <strong>187.2 g</strong></td>
+</tr>
+<tr>
+<td>Remote controller</td>
+<td>Ships in-box, 37.6 g. M5Stack's product page describes it as an ESP-NOW wireless remote control.</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Note on battery size.</strong> The CoreS3's internal battery is 500 mAh; the StackChan kit documents 700 mAh. The StackChan kit appears to bundle an external cell that supersedes or supplements the CoreS3 internal one. Check the physical kit to confirm before quoting battery life numbers.</p>
+<p><strong>Pin map (CoreS3 → body):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Pin(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Servo bus (UART)</td>
+<td>G6 TX, G7 RX</td>
+</tr>
+<tr>
+<td>IR</td>
+<td>G5 transmit, G10 receive</td>
+</tr>
+<tr>
+<td>I2C (NFC, touch, battery monitor, IO expander)</td>
+<td>G11 SCL, G12 SDA</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note on battery size.</strong> The CoreS3's internal cell is 500 mAh; the canonical M5Stack StackChan product page documents a <strong>550 mAh</strong> supplementary cell in the body (earlier internal notes had this as 700 mAh — corrected against <code>docs.m5stack.com/en/StackChan</code>). Either way, total runtime depends on which cell is in circuit at a given moment — bench-measure before quoting runtime numbers.</p>
 <h2 id="firmware-lineage">Firmware lineage<a class="headerlink" href="#firmware-lineage" title="Permanent link">&para;</a></h2>
 <p>Three related codebases — do not confuse them:</p>
 <table>
@@ -2670,7 +2726,9 @@
 <ul>
 <li><strong>Mic is I2S via ES7210.</strong> Hot whenever the firmware chooses — there is no hardware mic-mute. The privacy-indicator LED item in <a href="../ROADMAP/"><code>ROADMAP.md</code></a> exists because of this.</li>
 <li><strong>Servos can move fast.</strong> Feedback servos in a kids' environment can startle. The StackChan kit uses the M5Stack Avatar library's ease functions; the velocity cap is a firmware-side choice, not a hardware limit. See the "Servo speed caps" item in <a href="../ROADMAP/"><code>ROADMAP.md</code></a>.</li>
+<li><strong>Y-axis (pitch) servo angle limit: 5°–85°.</strong> M5Stack's product page explicitly recommends keeping the vertical servo inside this range. Commanding 0° or 90° risks mechanical bind / gear damage on the SCS0009. Any firmware path that parks the head (sleep state's "face-down + centred" included — see <a href="../modes/">modes.md</a>) must clamp to this window.</li>
 <li><strong>Camera has no shutter.</strong> Software-only enable. The <code>take_photo</code> MCP tool should always co-activate a distinct LED state (see child-safety task).</li>
+<li><strong>Default stock wake word is "Hi, StackChan".</strong> Our deployment overrides ASR + wake-word handling via xiaozhi-esp32-server, so this only matters if a unit boots stock firmware (e.g. before first flash).</li>
 </ul>
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2678,7 +2736,7 @@
 <li><a href="../latent-capabilities/#hardware-unused">latent-capabilities.md</a> — what to do with the unused peripherals.</li>
 <li><a href="../references/#hardware">references.md</a> — all upstream hardware links.</li>
 </ul>
-<p>Last verified: 2026-05-17.</p>
+<p>Last verified: 2026-05-18 (against <code>docs.m5stack.com/en/StackChan</code>).</p>
 
 
 

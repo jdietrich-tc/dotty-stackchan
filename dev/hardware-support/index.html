@@ -2397,11 +2397,15 @@
 </tr>
 <tr>
 <td><strong>Servos</strong></td>
-<td>2x SG90-class feedback servos (pan: 360 deg yaw, tilt: 90 deg pitch)</td>
+<td>2x feedback servos — yaw (X axis): 360° continuous rotation, model not specified by M5Stack; pitch (Y axis): <strong>SCS0009</strong>, 90° travel, M5Stack-recommended operating range 5°–85°</td>
 </tr>
 <tr>
 <td><strong>Additional</strong></td>
-<td>12x RGB LEDs, 3-zone touch panel, NFC, IR tx/rx, 700 mAh supplementary battery</td>
+<td>12x WS2812C RGB LEDs, 3-zone touch panel (Si12T), NFC (ST25R3916), IR tx/rx (IRM56384), 550 mAh supplementary battery, PY32L020 IO expander, INA226 battery monitor, in-box handheld ESP-NOW remote controller (see <a href="../hardware/#what-the-stackchan-kit-adds-on-top">hardware.md</a>)</td>
+</tr>
+<tr>
+<td><strong>Assembled dimensions</strong></td>
+<td>54.0 × 70.5 × 61.5 mm, 187.2 g</td>
 </tr>
 <tr>
 <td><strong>Firmware</strong></td>
@@ -2410,7 +2414,7 @@
 </tbody>
 </table>
 <p>This is the configuration described throughout the rest of the docs. The servo kit provides the head-pan and head-tilt movement that makes StackChan look like a robot rather than a screen on a desk.</p>
-<p><strong>Servo note.</strong> The StackChan kit uses SG90-class feedback servos. There is currently no firmware-side velocity or acceleration cap, which means head movements can be abrupt. This is a known limitation documented in <a href="../hardware/#safety-relevant-hardware-facts">hardware.md</a>.</p>
+<p><strong>Servo note.</strong> The StackChan pitch servo is documented as an SCS0009; the yaw servo's model isn't specified by M5Stack but is a feedback servo with continuous rotation. There is currently no firmware-side velocity or acceleration cap, which means head movements can be abrupt. This is a known limitation documented in <a href="../hardware/#safety-relevant-hardware-facts">hardware.md</a>.</p>
 <p>For the full BOM and 3D-printed chassis STLs, see the upstream repo: <a href="https://github.com/m5stack/StackChan">m5stack/StackChan</a>.</p>
 <h3 id="build-only-untested">Build-only (untested)<a class="headerlink" href="#build-only-untested" title="Permanent link">&para;</a></h3>
 <p>The vendored <a href="https://github.com/78/xiaozhi-esp32"><code>78/xiaozhi-esp32</code></a> firmware (the upstream protocol reference, not the firmware we flash) supports 70+ ESP32-S3 target boards. Any ESP32-S3 board in that list should:</p>
@@ -2458,7 +2462,7 @@
 <li><a href="../references/#hardware">references.md</a> — upstream hardware links.</li>
 <li><a href="https://github.com/m5stack/StackChan">m5stack/StackChan</a> — hardware BOM, chassis STLs, firmware source.</li>
 </ul>
-<p>Last verified: 2026-05-17.</p>
+<p>Last verified: 2026-05-18.</p>
 
 
 

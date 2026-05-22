@@ -2627,7 +2627,7 @@
 <li>The Xiaozhi protocol expects 16 kHz mono input — resample in firmware if your codec runs at a different rate.</li>
 </ol>
 <p><strong>Servos</strong></p>
-<p>The StackChan kit uses SG90-class feedback servos on a dedicated bus. If your board uses a different servo controller or different pins:</p>
+<p>The StackChan kit uses feedback servos on a dedicated UART bus (yaw: continuous-rotation, model not specified by M5Stack; pitch: SCS0009 with a recommended 5°–85° travel window). If your board uses a different servo controller or different pins:</p>
 <ol>
 <li>Update pin definitions in the servo driver.</li>
 <li>Update the physical angle limits (min/max) for your mechanism.</li>
