@@ -2400,7 +2400,8 @@ release could silently change the binary.</p>
 <li>Checks out with <code>submodules: recursive</code></li>
 <li>Fetches upstream dependencies via <code>fetch_repos.py</code></li>
 <li>Builds with <code>idf.py build</code> inside <code>espressif/idf:v5.5.4</code></li>
-<li>Generates <code>SHA256SUMS.txt</code> over the three release binaries</li>
+<li>Stages the bootloader, partition table, and face-detect model next to
+   the flat binaries, then generates <code>SHA256SUMS.txt</code> over all six</li>
 <li>Attaches binaries + checksums to the GitHub Release</li>
 </ol>
 <p>GPG signing of release artifacts is scaffolded (see <code>docs/signed-releases.md</code>)

@@ -2383,18 +2383,26 @@ alternative configurations.</p>
 <h2 id="1-flash-the-firmware">1. Flash the firmware<a class="headerlink" href="#1-flash-the-firmware" title="Permanent link">&para;</a></h2>
 <p>Download the latest release from
 <a href="https://github.com/BrettKinny/dotty-stackchan/releases">GitHub Releases</a>
-(look for a tag starting with <code>fw-v</code>). You need three files:
-<code>stack-chan.bin</code>, <code>ota_data_initial.bin</code>, and <code>generated_assets.bin</code>.</p>
+(look for a tag starting with <code>fw-v</code>). Grab all six binaries:
+<code>bootloader.bin</code>, <code>partition-table.bin</code>, <code>ota_data_initial.bin</code>,
+<code>stack-chan.bin</code>, <code>generated_assets.bin</code>, and <code>human_face_detect.espdl</code>.</p>
 <p>Install esptool and flash over USB-C:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>esptool
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>-m<span class="w"> </span>esptool<span class="w"> </span>--chip<span class="w"> </span>esp32s3<span class="w"> </span>-b<span class="w"> </span><span class="m">460800</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--before<span class="w"> </span>default_reset<span class="w"> </span>--after<span class="w"> </span>hard_reset<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>write_flash<span class="w"> </span>--flash_mode<span class="w"> </span>dio<span class="w"> </span>--flash_size<span class="w"> </span>16MB<span class="w"> </span>--flash_freq<span class="w"> </span>80m<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span>0xd000<span class="w"> </span>ota_data_initial.bin<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>0x20000<span class="w"> </span>stack-chan.bin<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>0x610000<span class="w"> </span>generated_assets.bin
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span>0x0<span class="w">      </span>bootloader.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>0x8000<span class="w">   </span>partition-table.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>0xd000<span class="w">   </span>ota_data_initial.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span>0x20000<span class="w">  </span>stack-chan.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span>0xa60000<span class="w"> </span>generated_assets.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span>0xe70000<span class="w"> </span>human_face_detect.espdl
 </code></pre></div>
+<p>Flashing the bootloader (<code>0x0</code>) and partition table (<code>0x8000</code>) is
+<strong>required</strong> — skip them and the device keeps whatever partition layout
+the previous firmware left behind. That layout won't match these
+images, and the robot boot-loops on <code>No bootable app partitions</code>.</p>
 <p>Verify checksums against <code>SHA256SUMS.txt</code> in the release if desired.</p>
 <h2 id="2-clone-the-repo">2. Clone the repo<a class="headerlink" href="#2-clone-the-repo" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/BrettKinny/dotty-stackchan.git

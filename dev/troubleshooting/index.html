@@ -1847,6 +1847,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#no-bootable-app-partitions-boot-loop-after-flashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "No bootable app partitions" boot loop after flashing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#robot-not-responding-after-ota-firmware-update" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2315,6 +2326,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#no-bootable-app-partitions-boot-loop-after-flashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "No bootable app partitions" boot loop after flashing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#robot-not-responding-after-ota-firmware-update" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2441,6 +2463,11 @@
 <li><strong>TTS chunk timing.</strong> If using EdgeTTS (cloud), network jitter between the server and Microsoft's edge servers can cause uneven audio delivery. Switching to Piper (local) eliminates this variable entirely.</li>
 <li><strong>Server CPU contention.</strong> If other containers are competing for CPU during the ASR or TTS stages, audio processing can stall. Check <code>docker stats</code> on the server.</li>
 </ul>
+<hr />
+<h2 id="no-bootable-app-partitions-boot-loop-after-flashing">"No bootable app partitions" boot loop after flashing<a class="headerlink" href="#no-bootable-app-partitions-boot-loop-after-flashing" title="Permanent link">&para;</a></h2>
+<p><strong>Symptom:</strong> After flashing the firmware the screen is frozen or black. A serial monitor shows the bootloader looping on <code>E boot: No bootable app partitions in the partition table</code>, or <code>Image length ... doesn't fit in partition length ...</code>.</p>
+<p><strong>Cause:</strong> The device was flashed without a partition table, so it kept the layout left by whatever firmware was on it before (the M5Burner StackChan demo, Home Assistant Voice, etc.). That layout doesn't match Dotty's images.</p>
+<p><strong>Fix:</strong> Re-flash with the <strong>full six-file command</strong> in <a href="../quickstart/#1-flash-the-firmware">Quickstart step 1</a>. It writes <code>bootloader.bin</code> at <code>0x0</code> and <code>partition-table.bin</code> at <code>0x8000</code> — with those in place the partition offsets line up. If your downloaded release is missing either file, grab the latest <code>fw-v</code> release, which ships all six binaries.</p>
 <hr />
 <h2 id="robot-not-responding-after-ota-firmware-update">Robot not responding after OTA / firmware update<a class="headerlink" href="#robot-not-responding-after-ota-firmware-update" title="Permanent link">&para;</a></h2>
 <p><strong>Symptom:</strong> The robot boots and connects to WiFi, but never responds to voice. May show a face but no indication of listening.</p>
