@@ -1455,10 +1455,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#bridgepy-dashboard-and-admin-8080" class="md-nav__link">
+  <a href="#bridgepy-dashboard-and-admin-8081" class="md-nav__link">
     <span class="md-ellipsis">
       
-        bridge.py — dashboard and admin (:8080)
+        bridge.py — dashboard and admin (:8081)
       
     </span>
   </a>
@@ -2693,10 +2693,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#bridgepy-dashboard-and-admin-8080" class="md-nav__link">
+  <a href="#bridgepy-dashboard-and-admin-8081" class="md-nav__link">
     <span class="md-ellipsis">
       
-        bridge.py — dashboard and admin (:8080)
+        bridge.py — dashboard and admin (:8081)
       
     </span>
   </a>
@@ -2746,7 +2746,7 @@
 <li><strong>Emotion channel</strong> — 21 upstream emotion identifiers; the server picks one from the LLM's leading emoji and emits a separate <code>llm</code>-type frame. This stack uses a 9-emoji subset.</li>
 <li><strong>MCP over WS</strong> — the device acts as an MCP server; xiaozhi-server calls <code>tools/list</code> and <code>tools/call</code> against it. Tool names use dotted namespaces like <code>self.audio_speaker.set_volume</code>.</li>
 <li><strong>pi RPC</strong> — <code>PiClient</code> ↔ the dotty-pi agent communicate as JSONL messages over the stdin/stdout of <code>docker exec -i dotty-pi pi --mode rpc</code>. This is the voice transport for the default <code>PiVoiceLLM</code> provider.</li>
-<li><strong>HTTP APIs</strong> — split across two services: dotty-behaviour (:8090) serves perception, vision, audio, and calendar endpoints; bridge.py (:8080) serves the admin dashboard <code>/ui</code> and admin routes.</li>
+<li><strong>HTTP APIs</strong> — split across two services: dotty-behaviour (:8090) serves perception, vision, audio, and calendar endpoints; bridge.py (:8081) serves the admin dashboard <code>/ui</code> and admin routes.</li>
 </ul>
 <h2 id="xiaozhi-websocket">Xiaozhi WebSocket<a class="headerlink" href="#xiaozhi-websocket" title="Permanent link">&para;</a></h2>
 <p><strong>Transport.</strong> TLS-optional WebSocket. Our deploy uses plain <code>ws://</code> on LAN. URL is given to the device via the OTA response on boot.</p>
@@ -3083,8 +3083,8 @@
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">}</span>
 </code></pre></div>
 <p>Response: <code>{"ok": true}</code>. dotty-behaviour broadcasts the event to all perception listeners and updates per-device state. See <a href="../architecture/#perception-event-bus">architecture.md</a> for the 9 ambient consumers.</p>
-<h3 id="bridgepy-dashboard-and-admin-8080">bridge.py — dashboard and admin (:8080)<a class="headerlink" href="#bridgepy-dashboard-and-admin-8080" title="Permanent link">&para;</a></h3>
-<p><code>bridge.py</code> is a FastAPI service (port 8080, same Docker host) that serves the admin dashboard. Its voice and perception relay roles were retired in issue #36 (2026-05-19); it survives as the dashboard service.</p>
+<h3 id="bridgepy-dashboard-and-admin-8081">bridge.py — dashboard and admin (:8081)<a class="headerlink" href="#bridgepy-dashboard-and-admin-8081" title="Permanent link">&para;</a></h3>
+<p><code>bridge.py</code> is a FastAPI service (port 8081, same Docker host) that serves the admin dashboard. Its voice and perception relay roles were retired in issue #36 (2026-05-19); it survives as the dashboard service.</p>
 <table>
 <thead>
 <tr>

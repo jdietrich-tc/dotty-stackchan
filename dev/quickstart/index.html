@@ -2419,8 +2419,9 @@ are brought up separately:</p>
 <li><strong>dotty-behaviour</strong> (perception bus + admin dashboard): see
   <a href="../dotty-behaviour/README.md">dotty-behaviour/README.md</a> for build and
   run instructions. The <code>scripts/deploy-behaviour.sh</code> helper deploys it.</li>
-<li><strong>bridge.py</strong> (admin dashboard service, <code>:8080</code>): runs as a container
-  on the same host; started via the compose file.</li>
+<li><strong>bridge.py</strong> (admin dashboard service, <code>:8081</code>): runs as a container
+  on the same host (<code>bridge/Dockerfile</code> + <code>bridge/docker-compose.yml</code>,
+  deployed via <code>scripts/deploy-bridge-unraid.sh</code>).</li>
 </ul>
 <p>No separate host, no systemd bridge unit, no SSH to a second machine.</p>
 <h2 id="6-connect-the-robot">6. Connect the robot<a class="headerlink" href="#6-connect-the-robot" title="Permanent link">&para;</a></h2>
@@ -2540,7 +2541,7 @@ latency is roughly 5 seconds, dominated by the LLM round-trip.</p>
 <tr>
 <td><code>bridge.py</code></td>
 <td>Admin dashboard</td>
-<td>8080</td>
+<td>8081</td>
 </tr>
 </tbody>
 </table>
@@ -2630,7 +2631,7 @@ latency is roughly 5 seconds, dominated by the LLM round-trip.</p>
 </tr>
 <tr>
 <td>Admin dashboard</td>
-<td><code>http://&lt;XIAOZHI_HOST&gt;:8080/ui</code></td>
+<td><code>http://&lt;XIAOZHI_HOST&gt;:8081/ui</code></td>
 <td>Humans (LAN-only HTMX UI)</td>
 </tr>
 <tr>
@@ -2662,7 +2663,7 @@ auto-restart on reboot).</p>
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>ssh<span class="w"> </span>&lt;XIAOZHI_USER&gt;@&lt;XIAOZHI_HOST&gt;<span class="w"> </span><span class="s1">&#39;cd &lt;XIAOZHI_PATH&gt; &amp;&amp; docker compose restart&#39;</span>
 <a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># Admin dashboard</span>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>open<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/ui
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>open<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8081/ui
 <a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
 <a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># Bridge health</span>
 <a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>curl<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/health
@@ -2679,7 +2680,7 @@ auto-restart on reboot).</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>make<span class="w"> </span>doctor<span class="w">          </span><span class="c1"># health checks</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>make<span class="w"> </span>logs<span class="w">            </span><span class="c1"># tail server logs</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>curl<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8080/health<span class="w">   </span><span class="c1"># test the bridge/dashboard</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>curl<span class="w"> </span>http://&lt;XIAOZHI_HOST&gt;:8081/health<span class="w">   </span><span class="c1"># test the bridge/dashboard</span>
 </code></pre></div>
 <p>See <a href="../troubleshooting/">troubleshooting.md</a> for common issues.</p>
 

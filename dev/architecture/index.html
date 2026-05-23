@@ -1033,10 +1033,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bridgepy-admin-docker-host-1270018080-only" class="md-nav__link">
+  <a href="#bridgepy-admin-docker-host-1270018081-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        bridge.py /admin/* (Docker host, 127.0.0.1:8080 only)
+        bridge.py /admin/* (Docker host, 127.0.0.1:8081 only)
       
     </span>
   </a>
@@ -2393,10 +2393,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bridgepy-admin-docker-host-1270018080-only" class="md-nav__link">
+  <a href="#bridgepy-admin-docker-host-1270018081-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        bridge.py /admin/* (Docker host, 127.0.0.1:8080 only)
+        bridge.py /admin/* (Docker host, 127.0.0.1:8081 only)
       
     </span>
   </a>
@@ -2511,7 +2511,7 @@
         end
         PI["dotty-pi&lt;br/&gt;(pi agent container)"]
         BH["dotty-behaviour&lt;br/&gt;FastAPI :8090"]
-        BR["bridge.py&lt;br/&gt;FastAPI :8080 (/ui dashboard)"]
+        BR["bridge.py&lt;br/&gt;FastAPI :8081 (/ui dashboard)"]
     end
 
     subgraph Llama["llama-swap (same host or LAN GPU host)"]
@@ -2576,8 +2576,8 @@
 <tr>
 <td><strong>bridge.py</strong></td>
 <td>Docker host</td>
-<td>Admin dashboard service (<code>/ui</code>, port 8080). Voice and perception roles were retired in #36; dashboard port to dotty-behaviour is pending.</td>
-<td>FastAPI container, port 8080</td>
+<td>Admin dashboard service (<code>/ui</code>, port 8081). Voice and perception roles were retired in #36; dashboard port to dotty-behaviour is pending.</td>
+<td>FastAPI container, port 8081</td>
 </tr>
 <tr>
 <td><strong>llama-swap</strong></td>
@@ -2667,7 +2667,7 @@
 - Its voice and perception routing tables were retired in #36; dashboard port to dotty-behaviour is pending</p>
 <h2 id="admin-surface-two-services-two-prefixes">Admin surface (two services, two prefixes)<a class="headerlink" href="#admin-surface-two-services-two-prefixes" title="Permanent link">&para;</a></h2>
 <p>Admin routes are split across two services and reached at different prefixes.</p>
-<h3 id="bridgepy-admin-docker-host-1270018080-only">bridge.py <code>/admin/*</code> (Docker host, <code>127.0.0.1:8080</code> only)<a class="headerlink" href="#bridgepy-admin-docker-host-1270018080-only" title="Permanent link">&para;</a></h3>
+<h3 id="bridgepy-admin-docker-host-1270018081-only">bridge.py <code>/admin/*</code> (Docker host, <code>127.0.0.1:8081</code> only)<a class="headerlink" href="#bridgepy-admin-docker-host-1270018081-only" title="Permanent link">&para;</a></h3>
 <p>Runtime mutations. Bound to localhost only — LAN callers get <code>403</code>. Note: the voice-path mutations (<code>smart-mode</code> daemon restart, <code>persona</code> workspace files) referenced pre-cutover ZeroClaw config; those endpoints exist but their ZeroClaw-specific side-effects are retired.</p>
 <table>
 <thead>
