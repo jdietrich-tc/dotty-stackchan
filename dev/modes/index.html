@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://brettkinny.github.io/dotty-stackchan/dev/modes/">
       
       
+        <link rel="prev" href="../wake-word/">
+      
+      
+        <link rel="next" href="../proactive-greetings/">
       
       
         
@@ -262,6 +266,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../quickstart/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Quickstart
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../architecture/" class="md-tabs__link">
         
   
@@ -346,6 +369,65 @@
     
   
   Voice Catalog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../wake-word/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Wake Word
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Modes
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../proactive-greetings/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Proactive Greetings
 
       </a>
     </li>
@@ -878,6 +960,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../architecture/" class="md-nav__link">
         
   
@@ -918,10 +1027,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -939,8 +1048,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1082,6 +1191,306 @@
     
   
     Voice Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wake-word/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wake Word
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TL;DR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#states-mutually-exclusive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        States (mutually exclusive)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="States (mutually exclusive)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutex-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutex rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wake-from-sleep-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wake-from-sleep edges
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toggles-compose-freely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toggles (compose freely)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#led-contract-12-pixel-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LED contract (12-pixel ring)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LED contract (12-pixel ring)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#led-quirks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LED quirks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-transitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State transitions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State transitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#voice-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voice triggers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcp-tools-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP tools (firmware)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backing-architecture-per-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backing architecture per state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources of truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proactive-greetings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proactive Greetings
   
 
     
@@ -1276,10 +1685,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
         
           
-          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
             
   
   
@@ -1297,8 +1706,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_14">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1448,6 +1857,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/llama-swap-concurrent-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concurrent Models (llama-swap)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1475,10 +1912,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
         
           
-          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
             
   
   
@@ -1496,8 +1933,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_15">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1562,10 +1999,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
         
           
-          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
             
   
   
@@ -1583,8 +2020,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_16">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2288,7 +2725,7 @@
 <li><strong>STATE</strong> — what Dotty is <em>doing right now</em>. Mutually exclusive — exactly one State is active. Six values: <code>idle</code>, <code>talk</code>, <code>story_time</code>, <code>security</code>, <code>sleep</code>, <code>dance</code>.</li>
 <li><strong>TOGGLES</strong> — orthogonal modifiers that can be on regardless of state. Two values today: <code>kid_mode</code>, <code>smart_mode</code>. Toggles compose freely with state.</li>
 </ul>
-<p>The firmware <strong>StateManager</strong> modifier (<code>firmware/main/stackchan/modes/state_manager.{h,cpp}</code>) owns both axes. It paints the state arc (left ring 0-5) + toggle pips at 5 Hz, drives the idle-motion profile, and emits <code>state_changed</code> perception events on every transition. The bridge-side perception bus consumes those events and runs six per-device consumer tasks against them (face greeter, sound turner, face-lost aborter, wake-word turner, face-identified refresher, purr player) — see <a href="../architecture/#perception-event-bus">architecture.md</a>.</p>
+<p>The firmware <strong>StateManager</strong> modifier (<code>firmware/main/stackchan/modes/state_manager.{h,cpp}</code>) owns both axes. It paints the state arc (left ring 0-5) + toggle pips at 5 Hz, drives the idle-motion profile, and emits <code>state_changed</code> perception events on every transition. The <strong>dotty-behaviour</strong> perception bus (<code>dotty-behaviour/perception/state.py</code>) consumes those events and runs 11 consumer classes (the running set is config-gated) against them (<code>FaceGreeter</code>, <code>SoundTurner</code>, <code>FaceLostAborter</code>, <code>WakeWordTurner</code>, <code>FaceIdentifiedRefresher</code>, <code>PurrPlayer</code>, <code>SceneSynthesis</code>, <code>IdlePhotographer</code>, <code>SleepDreamer</code>, <code>DanceReflector</code>, <code>SecurityCycle</code>) — see <a href="../architecture/#perception-event-bus">architecture.md</a>.</p>
 <blockquote>
 <p><strong>Submodule pin caveat.</strong> Phase 4 shipped to the active firmware fork (<code>BrettKinny/StackChan @ dotty</code>, commit <code>d78118b</code>) on <strong>2026-04-27</strong>. The <code>firmware/firmware/</code> submodule pin in this repo deliberately lags upstream — it's a release pointer, not the active development tree. A user who flashes from the submodule will get a pre-Phase-4 firmware. Bump the submodule (or build from the active fork) to get the StateManager. Visual / interactive bench checks tracked in <a href="https://github.com/BrettKinny/dotty-stackchan/issues/38">issue #38</a>.</p>
 </blockquote>
@@ -2327,7 +2764,7 @@
 </table>
 <p>The firmware boots into <code>idle</code> with both toggles <strong>off</strong>. The bridge resyncs toggles from disk on the first turn after each reconnect. State transitions land via voice phrases, camera edges (<code>face_detected</code> → <code>talk</code>), head-pet hold (sleep → idle), or <code>/xiaozhi/admin/set-state</code> from the dashboard.</p>
 <p><strong>Speech sub-states</strong> are conveyed by face animations (eye gestures, talking mouth) and the dedicated <strong>listening pixel</strong> at right-ring index 11. <code>thinking</code> and <code>speaking</code> have no LED — they live on the face. <code>listening</code> lights pixel 11 red so the user knows when their voice is being captured as a turn.</p>
-<p><strong>Smart-mode flip is in-process</strong> when <code>DOTTY_VOICE_PROVIDER=tier1slim</code>: the bridge calls <code>/xiaozhi/admin/set-tier1slim-model</code> to mutate the live Tier1Slim provider's model/url/api_key with no docker restart. For the default <code>PiVoiceLLM</code> path, smart-mode model-swap is v2 scope (see <code>docs/cutover-behaviour.md</code>).</p>
+<p><strong>Smart-mode is toggle-only today.</strong> It flips the pip and the behaviour gate, but does <strong>not</strong> swap the backing model — the model-swap path is v2 scope (see <code>docs/cutover-behaviour.md</code>). The previous in-process Tier1Slim hot-swap has been removed along with the Tier1Slim provider.</p>
 <hr />
 <h2 id="states-mutually-exclusive">States (mutually exclusive)<a class="headerlink" href="#states-mutually-exclusive" title="Permanent link">&para;</a></h2>
 <table>
@@ -2353,21 +2790,21 @@
 <td>dim green <code>(0,60,0)</code></td>
 <td>NORMAL (face_tracking overlay active)</td>
 <td>Conversation engaged. Listening pixel (right 11) lights red while the user has the turn; <code>thinking</code> and <code>speaking</code> are face-animation only.</td>
-<td>xiaozhi → PiVoiceLLM → dotty-pi (default), or xiaozhi → Tier1Slim → llama-swap (alternate)</td>
+<td>xiaozhi → PiVoiceLLM → dotty-pi</td>
 </tr>
 <tr>
 <td><code>story_time</code></td>
 <td>warm <code>(100,40,0)</code></td>
 <td>NORMAL</td>
-<td>Long-running interactive story. Bridge calls OpenRouter directly with story persona + rolling context, bypassing the standard LLM provider.</td>
-<td>bridge → direct OpenRouter (Phase 7 pending)</td>
+<td>Long-running interactive story.</td>
+<td>Phase 7 PENDING — backing path unimplemented</td>
 </tr>
 <tr>
 <td><code>security</code></td>
 <td>white <code>(80,80,80)</code> <strong>flashing 1 Hz</strong> across all 6 left pixels (<code>kSecurityFlashHalfMs = 500</code>)</td>
 <td>SURVEILLANCE</td>
 <td>Wide deliberate scan, serious face, periodic photo + audio capture. No proactive greet.</td>
-<td>bridge ambient task (Phase 6 partial)</td>
+<td>Phase 8 PENDING — <code>SecurityCycle</code> consumer is scaffolding, not a live path</td>
 </tr>
 <tr>
 <td><code>sleep</code></td>
@@ -2385,7 +2822,7 @@
 </tr>
 </tbody>
 </table>
-<p>The <code>idle → talk</code> trigger is the firmware <code>face_detected</code> event (any face, family or stranger) <strong>or</strong> <code>onVoiceListening</code> (the WS opens for a wake-word / inject-text / head-pet hold). The bridge runs VLM recognition (<code>bridge.py::_capture_room_view</code>) in parallel and feeds the resulting identity into the speaker resolver / persona — recognition does <strong>not</strong> gate the state transition.</p>
+<p>The <code>idle → talk</code> trigger is the firmware <code>face_detected</code> event (any face, family or stranger) <strong>or</strong> <code>onVoiceListening</code> (the WS opens for a wake-word / inject-text / head-pet hold). dotty-behaviour runs VLM recognition in parallel and feeds the resulting identity into the speaker resolver / persona — recognition does <strong>not</strong> gate the state transition.</p>
 <h3 id="mutex-rules">Mutex rules<a class="headerlink" href="#mutex-rules" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Exactly <strong>one</strong> state is current. <code>setState(S)</code> to the same state is a no-op.</li>
@@ -2420,7 +2857,7 @@
 <tr>
 <td><code>smart_mode</code></td>
 <td>orange <code>(168, 80, 0)</code> at index <strong>9</strong></td>
-<td>Voice-LLM model selector. ON → <code>SMART_MODEL</code> (<code>claude-sonnet-4-6</code> by default) via OpenRouter; OFF → local default. Flip is instantaneous when <code>DOTTY_VOICE_PROVIDER=tier1slim</code> (in-process hot-swap); v2 scope for <code>PiVoiceLLM</code>.</td>
+<td>Toggle-only today — flips the pip and behaviour gate. The model-swap it was designed to drive (ON → <code>SMART_MODEL</code> via OpenRouter; OFF → local default) is v2 scope and not wired on the <code>PiVoiceLLM</code> path.</td>
 <td><code>bridge</code> container state file</td>
 </tr>
 </tbody>
@@ -2567,7 +3004,7 @@
 <tr>
 <td><code>POST /admin/smart-mode</code></td>
 <td><code>{"enabled": bool, "device_id": "&lt;optional&gt;"}</code></td>
-<td>Persists + flips voice provider's model. When <code>DOTTY_VOICE_PROVIDER=tier1slim</code>: in-process hot-swap via <code>/xiaozhi/admin/set-tier1slim-model</code>. For <code>PiVoiceLLM</code>: model-swap is v2 scope. Also pushes the smart pip.</td>
+<td>Persists the toggle + pushes the smart pip. Model-swap is v2 scope (not wired on <code>PiVoiceLLM</code>).</td>
 <td>bridge (localhost-only)</td>
 </tr>
 <tr>
@@ -2637,21 +3074,21 @@
 </tr>
 <tr>
 <td><code>talk</code></td>
-<td>xiaozhi → PiVoiceLLM → dotty-pi (default), or xiaozhi → Tier1Slim → llama-swap (alternate). Smart-mode swaps the inner-loop model.</td>
+<td>xiaozhi → PiVoiceLLM → dotty-pi</td>
 <td>yes (FTS via <code>memory_lookup</code> / <code>remember</code> tools in dotty-pi-ext)</td>
 <td>yes (5-tool dotty-pi-ext catalogue)</td>
 </tr>
 <tr>
 <td><code>story_time</code></td>
-<td>xiaozhi → bridge → direct OpenRouter (story persona overlay + rolling context)</td>
-<td>per-session list (Phase 7)</td>
-<td>no</td>
+<td>Phase 7 PENDING — backing path unimplemented</td>
+<td>n/a (pending)</td>
+<td>n/a (pending)</td>
 </tr>
 <tr>
 <td><code>security</code></td>
-<td>bridge ambient task (no voice path active)</td>
-<td>logs to journal</td>
-<td>photo + audio capture</td>
+<td>Phase 8 PENDING — <code>SecurityCycle</code> consumer is scaffolding, no live path</td>
+<td>n/a (pending)</td>
+<td>n/a (pending)</td>
 </tr>
 <tr>
 <td><code>sleep</code></td>
@@ -2667,7 +3104,7 @@
 </tr>
 </tbody>
 </table>
-<p><code>smart_mode</code> flips the inner-loop model and is sticky across turns. With <code>DOTTY_VOICE_PROVIDER=tier1slim</code> the flip is instantaneous — Tier1Slim's <code>set_runtime()</code> mutates the live provider; no docker restart. For the default <code>PiVoiceLLM</code> path, smart-mode model-swap is v2 scope. <code>story_time</code> is the only voice path with its own session memory (Phase 7).</p>
+<p><code>smart_mode</code> is a toggle only and sticky across turns; the backing model-swap it was designed to drive is v2 scope and not wired on the <code>PiVoiceLLM</code> path. <code>story_time</code> (when implemented) would be the only voice path with its own session memory (Phase 7 pending).</p>
 <hr />
 <h2 id="implementation-status">Implementation status<a class="headerlink" href="#implementation-status" title="Permanent link">&para;</a></h2>
 <table>
@@ -2691,28 +3128,29 @@
 </tr>
 <tr>
 <td>6</td>
-<td>Security state behaviour (periodic photo + audio capture, greeter gate)</td>
-<td>✅ shipped; bench checks: <a href="https://github.com/BrettKinny/dotty-stackchan/issues/40">#40</a>.</td>
+<td>Security state firmware behaviour (LED flash + surveillance idle profile)</td>
+<td>✅ firmware rails shipped; the backing capture path is <strong>Phase 8 PENDING</strong> (see below). Bench checks: <a href="https://github.com/BrettKinny/dotty-stackchan/issues/40">#40</a>.</td>
 </tr>
 <tr>
 <td>7</td>
-<td>Story_time state (interactive setup, OpenRouter session, choose-your-own-adventure)</td>
-<td>pending: <a href="https://github.com/BrettKinny/dotty-stackchan/issues/26">#26</a>.</td>
+<td>Story_time backing path (interactive setup, LLM session, choose-your-own-adventure)</td>
+<td><strong>PENDING / unimplemented</strong>: <a href="https://github.com/BrettKinny/dotty-stackchan/issues/26">#26</a>.</td>
 </tr>
 <tr>
 <td>8</td>
-<td>Ambient awareness loop (idle-state photo + audio scene capture, journal)</td>
-<td>partial — bridge runs <code>_perception_*</code> consumers; firmware state binding pending. Tracked alongside #26.</td>
+<td>Security backing path / ambient awareness loop (periodic photo + audio scene capture, journal)</td>
+<td><strong>PENDING</strong> — the <code>SecurityCycle</code> consumer in <code>dotty-behaviour/consumers/</code> is scaffolding, not a live path; firmware state binding pending. Tracked alongside #26.</td>
 </tr>
 </tbody>
 </table>
-<p>Phase 4 established the <em>rails</em> — pip, transition events, dispatch helpers, voice routing. Phases 5–6 hang behaviour off those rails and have already shipped to the active firmware fork. Phases 7–8 are the next firmware deliverables.</p>
+<p>Phase 4 established the <em>rails</em> — pip, transition events, dispatch helpers, voice routing. Phase 5 hangs sleep behaviour off those rails and has shipped. The <code>story_time</code> and <code>security</code> <strong>backing paths</strong> (Phases 7–8) are both unimplemented; the <code>SecurityCycle</code> consumer exists only as scaffolding.</p>
 <hr />
 <h2 id="sources-of-truth">Sources of truth<a class="headerlink" href="#sources-of-truth" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Firmware (active fork <code>BrettKinny/StackChan @ dotty</code>):</strong> <code>firmware/main/stackchan/modes/state_manager.{h,cpp}</code>, <code>firmware/main/stackchan/modifiers/face_tracking.cpp</code> (camera-edge hooks), <code>firmware/main/hal/hal_mcp.cpp</code> (set_state / set_toggle MCP). <strong>This repo's submodule pin lags</strong> — bump it (or maintain a parallel checkout per the <a href="../firmware"><code>firmware/</code></a> README) to flash a build that includes Phase 4+.</li>
-<li><strong>Bridge:</strong> <code>bridge.py</code> (<code>_dispatch_set_state</code>, <code>_dispatch_set_toggle</code>, <code>_admin_state</code>, <code>_admin_smart_mode</code>, <code>_admin_kid_mode</code>, <code>_apply_model_swap</code>, <code>_apply_tier1slim_runtime</code>, <code>_update_perception_state</code> for <code>state_changed</code>, all <code>_perception_*</code> consumers), <code>receiveAudioHandle.py</code> (voice state phrases + per-conn toggle sync)</li>
-<li><strong>xiaozhi-server patches:</strong> <code>custom-providers/xiaozhi-patches/http_server.py</code> (<code>/xiaozhi/admin/set-state</code>, <code>/xiaozhi/admin/set-toggle</code>, <code>/xiaozhi/admin/set-tier1slim-model</code>, <code>/xiaozhi/admin/set-face-identified</code>, <code>/xiaozhi/admin/inject-text</code>, <code>/xiaozhi/admin/abort</code>, <code>/xiaozhi/admin/set-head-angles</code>), <code>custom-providers/xiaozhi-patches/textMessageHandlerRegistry.py</code> (<code>state_changed</code> → <code>conn.current_state</code>, perception relay to bridge)</li>
+<li><strong>Perception + ambient behaviour:</strong> <code>dotty-behaviour/perception/state.py</code> (the perception event bus + per-device <code>current_state</code> from <code>state_changed</code>) and <code>dotty-behaviour/consumers/</code> (the 11 consumer classes — the running set is config-gated: <code>FaceGreeter</code>, <code>SoundTurner</code>, <code>FaceLostAborter</code>, <code>WakeWordTurner</code>, <code>FaceIdentifiedRefresher</code>, <code>PurrPlayer</code>, <code>SceneSynthesis</code>, <code>IdlePhotographer</code>, <code>SleepDreamer</code>, <code>DanceReflector</code>, <code>SecurityCycle</code>). The old <code>bridge.py</code> <code>_perception_*</code> / <code>_update_perception_state</code> / <code>_capture_room_view</code> methods are retired.</li>
+<li><strong>Bridge:</strong> <code>bridge.py</code> (admin dashboard + the <code>/admin/kid-mode</code> and <code>/admin/smart-mode</code> toggle relays), <code>receiveAudioHandle.py</code> (voice state phrases + per-conn toggle sync). The voice-path model-swap helpers (<code>_apply_model_swap</code>, <code>_apply_tier1slim_runtime</code>) are retired along with the Tier1Slim provider; smart-mode model-swap is v2 scope.</li>
+<li><strong>xiaozhi-server patches:</strong> <code>custom-providers/xiaozhi-patches/http_server.py</code> (<code>/xiaozhi/admin/set-state</code>, <code>/xiaozhi/admin/set-toggle</code>, <code>/xiaozhi/admin/set-face-identified</code>, <code>/xiaozhi/admin/inject-text</code>, <code>/xiaozhi/admin/abort</code>, <code>/xiaozhi/admin/set-head-angles</code>), <code>custom-providers/xiaozhi-patches/textMessageHandlerRegistry.py</code> (<code>state_changed</code> → <code>conn.current_state</code>, perception relay to dotty-behaviour)</li>
 <li><strong>Dashboard:</strong> <code>bridge/dashboard.py</code> + <code>bridge/templates/state_card.html</code> + <code>bridge/templates/smart_mode.html</code> + <code>bridge/templates/led_ring_mirror.html</code></li>
 </ul>
 <p>Last verified: 2026-05-17.</p>

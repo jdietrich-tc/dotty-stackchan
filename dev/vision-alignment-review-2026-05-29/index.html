@@ -1,0 +1,3191 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Whole-repo vision and alignment snapshot reconciling README, CLAUDE.md, docs, ROADMAP, CHANGELOG, all four service trees, firmware, scripts, and tests after the post-#36 /">
+      
+      
+      
+        <link rel="canonical" href="https://brettkinny.github.io/dotty-stackchan/dev/vision-alignment-review-2026-05-29/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/dotty-hero.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Vision & Alignment Review (2026-05-29) - Dotty</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dotty-whole-repo-vision-alignment-review" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Dotty" class="md-header__button md-logo" aria-label="Dotty" data-md-component="logo">
+      
+  <img src="../assets/dotty-hero.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dotty
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Vision & Alignment Review (2026-05-29)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/BrettKinny/dotty-stackchan" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    BrettKinny/dotty-stackchan
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../SETUP/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quickstart/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Quickstart
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../hardware/" class="md-tabs__link">
+          
+  
+  
+  Hardware
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../voice-pipeline/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Voice Pipeline
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../voice-mode-entry/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Voice Mode Entry
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../voice-catalog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Voice Catalog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../wake-word/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Wake Word
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../modes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Modes
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../proactive-greetings/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Proactive Greetings
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../brain/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Brain
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../protocols/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Protocols
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../ota-verification/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  OTA Verification
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../kid-mode/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Kid Mode
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../llm-backends/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  LLM Backends
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../observability/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Observability
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cookbook/change-persona/" class="md-tabs__link">
+          
+  
+  
+  Cookbook
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../advanced/variant-port-guide/" class="md-tabs__link">
+          
+  
+  
+  Advanced
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../emoji-mapping/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../ROADMAP/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../CONTRIBUTING/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../style/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Style Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../SECURITY/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Security
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../COMPATIBILITY/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Compatibility
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../sbom/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  SBOM
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../signed-releases/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Signed Releases
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../reproducible-builds/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Reproducible Builds
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../versioning/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Versioning
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../CHANGELOG/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Dotty" class="md-nav__button md-logo" aria-label="Dotty" data-md-component="logo">
+      
+  <img src="../assets/dotty-hero.svg" alt="logo">
+
+    </a>
+    Dotty
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/BrettKinny/dotty-stackchan" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    BrettKinny/dotty-stackchan
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SETUP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../voice-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voice Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../voice-mode-entry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voice Mode Entry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../voice-catalog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voice Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wake-word/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wake Word
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proactive-greetings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proactive Greetings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Brain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ota-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OTA Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kid-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kid Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cookbook
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cookbook
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/change-persona/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change Persona
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/swap-voice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Swap Voice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/run-fully-local/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Fully Local
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/add-emoji/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add Emoji
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/disable-kid-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disable Kid Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/llama-swap-concurrent-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concurrent Models (llama-swap)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/variant-port-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variant port guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../emoji-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Emoji Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interaction-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interaction Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../latent-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent Capabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ROADMAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../style/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Style Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../COMPATIBILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sbom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SBOM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signed-releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signed Releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reproducible-builds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-decisions-locked-2026-05-29-brett" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Decisions Locked (2026-05-29, Brett)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-canonical-vision-ground-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Canonical Vision (Ground Truth)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Canonical Vision (Ground Truth)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-one-sentence-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 One-sentence vision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-canonical-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Canonical architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-known-good-invariants-treat-as-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Known-good invariants (treat as spec)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-retired-as-of-36-2026-05-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Retired as of #36 (2026-05-19)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-vision-ambiguities-to-resolve-brett-decides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Vision Ambiguities to Resolve (Brett decides)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-findings-by-severity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Findings by Severity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Findings by Severity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HIGH
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HIGH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#h1-make-doctorstatusauditsetup-treat-the-retired-zeroclaw-rpi-bridge-8080-as-a-live-service-and-probe-the-wrong-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H1. make doctor/status/audit/setup treat the retired ZeroClaw RPi bridge (:8080) as a live service — and probe the wrong host
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#h2-kidsmart-mode-state-file-contract-is-broken-across-the-xiaozhi-and-bridge-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H2. Kid/smart-mode state-file contract is broken across the xiaozhi and bridge containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#h3-brain-tool-count-contract-disagrees-everywhere-code-registers-7-all-docs-say-5-and-one-readme-invents-a-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H3. Brain tool-count contract disagrees everywhere — code registers 7, all docs say 5, and one README invents a tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MEDIUM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MEDIUM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#m1-bridge-dashboard-documented-at-8080-across-multiple-active-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M1. Bridge dashboard documented at :8080 across multiple active docs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m2-docsmodesmd-the-authoritative-behaviour-doc-routes-voiceperception-through-retired-bridgepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M2. docs/modes.md (the authoritative behaviour doc) routes voice/perception through retired bridge.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m3-retired-_ensure_emoji_prefixsandwich-machinery-documented-as-the-live-enforcement-mechanism-multi-doc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3. Retired _ensure_emoji_prefix/sandwich machinery documented as the live enforcement mechanism (multi-doc)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m4-tier1slim-is-live-selectable-but-its-escalationmemory-calls-and-docstring-describe-the-retired-zeroclaw-bridge-at-8080" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M4. Tier1Slim is live-selectable but its escalation/memory calls and docstring describe the retired ZeroClaw bridge at :8080
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m5-teststest_tier1_slimpy-asserts-the-zeroclaw-escalation-handshake-as-a-live-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M5. tests/test_tier1_slim.py asserts the ZeroClaw escalation handshake as a live contract
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m6-dashboard-self-restartupdatereboot-actions-invoke-the-retired-zeroclaw-bridge-systemd-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M6. Dashboard self-restart/update/reboot actions invoke the retired zeroclaw-bridge systemd unit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m7-dashboard-self-update-git-pulls-into-the-retired-rpi-install-dir-rootzeroclaw-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M7. Dashboard self-update git-pulls into the retired RPi install dir /root/zeroclaw-bridge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m8-dotty-pi-ext-readme-turn_loggerts-describe-the-36-cutover-as-still-pending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M8. dotty-pi-ext README + turn_logger.ts describe the #36 cutover as still pending
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m9-dotty-behaviour-readme-app-description-claim-it-hosts-the-admin-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M9. dotty-behaviour README + app description claim it hosts the admin dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m10-dotty-pireadmemd-lists-set_led-and-omits-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M10. dotty-pi/README.md lists set_led and omits remember
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m11-docsbrainmd-states-smart-mode-model-swap-as-live-on-the-default-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M11. docs/brain.md states smart-mode model-swap as live on the default path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m12-docsvoice-mode-entrymd-attributes-face-greeter-to-bridgepy-and-references-a-removed-discord-daemon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M12. docs/voice-mode-entry.md attributes face-greeter to bridge.py and references a removed Discord daemon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m13-mkdocsyml-nav-omits-modesmd-the-authoritative-doc-and-7-others" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M13. mkdocs.yml nav omits modes.md (the authoritative doc) and 7 others
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m14-bridgepy-admin-localhost-only-gate-has-no-test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M14. bridge.py /admin/* localhost-only gate has no test coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LOW
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cross-cutting-inconsistencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cross-Cutting Inconsistencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-recommended-remediation-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Recommended Remediation Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="dotty-whole-repo-vision-alignment-review">Dotty — Whole-Repo Vision &amp; Alignment Review<a class="headerlink" href="#dotty-whole-repo-vision-alignment-review" title="Permanent link">&para;</a></h1>
+<p><em>Snapshot: 2026-05-29 · Branch <code>main</code> · Reconciles <code>README.md</code>, <code>CLAUDE.md</code>, <code>docs/*</code>, <code>ROADMAP.md</code>, <code>CHANGELOG.md</code>, all four service trees, firmware, scripts, and tests.</em></p>
+<hr />
+<h2 id="0-decisions-locked-2026-05-29-brett">0. Decisions Locked (2026-05-29, Brett)<a class="headerlink" href="#0-decisions-locked-2026-05-29-brett" title="Permanent link">&para;</a></h2>
+<p>The six vision ambiguities from §3 were resolved by the maintainer. These now <strong>override</strong> the open-question framing below — §3 is kept for the rationale, but the answers are authoritative:</p>
+<ul>
+<li><strong>A. story_time + security backing paths → both still PENDING (Phase 7/8).</strong> <code>SecurityCycle</code> exists in <code>dotty-behaviour</code> but is treated as <em>scaffolding, not a live path</em>. Docs must mark both story_time and security as unimplemented; the dashboard's security ring reads scaffolding (L10) and should say so.</li>
+<li><strong>B. Canonical consumer count → 11 classes, runtime config-gated.</strong> State "11 consumer classes" with the running set noted as env-gated; enumerate by class name everywhere a count appears.</li>
+<li><strong>C. Kid-safety gap → content filter only.</strong> The <code>build_turn_suffix(kid_mode)</code> sandwich <em>ships</em> on the live PiVoiceLLM path; the gap (#22) is specifically the absent blocked-words <strong>content filter</strong> (exists in no live code). Restate all kid-safety docs accordingly.</li>
+<li><strong>D. Cloud egress → vision/VLM path, swappable.</strong> The only LAN egress today is the vision/VLM call via <code>dotty-behaviour</code> (default <code>openrouter.ai</code>, repointable to a local VLM). The text LLM is fully local; smart-mode LLM model-swap is v2/unwired. State the self-host invariant this way.</li>
+<li><strong>E. Tier1Slim → REMOVE ENTIRELY.</strong> Delete the provider, its tests, and its docs. The vision's "two alternate fallback providers" framing collapses to: PiVoiceLLM (default) + OpenAICompat (alternate). Affects M4, M5, L5, and <code>docs/tier1slim.md</code>.</li>
+<li><strong>F. Dashboard self-update/restart/reboot actions → REMOVE.</strong> Drop the <code>update_bridge</code>/<code>restart_bridge</code>/<code>reboot_all</code> handlers and their UI buttons (M6, M7); rely on <code>restart: unless-stopped</code> + <code>deploy-bridge-unraid.sh</code>.</li>
+</ul>
+<hr />
+<h2 id="1-canonical-vision-ground-truth">1. Canonical Vision (Ground Truth)<a class="headerlink" href="#1-canonical-vision-ground-truth" title="Permanent link">&para;</a></h2>
+<h3 id="11-one-sentence-vision">1.1 One-sentence vision<a class="headerlink" href="#11-one-sentence-vision" title="Permanent link">&para;</a></h3>
+<p>Dotty is a fully self-hosted, kid-safe-by-default voice assistant for the M5Stack <strong>StackChan</strong> desktop robot, where every seam (ASR, TTS, LLM, agent, firmware) is swappable and nothing leaves the LAN except an explicitly-routed, replaceable LLM/VLM call.</p>
+<h3 id="12-canonical-architecture">1.2 Canonical architecture<a class="headerlink" href="#12-canonical-architecture" title="Permanent link">&para;</a></h3>
+<p><strong>Two hosts:</strong> the <strong>robot</strong> (StackChan, ESP32-S3, LAN WiFi only) and a <strong>single Docker host</strong> (<code>&lt;XIAOZHI_HOST&gt;</code>) running all four server-side containers.</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Role / owns</th>
+<th>Authoritative port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>xiaozhi-esp32-server</strong></td>
+<td>Voice I/O pipeline: VAD → ASR (FunASR SenseVoiceSmall / WhisperLocal) → LLM provider → TTS (LocalPiper default; EdgeTTS alternate). Emotion dispatch, OTA, the <code>/xiaozhi/admin/*</code> live-session control surface, the perception event relay.</td>
+<td><strong>8000</strong> (WS), <strong>8003</strong> (OTA/HTTP)</td>
+</tr>
+<tr>
+<td><strong>dotty-pi</strong></td>
+<td>The brain. A <code>pi</code> coding agent + <code>dotty-pi-ext</code> extension; owns the agent loop and tool dispatch. Reached only via <code>docker exec -i dotty-pi pi --mode rpc</code> (JSONL over stdio).</td>
+<td>(no host port; stdio exec)</td>
+</tr>
+<tr>
+<td><strong>dotty-behaviour</strong></td>
+<td>Perception event bus, ambient consumers, vision/audio <strong>data</strong> endpoints, proactive greeter, calendar context. Successor to the bridge's perception role. <strong>Serves dashboard data; does not host the dashboard UI.</strong></td>
+<td><strong>8090</strong></td>
+</tr>
+<tr>
+<td><strong>bridge.py</strong></td>
+<td>Admin <strong>dashboard only</strong> (FastAPI, <code>/ui</code>). Localhost-only <code>/admin/*</code> mutation routes.</td>
+<td><strong>8081</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Voice path (default <code>PiVoiceLLM</code>, selected via <code>selected_module.LLM</code> in <code>data/.config.yaml</code>):</strong>
+robot → (Opus/WS) → xiaozhi-server (VAD/ASR → text) → <code>PiVoiceLLM</code> → <code>docker exec</code> into <strong>dotty-pi</strong> → pi outer loop on <code>qwen3.5:4b</code> (<code>--thinking off</code>), <code>think_hard</code> escalates to <code>qwen3.6:27b-think</code> → TTS-bound text streams back → xiaozhi-server strips the leading emoji into an emotion frame, runs TTS → audio + face to robot. <strong>PiVoiceLLM enforces the kid-safety sandwich</strong> via <code>_wrap_with_sandwich()</code> → <code>build_turn_suffix(kid_mode)</code> (<code>pi_voice.py:94-132</code>).</p>
+<p><strong>Voice tools live in <code>dotty-pi-ext</code> (<code>src/index.ts:21-27</code>), and there are SEVEN registered:</strong> <code>memory_lookup</code>, <code>remember</code>, <code>recall_person</code>, <code>remember_person</code>, <code>think_hard</code>, <code>take_photo</code>, <code>play_song</code>. (<code>recall_person</code>/<code>remember_person</code> were added in #53; the historical "five voice tools" framing predates them. There is no <code>set_led</code> tool — LED control is firmware-owned by design.)</p>
+<p><strong>Perception path:</strong> firmware emits JSON <code>event</code> frames (<code>face_detected</code>, <code>face_lost</code>, <code>sound_event</code>, <code>state_changed</code>, <code>head_pet_started</code>/<code>head_pet_ended</code>, <code>chat_status</code>, <code>dance_started</code>/<code>dance_ended</code>). xiaozhi-server's <code>EventTextMessageHandler</code> (<code>custom-providers/xiaozhi-patches/textMessageHandlerRegistry.py</code>) POSTs each to <strong>dotty-behaviour</strong> <code>/api/perception/event</code>. dotty-behaviour runs <strong>11 consumer classes</strong> (<code>dotty-behaviour/consumers/</code>): <code>face_greeter</code>, <code>sound_turner</code>, <code>face_lost_aborter</code>, <code>wake_word_turner</code>, <code>face_identified_refresher</code>, <code>purr_player</code>, <code>scene_synthesis</code>, <code>idle_photographer</code>, <code>sleep_dreamer</code>, <code>dance_reflector</code>, <code>security_cycle</code> (count is env-gated at runtime; the <em>class</em> count is the canonical figure). The #115 series rewired the <strong>dashboard</strong> to pull perception/vision/audio cards from dotty-behaviour.</p>
+<p><strong>WS lifecycle invariant:</strong> xiaozhi only opens the WS during a conversation. Idle perception producers must call <code>OpenAudioChannel()</code> first (done in firmware <code>Application::SendEvent</code>) or events silently drop.</p>
+<h3 id="13-known-good-invariants-treat-as-spec">1.3 Known-good invariants (treat as spec)<a class="headerlink" href="#13-known-good-invariants-treat-as-spec" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Emoji-prefix requirement</strong> — every LLM response starts with one of 9 mapped emojis (😊😆😢😮🤔😠😐😍😴). On the live PiVoiceLLM path there is <strong>no code fallback</strong>; the persona prompt + xiaozhi <code>prompt:</code> block are load-bearing. (The old <code>_ensure_emoji_prefix</code> fallback was ZeroClaw-only and is gone.)</li>
+<li><strong>Six-state mutex, firmware-owned</strong> — exactly one of <code>idle / talk / story_time / security / sleep / dance</code> (<code>state_manager.{h,cpp}</code>).</li>
+<li><strong>Two orthogonal toggles</strong> — <code>kid_mode</code>, <code>smart_mode</code>; dashboard/admin-only, sticky across turns/reboots.</li>
+<li><strong>12-pixel LED contract</strong> — left ring 0–5 state arc; right ring 6/8/9/11 indicators, 7/10 reserved; 5 Hz re-assert. <code>docs/modes.md</code> is authoritative.</li>
+<li><strong>Self-host invariant</strong> — only explicitly-routed cloud LLM/VLM/audio-caption calls (OpenRouter when smart_mode/vision active) and EdgeTTS-if-selected leave the LAN.</li>
+<li><strong><code>/admin/*</code> mutation endpoints are <code>127.0.0.1</code>-only</strong> on bridge.py (<code>_admin_require_localhost</code>, <code>bridge.py:864-896</code>).</li>
+<li><strong>The brain seam is a custom xiaozhi LLM provider</strong> (<code>custom-providers/pi_voice/</code>), so the brain is swappable without touching xiaozhi.</li>
+<li><strong><code>:8080</code> is the llama-swap endpoint, never the dashboard</strong> — the dashboard is <code>:8081</code> everywhere.</li>
+</ol>
+<h3 id="14-retired-as-of-36-2026-05-19">1.4 Retired as of #36 (2026-05-19)<a class="headerlink" href="#14-retired-as-of-36-2026-05-19" title="Permanent link">&para;</a></h3>
+<p>ZeroClaw (Rust brain) + its FastAPI bridge on the RPi; the ACP protocol; the <code>ZeroClawLLM</code> provider (<code>custom-providers/zeroclaw/</code> removed); <code>docs/multi-daemon-split.md</code>, <code>docs/advanced/multi-host.md</code>; the <code>_ensure_emoji_prefix</code> bridge fallback; the <code>zeroclaw-bridge</code> systemd unit; the RPi host. References to these are <strong>legitimate only</strong> in <code>CHANGELOG.md</code> history and <code>docs/cutover-behaviour.md</code>. Anywhere else they are stale and should be flagged.</p>
+<hr />
+<h2 id="2-executive-summary">2. Executive Summary<a class="headerlink" href="#2-executive-summary" title="Permanent link">&para;</a></h2>
+<p><strong>Overall alignment health: GOOD with a long tail of post-#36 doc/code rot.</strong> The production architecture (four containers, PiVoiceLLM voice path, dotty-behaviour perception) is coherent and the code largely matches the vision. The defects are concentrated in two patterns: (1) <strong>retired-ZeroClaw references</strong> that survived the #36 cutover in live code, scripts, tests, and docs; (2) <strong>the <code>:8080</code> vs <code>:8081</code> dashboard-port slip</strong> propagated corpus-wide. There are <strong>no critical (production-breaking) defects on the live voice or perception path</strong> — the highest-impact issues are in operator tooling (<code>make doctor</code>/<code>status</code>/<code>audit</code>), cross-container state-file wiring, and an authoritative doc (<code>modes.md</code>) being stale.</p>
+<p><strong>Issue counts (post-verification, adjusted severities; duplicates merged):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Critical</td>
+<td>0</td>
+</tr>
+<tr>
+<td>High</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Medium</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Low</td>
+<td>22</td>
+</tr>
+</tbody>
+</table>
+<p>All findings below are <strong>confirmed</strong> against the working tree.</p>
+<hr />
+<h2 id="3-vision-ambiguities-to-resolve-brett-decides">3. Vision Ambiguities to Resolve (Brett decides)<a class="headerlink" href="#3-vision-ambiguities-to-resolve-brett-decides" title="Permanent link">&para;</a></h2>
+<p>These are genuine product/architecture decisions the audit cannot make. Each is framed as a concrete choice.</p>
+<p><strong>A. Story_time &amp; security backing-path liveness.</strong>
+<code>docs/modes.md:176-179</code> routes <code>story_time</code> through <code>bridge → direct OpenRouter</code> and <code>security</code> through a "bridge ambient task" — but #36 retired bridge.py's voice/perception roles, and <code>bridge/security_watch.py</code> is dead code (never started). <strong>Decide:</strong> (a) these moved to dotty-behaviour (then <code>modes.md</code> is stale and <code>security_cycle.py</code> is the live path), or (b) they are genuinely unimplemented (Phase 7/8 pending, #26). The security panel's empty-cycles behaviour and the <code>modes.md</code> source-of-truth table both hinge on this.</p>
+<p><strong>B. Canonical ambient-consumer count.</strong>
+Code registers <strong>11 consumer classes</strong> (<code>dotty-behaviour/consumers/</code>); docs variously say "9" (architecture.md, protocols.md, dotty-behaviour/README.md) or "six" (modes.md, ROADMAP.md), and no enumeration matches reality. <strong>Decide:</strong> adopt <strong>11</strong> as canonical (or state "up to N, config-gated" with the full class list), then propagate. The vision §1.2 above now uses 11.</p>
+<p><strong>C. Does "kid-safety not on the live path" still hold?</strong>
+The vision's stub note says PiVoiceLLM has "no equivalent enforcement layer," but <code>pi_voice.py:94-132</code> <em>does</em> apply the <code>build_turn_suffix(kid_mode)</code> sandwich. <strong>Decide:</strong> is the #22 gap the <em>content filter</em> (blocked-words regex, genuinely absent) and not the sandwich (present)? If so, restate the gap precisely so the stub status stops contradicting shipped code.</p>
+<p><strong>D. Does any OpenRouter egress occur on the live PiVoiceLLM path today?</strong>
+Invariant §1.3.5 names OpenRouter as cloud egress for smart_mode/vision, but smart-mode model-swap is unimplemented on the default path (v2 scope). <strong>Decide:</strong> confirm whether OpenRouter is reached at all on PiVoiceLLM today (e.g. only via vision-explain?), or only on the retired ZeroClaw/Tier1Slim paths — so the self-host invariant is stated accurately.</p>
+<p><strong>E. Tier1Slim escalation — revive or retire?</strong>
+Tier1Slim still POSTs to the dead <code>/api/voice/escalate</code> (<code>:8080</code>). <strong>Decide:</strong> mark it permanently chitchat-only (then fix docstring + tests to say so), or re-point escalation at a live endpoint.</p>
+<p><strong>F. In-app dashboard self-update — keep or drop?</strong>
+The <code>/ui</code> Update/Restart/Reboot-All actions assume the RPi/systemd model. <strong>Decide:</strong> drop them on the container deploy, or reimplement via <code>docker</code>/compose.</p>
+<hr />
+<h2 id="4-findings-by-severity">4. Findings by Severity<a class="headerlink" href="#4-findings-by-severity" title="Permanent link">&para;</a></h2>
+<h3 id="high">HIGH<a class="headerlink" href="#high" title="Permanent link">&para;</a></h3>
+<h4 id="h1-make-doctorstatusauditsetup-treat-the-retired-zeroclaw-rpi-bridge-8080-as-a-live-service-and-probe-the-wrong-host">H1. <code>make doctor</code>/<code>status</code>/<code>audit</code>/<code>setup</code> treat the retired ZeroClaw RPi bridge (<code>:8080</code>) as a live service — and probe the wrong host<a class="headerlink" href="#h1-make-doctorstatusauditsetup-treat-the-retired-zeroclaw-rpi-bridge-8080-as-a-live-service-and-probe-the-wrong-host" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>Makefile:122-124, 340, 352-362, 406-428, 527-534</code>; <code>scripts/dotty_doctor.py:4-5, 94-97, 174-183</code></li>
+<li><strong>What's wrong:</strong> <code>setup</code> prompts for <code>ZEROCLAW_HOST</code>/<code>ZEROCLAW_USER</code> (default <code>dietpi</code>); <code>doctor</code>/<code>status</code> extract a host via <code>grep -oP 'url: http://\K[0-9.]+'</code> and curl <code>http://$ZEROCLAW_HOST:8080/health</code> labelled "Bridge health"; <code>audit</code> SSHes <code>dietpi@$ZEROCLAW_HOST</code>. Post-#36 the only <code>url: http://</code> block in the rendered config is the <strong>llama-swap</strong> Tier1Slim endpoint — so the regex extracts the llama-swap IP and the "Bridge health" check actually probes llama-swap. No Makefile reference points at <code>:8081</code> or <code>:8090</code>.</li>
+<li><strong>Why it matters:</strong> This is live operator tooling. <code>make doctor</code>/<code>status</code> report a misleading PASS/FAIL against an unrelated service; <code>make setup</code> forces users to enter a nonexistent host; <code>make audit</code> SSHes a powered-off RPi. The exact <code>:8080</code> conflation the vision warns about, now actively mis-probing.</li>
+<li><strong>Fix (code):</strong> Drop the ZeroClaw prompts/extraction. Health-check <code>http://&lt;XIAOZHI_HOST&gt;:8081/health</code> (bridge) and add <code>http://&lt;XIAOZHI_HOST&gt;:8090/health</code> (dotty-behaviour). Apply the identical fix to <code>scripts/dotty_doctor.py</code> (the finding's "mirror the Makefile fix" wording is inaccurate — both files share the bug; neither is fixed yet).</li>
+</ul>
+<h4 id="h2-kidsmart-mode-state-file-contract-is-broken-across-the-xiaozhi-and-bridge-containers">H2. Kid/smart-mode state-file contract is broken across the xiaozhi and bridge containers<a class="headerlink" href="#h2-kidsmart-mode-state-file-contract-is-broken-across-the-xiaozhi-and-bridge-containers" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>receiveAudioHandle.py:27-32</code>; <code>bridge/dashboard.py:1434</code>; <code>docker-compose.yml.template:30, 61</code>; <code>compose.all-in-one.yml</code>; <code>bridge/docker-compose.yml:51-52, 62-63</code></li>
+<li><strong>What's wrong:</strong> Inside the xiaozhi container, <code>receiveAudioHandle.py</code> <em>reads</em> kid/smart-mode from <code>/root/zeroclaw-bridge/state/{kid-mode,smart-mode}</code> (env-overridable via <code>DOTTY_KID_MODE_STATE</code>/<code>DOTTY_SMART_MODE_STATE</code>). The bridge container <em>writes</em> under <code>DOTTY_BRIDGE_DIR</code> (default <code>/root/zeroclaw-bridge</code>), and <code>bridge/docker-compose.yml</code> correctly redirects it to <code>/var/lib/dotty-bridge/state/…</code>. But the <strong>xiaozhi compose sets neither env var nor a shared volume</strong> — so the reader falls through to a dead RPi path that doesn't exist in the container, and reads its env/default (<code>kid_mode</code> → <code>true</code>, <code>smart_mode</code> → <code>false</code>) instead of the dashboard's persisted state.</li>
+<li><strong>Why it matters:</strong> Producer and consumer point at disjoint, non-shared locations. The firmware kid/smart pips desync from the dashboard on every WS reconnect/restart — violating the "toggles sticky across reboots" invariant in practice. (Mitigating: the kid-mode fall-through default is <code>true</code>, i.e. toward safety; <code>_write_smart_mode_state</code> is dead on the xiaozhi side, so no orphaned-dir write actually occurs.)</li>
+<li><strong>Fix (code):</strong> Pick one shared state location (named volume mounted into <strong>both</strong> containers), set <code>DOTTY_KID_MODE_STATE</code>/<code>DOTTY_SMART_MODE_STATE</code> in the xiaozhi compose and <code>DOTTY_BRIDGE_DIR</code> in the bridge compose to point at it, and stop defaulting to <code>/root/zeroclaw-bridge</code>. Add a <code>make doctor</code> check that the write path and read path resolve to the same mount.</li>
+</ul>
+<h4 id="h3-brain-tool-count-contract-disagrees-everywhere-code-registers-7-all-docs-say-5-and-one-readme-invents-a-tool">H3. Brain tool-count contract disagrees everywhere — code registers 7, all docs say 5, and one README invents a tool<a class="headerlink" href="#h3-brain-tool-count-contract-disagrees-everywhere-code-registers-7-all-docs-say-5-and-one-readme-invents-a-tool" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>dotty-pi-ext/src/index.ts:21-27</code>; <code>dotty-pi/README.md:20-22</code>; <code>dotty-pi-ext/README.md:8, 14-27, 78-96</code>; <code>dotty-pi/docker-compose.yml:8</code>; <code>dotty-pi-ext/package.json:4, 20-22</code>; <code>CLAUDE.md</code> (architecture diagram + dotty-pi-ext bullet)</li>
+<li><strong>What's wrong:</strong> <code>index.ts</code> registers <strong>7</strong> tools (<code>memory_lookup</code>, <code>recall_person</code>, <code>remember</code>, <code>remember_person</code>, <code>think_hard</code>, <code>play_song</code>, <code>take_photo</code>). Every doc says "five voice tools." Worse, <code>dotty-pi/README.md:20-22</code> lists a <strong>non-existent <code>set_led</code></strong> as shipped (which the sibling <code>dotty-pi-ext/README.md:48-56</code> explicitly documents as <em>not</em> a tool, and which would violate the firmware-owned-LED invariant) and <strong>omits the real <code>remember</code></strong>. <code>package.json</code> even has <code>test:recall</code>/<code>test:rememberperson</code> scripts (lines 20-22) for tools its own description omits. The "five" framing was inherited into this vision doc's §2 too.</li>
+<li><strong>Why it matters:</strong> A maintainer reading the deploy doc would believe a tool exists that doesn't (and contradicts a stated invariant), and would miss two real tools and the live <code>remember</code>.</li>
+<li><strong>Fix (doc):</strong> Remove <code>set_led</code> from <code>dotty-pi/README.md</code>, restore <code>remember</code>. Update <code>dotty-pi-ext/README.md</code> table + "5 of 5" status, <code>docker-compose.yml:8</code>, <code>package.json:4</code> description, the <code>(planned)</code> layout block (<code>README.md:78-96</code> still shows <code>set_led.ts</code> and stale <code>lib/</code> names), and <code>CLAUDE.md</code> to the canonical 7 (or "the original five + the #53 person pair"). Refresh the layout tree to the real <code>src/</code> files.</li>
+</ul>
+<hr />
+<h3 id="medium">MEDIUM<a class="headerlink" href="#medium" title="Permanent link">&para;</a></h3>
+<h4 id="m1-bridge-dashboard-documented-at-8080-across-multiple-active-docs">M1. Bridge dashboard documented at <code>:8080</code> across multiple active docs<a class="headerlink" href="#m1-bridge-dashboard-documented-at-8080-across-multiple-active-docs" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>SETUP.md:23, 244, 245</code>; <code>docs/quickstart.md:210, 243</code>; <code>docs/observability.md:31, 48</code>; <code>COMPATIBILITY.md:62</code>; <code>docs/advanced/variant-port-guide.md:185</code>; <code>compose.all-in-one.yml:9</code>; <code>CLAUDE.md:29</code>; <code>CHANGELOG.md:13</code></li>
+<li><strong>What's wrong:</strong> Authoritative dashboard port is <strong>8081</strong> (<code>bridge.py:1</code> docstring + <code>:1040</code> PORT default, <code>bridge/Dockerfile:45/47</code>, <code>bridge/docker-compose.yml:43</code>, <code>deploy-bridge-unraid.sh</code>). These docs/configs still say <code>:8080</code> for the dashboard URL, health check, <code>/metrics</code> scrape, and (in <code>variant-port-guide.md:185</code>) POST to the <em>retired</em> <code>/api/message</code> endpoint. <code>quickstart.md:210</code> even contradicts its own line 209 (which correctly says 8081). <code>CLAUDE.md:29</code> prose says <code>:8080</code> while its own Ports table (<code>:63</code>) says 8081. <code>bridge/docker-compose.yml:24-25</code> documents the exact 8080→8081 correction that these were supposed to follow.</li>
+<li><strong>Why it matters:</strong> Copy-pasted health/metrics/dashboard commands hit connection-refused; <code>variant-port-guide.md</code> doubly points at a dead endpoint.</li>
+<li><strong>Fix (doc):</strong> Change every <strong>dashboard</strong> <code>:8080</code> → <code>:8081</code>. Leave <code>:8080</code> intact where it is the llama-swap endpoint (<code>llm-backends.md</code>, <code>tier1slim.md</code> <code>TIER1SLIM_LOCAL_URL</code>, <code>llama-swap-concurrent-models.md</code>, <code>CHANGELOG.md:39</code>). Correct <code>CHANGELOG.md:13</code>, <code>CLAUDE.md:29</code>, <code>compose.all-in-one.yml:9</code>.</li>
+</ul>
+<h4 id="m2-docsmodesmd-the-authoritative-behaviour-doc-routes-voiceperception-through-retired-bridgepy">M2. <code>docs/modes.md</code> (the authoritative behaviour doc) routes voice/perception through retired bridge.py<a class="headerlink" href="#m2-docsmodesmd-the-authoritative-behaviour-doc-routes-voiceperception-through-retired-bridgepy" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>docs/modes.md:48, 176-177, 179, 193, 202</code>; <code>docs/architecture.md:206-216</code>; <code>bridge.py</code></li>
+<li><strong>What's wrong:</strong> <code>modes.md</code> "Sources of truth" cites bridge.py methods that no longer exist (<code>_apply_model_swap</code>, <code>_apply_tier1slim_runtime</code>, <code>_update_perception_state</code>, <code>_capture_room_view</code>, "all <code>_perception_*</code> consumers" — all 0 occurrences in the current 1042-line <code>bridge.py</code>), and routes <code>story_time</code>/<code>security</code>/<code>dance</code> through bridge.py. <code>architecture.md:206-216</code> labels dotty-behaviour consumers with the same stale <code>_perception_*</code> method names and a wrong "3 additional consumers" list.</li>
+<li><strong>Why it matters:</strong> <code>modes.md</code> is the doc the whole system treats as canonical for states/toggles/LED/transitions — and it is the one most stale about where perception lives.</li>
+<li><strong>Fix (doc):</strong> Re-attribute consumers/admin mutations to dotty-behaviour by <strong>class name</strong> (<code>FaceGreeter</code>, <code>SoundTurner</code>, …) and <code>perception/state.py</code>; resolve the story_time/security backing path per Ambiguity A.</li>
+</ul>
+<h4 id="m3-retired-_ensure_emoji_prefixsandwich-machinery-documented-as-the-live-enforcement-mechanism-multi-doc">M3. Retired <code>_ensure_emoji_prefix</code>/sandwich machinery documented as the live enforcement mechanism (multi-doc)<a class="headerlink" href="#m3-retired-_ensure_emoji_prefixsandwich-machinery-documented-as-the-live-enforcement-mechanism-multi-doc" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>docs/emoji-mapping.md:32-46</code>; <code>docs/troubleshooting.md:33-34</code>; <code>docs/kid-mode.md:299-306</code>; <code>bridge.py</code></li>
+<li><strong>What's wrong:</strong> <code>emoji-mapping.md</code> presents <code>bridge.py::_ensure_emoji_prefix()</code> as the live fallback; <code>troubleshooting.md</code> tells users to verify <code>bridge.py::_build_sandwich_prompt</code> and "tail the bridge logs" to fix Chinese responses; <code>kid-mode.md</code> lists <code>_wrap_voice</code>, <code>_content_filter</code>, <code>_BLOCKED_WORDS_RE</code>, <code>ACPClient.prompt()</code>, <code>on_chunk</code> as current bridge.py code. All these symbols are <strong>0 occurrences</strong> in the current <code>bridge.py</code> — they were the ZeroClaw path. <code>protocols.md:157</code> and <code>voice-pipeline.md:120</code> already say the fallback is gone, so the corpus is self-inconsistent.</li>
+<li><strong>Why it matters:</strong> Contradicts the load-bearing no-code-fallback invariant (§1.3.1) and misdirects troubleshooting at a service not in the voice path. <code>troubleshooting.md</code> and <code>emoji-mapping.md</code> are the worst because they imply a safety net that doesn't run.</li>
+<li><strong>Fix (doc):</strong> Rewrite all three to point at the persona prompt + <code>.config.yaml prompt:</code> + <code>custom-providers/textUtils.py</code> (<code>build_turn_suffix</code>, <code>EMOJI_MAP</code>, <code>get_emotion</code>). State explicitly the PiVoiceLLM path has no code emoji fallback. Reconcile the <code>personas/dotty_voice.md</code> vs <code>personas/default.md</code> naming while editing.</li>
+</ul>
+<h4 id="m4-tier1slim-is-live-selectable-but-its-escalationmemory-calls-and-docstring-describe-the-retired-zeroclaw-bridge-at-8080">M4. Tier1Slim is live-selectable but its escalation/memory calls and docstring describe the retired ZeroClaw bridge at <code>:8080</code><a class="headerlink" href="#m4-tier1slim-is-live-selectable-but-its-escalationmemory-calls-and-docstring-describe-the-retired-zeroclaw-bridge-at-8080" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>custom-providers/tier1_slim/tier1_slim.py:9-18, 41, 356-396</code></li>
+<li><strong>What's wrong:</strong> Module docstring: "POSTs each tool call to bridge.py's <code>/api/voice/escalate</code> … which dispatches to ZeroClaw memory"; <code>BRIDGE_URL</code> defaults to <code>http://localhost:8080</code>; <code>_dispatch_tool</code>/<code>_post_remember</code>/<code>_post_memory_log</code> POST to dead endpoints. Endpoints were retired in #36; dashboard is <code>:8081</code>.</li>
+<li><strong>Why it matters:</strong> Live, user-selectable code presenting a dead path as current, with a doubly-wrong default. Misleads anyone treating Tier1Slim as functional.</li>
+<li><strong>Fix (code/doc, pending Ambiguity E):</strong> Add a docstring banner that escalation is non-functional post-#36 (chitchat-only rollback); correct <code>:8080</code> → <code>:8081</code> if kept; remove "dispatches to ZeroClaw memory."</li>
+</ul>
+<h4 id="m5-teststest_tier1_slimpy-asserts-the-zeroclaw-escalation-handshake-as-a-live-contract">M5. <code>tests/test_tier1_slim.py</code> asserts the ZeroClaw escalation handshake as a live contract<a class="headerlink" href="#m5-teststest_tier1_slimpy-asserts-the-zeroclaw-escalation-handshake-as-a-live-contract" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>tests/test_tier1_slim.py:1-13, 279-310, 408-459</code></li>
+<li><strong>What's wrong:</strong> Docstring claims "tier1_slim.py is the live voice path"; <code>DispatchToolTests</code> asserts <code>/api/voice/escalate</code> is hit; <code>ResponseToolPathTests.test_escalation_chains_to_streaming_final</code> asserts escalation succeeds. PiVoiceLLM is the live path; Tier1Slim escalation is dead.</li>
+<li><strong>Why it matters:</strong> A green test gives false confidence that a retired handshake works.</li>
+<li><strong>Fix (test):</strong> Fix the "live voice path" docstring (it's PiVoiceLLM). <code>xfail</code>/mark <code>DispatchToolTests</code> + <code>ResponseToolPathTests</code> as covering a retired rollback path, or restrict to the chitchat fast-path.</li>
+</ul>
+<h4 id="m6-dashboard-self-restartupdatereboot-actions-invoke-the-retired-zeroclaw-bridge-systemd-unit">M6. Dashboard self-restart/update/reboot actions invoke the retired <code>zeroclaw-bridge</code> systemd unit<a class="headerlink" href="#m6-dashboard-self-restartupdatereboot-actions-invoke-the-retired-zeroclaw-bridge-systemd-unit" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>bridge/dashboard.py:1741, 1766, 1893</code></li>
+<li><strong>What's wrong:</strong> <code>update_bridge</code>, <code>restart_bridge</code>, <code>reboot_all</code> all spawn <code>systemctl restart zeroclaw-bridge</code>. The container has no systemd and no such unit (<code>CMD ["python","bridge.py"]</code> under tini). Because the commands are <code>sh -c</code>-wrapped, <code>Popen</code> succeeds and the handlers report success while the inner call silently fails.</li>
+<li><strong>Why it matters:</strong> Restart/Update/Reboot-All buttons no-op while reporting success. Admin-only, behind auth, not on the production path.</li>
+<li><strong>Fix (code, pending Ambiguity F):</strong> Exit the process and rely on <code>restart: unless-stopped</code>, or remove these self-mutation actions, or gate behind a config flag.</li>
+</ul>
+<h4 id="m7-dashboard-self-update-git-pulls-into-the-retired-rpi-install-dir-rootzeroclaw-bridge">M7. Dashboard self-update git-pulls into the retired RPi install dir <code>/root/zeroclaw-bridge</code><a class="headerlink" href="#m7-dashboard-self-update-git-pulls-into-the-retired-rpi-install-dir-rootzeroclaw-bridge" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>bridge/dashboard.py:1434, 1705-1715</code></li>
+<li><strong>What's wrong:</strong> <code>BRIDGE_INSTALL_DIR</code> defaults to <code>/root/zeroclaw-bridge</code>; <code>_pull_and_install_bridge</code> copies <code>bridge.py</code> + <code>bridge/</code> over it and expects a service restart. Under the container deploy the real source is the immutable <code>/app</code> image layer; copying into <code>/root/zeroclaw-bridge</code> does nothing and the image is never rebuilt. Live deploy is <code>deploy-bridge-unraid.sh</code> (build + <code>compose up -d</code>).</li>
+<li><strong>Why it matters:</strong> Exposed-but-dead <code>/ui/actions/update-bridge</code> reports success while doing nothing.</li>
+<li><strong>Fix (code):</strong> Remove/disable the in-app self-update on the container deploy; keep a status-only "update available" chip if wanted (drop the install+restart half).</li>
+</ul>
+<h4 id="m8-dotty-pi-ext-readme-turn_loggerts-describe-the-36-cutover-as-still-pending">M8. <code>dotty-pi-ext</code> README + <code>turn_logger.ts</code> describe the #36 cutover as still pending<a class="headerlink" href="#m8-dotty-pi-ext-readme-turn_loggerts-describe-the-36-cutover-as-still-pending" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>dotty-pi-ext/README.md:8-12</code>; <code>dotty-pi-ext/src/lib/turn_logger.ts:5-7</code></li>
+<li><strong>What's wrong:</strong> README: "Bridge.py is still the source of truth in production until the … cutover (#36)…"; <code>turn_logger.ts</code>: "Pre-cutover this code is dormant … Post-cutover, when xiaozhi flips to PiVoiceLLM, this is the last write path…". #36 executed 2026-05-19; PiVoiceLLM is the live default and this turn-logger is the <em>active</em> write path.</li>
+<li><strong>Why it matters:</strong> Labels the live write path "dormant," misleading a maintainer of the PiVoiceLLM path.</li>
+<li><strong>Fix (doc):</strong> Update both to post-#36 reality.</li>
+</ul>
+<h4 id="m9-dotty-behaviour-readme-app-description-claim-it-hosts-the-admin-dashboard">M9. <code>dotty-behaviour</code> README + app description claim it hosts the admin dashboard<a class="headerlink" href="#m9-dotty-behaviour-readme-app-description-claim-it-hosts-the-admin-dashboard" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>dotty-behaviour/README.md:3-6, 83</code>; <code>dotty-behaviour/main.py:347-351</code></li>
+<li><strong>What's wrong:</strong> README opener and the FastAPI description say dotty-behaviour "hosts the admin dashboard." It mounts only health/perception/vision/audio/voice/calendar/scene_synthesis routers — no dashboard router/templates/static. Its own in-code comments correctly say "the bridge dashboard" consumes its data. README.md:83 also lists a future "Dashboard (ported from bridge/dashboard.py)" slice that contradicts the #115 decision (dashboard stays in bridge.py, pulls data from dotty-behaviour).</li>
+<li><strong>Why it matters:</strong> Two services claim the same role; bridge.py-is-dashboard-only is a vision invariant.</li>
+<li><strong>Fix (doc):</strong> Reword to "serves perception/vision/audio data endpoints consumed by the bridge dashboard"; drop/mark-abandoned the Dashboard slice row.</li>
+</ul>
+<h4 id="m10-dotty-pireadmemd-lists-set_led-and-omits-remember">M10. <code>dotty-pi/README.md</code> lists <code>set_led</code> and omits <code>remember</code><a class="headerlink" href="#m10-dotty-pireadmemd-lists-set_led-and-omits-remember" title="Permanent link">&para;</a></h4>
+<p><em>(Merged into H3.)</em></p>
+<h4 id="m11-docsbrainmd-states-smart-mode-model-swap-as-live-on-the-default-path">M11. <code>docs/brain.md</code> states smart-mode model-swap as live on the default path<a class="headerlink" href="#m11-docsbrainmd-states-smart-mode-model-swap-as-live-on-the-default-path" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>docs/brain.md:13</code></li>
+<li><strong>What's wrong:</strong> Unqualified TL;DR bullet "Smart-mode flips the inner-loop model to a cloud model," under a section naming PiVoiceLLM the default. <code>modes.md:155, 181</code> correctly caveat this as v2 scope for PiVoiceLLM (instantaneous only with <code>DOTTY_VOICE_PROVIDER=tier1slim</code>). brain.md is internally inconsistent (its own model matrix attributes the swap to Tier1Slim rows).</li>
+<li><strong>Why it matters:</strong> Propagates a wrong "live" claim for a v2/unimplemented feature.</li>
+<li><strong>Fix (doc):</strong> Add the modes.md v2-scope caveat to the bullet.</li>
+</ul>
+<h4 id="m12-docsvoice-mode-entrymd-attributes-face-greeter-to-bridgepy-and-references-a-removed-discord-daemon">M12. <code>docs/voice-mode-entry.md</code> attributes face-greeter to bridge.py and references a removed Discord daemon<a class="headerlink" href="#m12-docsvoice-mode-entrymd-attributes-face-greeter-to-bridgepy-and-references-a-removed-discord-daemon" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>docs/voice-mode-entry.md:24, 26, 42</code>; <code>bridge.py</code></li>
+<li><strong>What's wrong:</strong> "the relay forwards that event to the bridge, where <code>_perception_face_greeter</code> (in <code>bridge.py</code>)…" (0 occurrences in bridge.py); "see the env block in <code>bridge.py</code> for the full set of knobs" (knobs <code>FACE_GREET_TEXT</code>/<code>FACE_GREET_MIN_INTERVAL_SEC</code> now live in <code>dotty-behaviour/config.py:277-281</code>); "the Discord daemon and the portal 'Greet' button" (the Discord <em>daemon</em> was removed — <code>bridge/templates/discord.html</code> is deleted per git status; the surviving <code>community/discord/provision.py</code> is an unrelated provisioning bot).</li>
+<li><strong>Why it matters:</strong> Misdirects anyone configuring the face-greeting path to the wrong service and file.</li>
+<li><strong>Fix (doc):</strong> Repoint to <code>dotty-behaviour/consumers/face_greeter.py</code> + <code>config.py</code> knobs; remove the Discord-daemon reference.</li>
+</ul>
+<h4 id="m13-mkdocsyml-nav-omits-modesmd-the-authoritative-doc-and-7-others">M13. <code>mkdocs.yml</code> nav omits <code>modes.md</code> (the authoritative doc) and 7 others<a class="headerlink" href="#m13-mkdocsyml-nav-omits-modesmd-the-authoritative-doc-and-7-others" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>mkdocs.yml:39-80</code>; orphans: <code>docs/modes.md</code>, <code>docs/quickstart.md</code>, <code>docs/tier1slim.md</code>, <code>docs/wake-word.md</code>, <code>docs/proactive-greetings.md</code>, <code>docs/cutover-behaviour.md</code>, <code>docs/speaker-id-investigation.md</code>, <code>docs/cookbook/llama-swap-concurrent-models.md</code></li>
+<li><strong>What's wrong:</strong> Eight docs are present but absent from the nav (and there's no <code>not_in_nav</code>/exclude mechanism — MkDocs Material warns per orphan). <code>modes.md</code> and <code>quickstart.md</code> are cross-linked from in-nav <code>docs/README.md</code> yet unreachable via site nav.</li>
+<li><strong>Why it matters:</strong> The doc the vision designates authoritative isn't in the published site.</li>
+<li><strong>Fix (doc):</strong> Add <code>modes.md</code>, <code>tier1slim.md</code>, <code>wake-word.md</code>, <code>quickstart.md</code>, <code>proactive-greetings.md</code>, and the llama-swap cookbook page to nav. <code>cutover-behaviour.md</code> and <code>speaker-id-investigation.md</code> may stay out as historical/investigation notes (document why).</li>
+</ul>
+<h4 id="m14-bridgepy-admin-localhost-only-gate-has-no-test-coverage">M14. <code>bridge.py</code> <code>/admin/*</code> localhost-only gate has no test coverage<a class="headerlink" href="#m14-bridgepy-admin-localhost-only-gate-has-no-test-coverage" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Files:</strong> <code>bridge.py:864-896</code>; <code>tests/test_dashboard_csrf.py</code>; <code>tests/test_bridge_routes.py</code></li>
+<li><strong>What's wrong:</strong> <code>_admin_require_localhost</code> (403 for non-loopback) is a router-level dependency on every <code>/admin/*</code> route — invariant §1.3.6 — but no test asserts a spoofed non-loopback <code>client.host</code> gets 403, nor that loopback passes.</li>
+<li><strong>Why it matters:</strong> A security invariant guarded only by code, with zero regression test.</li>
+<li><strong>Fix (test):</strong> Add a test POSTing to an <code>/admin/*</code> route with a spoofed non-loopback <code>request.client.host</code> (assert 403) plus a loopback case (assert pass).</li>
+</ul>
+<hr />
+<h3 id="low">LOW<a class="headerlink" href="#low" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Title</th>
+<th>Files</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td><code>pi_voice</code> README "What's not yet done" lists the sandwich as unimplemented, but it ships (<code>_wrap_with_sandwich</code>) and the provider is the live default</td>
+<td><code>custom-providers/pi_voice/README.md:21-28, 148-164</code></td>
+<td>Delete the stale "not yet done"/"open questions" sections; keep only the genuinely-open memory write-back / persona items</td>
+</tr>
+<tr>
+<td>L2</td>
+<td><code>pi_voice</code> README diagram cites <code>qwen3.6:27b</code>/<code>--thinking minimal</code>/<code>--extensions</code>; actual flags are <code>qwen3.5:4b</code>/<code>--thinking off</code>, no <code>--extensions</code></td>
+<td><code>README.md:40-43</code>; <code>pi_client.py:49-60</code></td>
+<td>Fix the diagram to <code>qwen3.5:4b</code>/<code>--thinking off</code>, drop <code>--extensions</code></td>
+</tr>
+<tr>
+<td>L3</td>
+<td><code>textUtils.py</code> header lists removed <code>zeroclaw.py</code> as an active importer</td>
+<td><code>custom-providers/textUtils.py:10-21</code></td>
+<td>Drop the zeroclaw bullet; list <code>pi_voice</code>, <code>tier1_slim</code>, <code>openai_compat</code></td>
+</tr>
+<tr>
+<td>L4</td>
+<td><code>openai_compat._ensure_emoji_prefix</code> is dead code (never called; live logic is inline)</td>
+<td><code>custom-providers/openai_compat/openai_compat.py:51-58</code></td>
+<td>Remove or wire it in</td>
+</tr>
+<tr>
+<td>L5</td>
+<td><code>kid_mode</code> is a process-start snapshot in tier1_slim/openai_compat with no doc warning; <code>set_runtime</code> doesn't re-derive the suffix</td>
+<td><code>tier1_slim.py:38-39, 193</code>; <code>openai_compat.py:27-28</code>; <code>pi_voice.py:111-114</code></td>
+<td>Mirror the pi_voice comment into both; note <code>set_runtime</code> doesn't hot-swap kid_mode</td>
+</tr>
+<tr>
+<td>L6</td>
+<td>Perception relay docstring names the retired <code>zeroclaw-bridge</code> as relay target</td>
+<td><code>xiaozhi-patches/textMessageHandlerRegistry.py:1-8</code></td>
+<td>Reword to dotty-behaviour <code>/api/perception/event</code></td>
+</tr>
+<tr>
+<td>L7</td>
+<td><code>ota_handler</code> comment cites <code>vision_explain</code> pointing at the ZeroClaw host</td>
+<td><code>xiaozhi-patches/ota_handler.py:322-327</code></td>
+<td>Reword to dotty-behaviour <code>:8090</code></td>
+</tr>
+<tr>
+<td>L8</td>
+<td><code>CLAUDE.md:75</code> misdescribes the xiaozhi-admin route set (<code>kid-mode</code>/<code>smart-mode</code>/<code>tts</code> routes don't exist) and patch-file inventory</td>
+<td><code>CLAUDE.md:75</code>; <code>http_server.py:680-735</code></td>
+<td>Match the implemented routes (per <code>docs/architecture.md:184-194</code>); list <code>ota_handler.py</code> + <code>textMessageHandlerRegistry.py</code></td>
+</tr>
+<tr>
+<td>L9</td>
+<td><code>SimpleHttpServer._get_websocket_url</code> is dead code (and logic-drifted from the live <code>OTAHandler</code> twin)</td>
+<td><code>http_server.py:33-40</code></td>
+<td>Remove</td>
+</tr>
+<tr>
+<td>L10</td>
+<td><code>bridge/security_watch.py</code> consumer loop is dead (ported to dotty-behaviour); dashboard reads its permanently-empty ring</td>
+<td><code>bridge/security_watch.py:108</code>; <code>bridge/dashboard.py:2478</code>; <code>dotty-behaviour/consumers/security_cycle.py:16</code></td>
+<td>Route cycles through a dotty-behaviour getter, or drop the dead read</td>
+</tr>
+<tr>
+<td>L11</td>
+<td><code>bridge.py:319</code> cites non-existent <code>bridge/MEMORY-INDEX.md</code> / <code>brain-db-fts-only.md</code></td>
+<td><code>bridge.py:319</code></td>
+<td>Drop the dangling pointer</td>
+</tr>
+<tr>
+<td>L12</td>
+<td>Consumer count wrong in <code>dotty-behaviour</code> README/main.py (says 9, code has 11; README slice-table drops <code>sound_turner</code>, <code>face_identified_refresher</code>)</td>
+<td><code>dotty-behaviour/README.md:4, 80</code>; <code>main.py:349</code>; <code>consumers/__init__.py:31</code></td>
+<td>Adopt 11; fix the slice table <em>(see Ambiguity B)</em></td>
+</tr>
+<tr>
+<td>L13</td>
+<td><code>architecture.md</code> consumer table uses stale bridge.py <code>_perception_*</code> names + wrong "3 additional" list</td>
+<td><code>docs/architecture.md:206-216</code></td>
+<td>Rename to dotty-behaviour classes; list real extras <em>(merge with M2)</em></td>
+</tr>
+<tr>
+<td>L14</td>
+<td><code>household/registry.py</code> docstring default <code>~/.zeroclaw/household.yaml</code> + "running ZeroClaw host"; real default is <code>STATE_DIR/household.yaml</code></td>
+<td><code>dotty-behaviour/household/registry.py:3, 5, 19</code>; <code>config.py:298-300</code></td>
+<td>Fix docstring to the dotty-behaviour state-dir path</td>
+</tr>
+<tr>
+<td>L15</td>
+<td><code>perception.py</code> ingress docstring omits <code>head_pet_ended</code> (firmware emits it)</td>
+<td><code>dotty-behaviour/routes/perception.py:53-56</code>; <code>firmware/.../head_pet.cpp:78</code></td>
+<td>Add <code>head_pet_ended</code></td>
+</tr>
+<tr>
+<td>L16</td>
+<td>Tool count 5-vs-7 in dotty-pi-ext README/compose/package.json</td>
+<td><code>dotty-pi-ext/README.md:8, 14-27</code>; <code>docker-compose.yml:8</code>; <code>package.json:4</code></td>
+<td><em>(merge with H3)</em></td>
+</tr>
+<tr>
+<td>L17</td>
+<td>dotty-pi-ext README "(planned) layout" shows <code>set_led.ts</code>, omits person-tool/lib files</td>
+<td><code>dotty-pi-ext/README.md:78-96</code></td>
+<td>Refresh tree or drop "(planned)" <em>(merge with H3)</em></td>
+</tr>
+<tr>
+<td>L18</td>
+<td><code>docs/kid-mode.md</code> "Where the Code Lives" table lists retired ZeroClaw symbols</td>
+<td><code>docs/kid-mode.md:299-306</code></td>
+<td>Point at <code>build_turn_suffix</code>/textUtils (Tier1Slim path); note PiVoiceLLM layers 1+2 <em>(relates to M3)</em></td>
+</tr>
+<tr>
+<td>L19</td>
+<td><code>compose.all-in-one.yml:9</code> labels dashboard "port 8080"</td>
+<td><code>compose.all-in-one.yml:9</code></td>
+<td><code>8080</code> → <code>8081</code> <em>(merge with M1)</em></td>
+</tr>
+<tr>
+<td>L20</td>
+<td><code>deploy-bridge-unraid.sh</code> header references <code>deploy-bridge.sh</code>/<code>install-bridge.sh</code> which no longer exist</td>
+<td><code>scripts/deploy-bridge-unraid.sh:9-14</code></td>
+<td>Update/drop the comment</td>
+</tr>
+<tr>
+<td>L21</td>
+<td><code>compose.local.override.yml</code> attaches ollama to undefined <code>dotty</code> network — offline-stack <code>up</code> fails at parse</td>
+<td><code>compose.local.override.yml:29-30</code>; <code>compose.all-in-one.yml</code></td>
+<td>Add top-level <code>networks: { dotty: {} }</code> or drop the block</td>
+</tr>
+<tr>
+<td>L22</td>
+<td><code>style.md</code> teaches <code>../protocols.md</code> for a sibling doc (broken link)</td>
+<td><code>docs/style.md:72</code></td>
+<td>Change to <code>./protocols.md</code></td>
+</tr>
+<tr>
+<td>L23</td>
+<td><code>textUtils</code> emoji-parse machinery (<code>get_emotion</code>/<code>EMOJI_MAP</code>/<code>check_emoji</code>) has no test</td>
+<td><code>custom-providers/textUtils.py:64-176</code></td>
+<td>Add <code>test_textutils.py</code> pinning <code>EMOJI_MAP</code> vs the 9-emoji <code>ALLOWED_EMOJIS</code> set + basic parsing</td>
+</tr>
+<tr>
+<td>L24</td>
+<td><code>test_security_watch.py</code> tests the superseded bridge security loop</td>
+<td><code>tests/test_security_watch.py:163-204</code></td>
+<td>Drop <code>StateGatedConsumerTests</code>/<code>RunCaptureCycleTests</code> (live coverage is <code>dotty-behaviour/tests/test_consumer_security_cycle.py</code>); keep <code>get_recent_cycles</code> tests</td>
+</tr>
+<tr>
+<td>L25</td>
+<td><code>test_dashboard_csrf.py</code> probes <code>/api/perception/event</code> (removed from bridge.py) with a stale comment</td>
+<td><code>tests/test_dashboard_csrf.py:161-170</code>; <code>bridge.py:504</code></td>
+<td>Repoint at a live <code>/api/*</code>/<code>/metrics</code> route; fix comment</td>
+</tr>
+<tr>
+<td>L26</td>
+<td><code>ZEROCLAW_BIN</code> env stub in CSRF test bootstrap (ACP spawn path removed)</td>
+<td><code>tests/test_dashboard_csrf.py:34</code></td>
+<td>Remove the <code>setdefault</code></td>
+</tr>
+<tr>
+<td>L27</td>
+<td><code>.env.example</code> carries a stale <code>zeroclaw-bridge</code> section: <code>ZEROCLAW_BIN</code>, <code>PORT=8080</code>, ACP <code>ZEROCLAW_*</code>, <code>~/.zeroclaw/</code> paths</td>
+<td><code>.env.example:16-37, 98, 122, 169, 193-194</code></td>
+<td>Remove ZeroClaw/ACP vars; <code>PORT=8080</code>→<code>8081</code>; repoint <code>~/.zeroclaw/</code> to dotty-behaviour/dotty-bridge state dirs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-cross-cutting-inconsistencies">5. Cross-Cutting Inconsistencies<a class="headerlink" href="#5-cross-cutting-inconsistencies" title="Permanent link">&para;</a></h2>
+<p>Three patterns recur across components and account for most findings:</p>
+<p><strong>(a) Retired-ZeroClaw references in live surfaces.</strong> The RPi bridge / <code>zeroclaw-bridge</code> systemd unit / <code>/root/zeroclaw-bridge</code> path / <code>/api/voice/escalate</code> endpoint / ACP env vars survive in: <code>make doctor/status/audit/setup</code> (H1), <code>scripts/dotty_doctor.py</code> (H1), the cross-container state files (H2), dashboard self-update/restart actions (M6, M7), Tier1Slim (M4) + its tests (M5), <code>.env.example</code> (L27), and ~10 docstrings/comments (L3, L6, L7, L14) and docs (M2, M3, M12, L18). The <strong><code>dotty-deploy-bridge</code> skill is itself stale</strong> — it still pushes to <code>dietpi@&lt;ZEROCLAW_HOST&gt;:/root/zeroclaw-bridge/</code> and restarts <code>zeroclaw-bridge</code>; the live deploy is <code>scripts/deploy-bridge-unraid.sh</code>. <strong>Retire or rewrite that skill.</strong></p>
+<p><strong>(b) The <code>:8080</code> dashboard-port slip.</strong> <code>:8080</code> is correct <em>only</em> for llama-swap; it is wrong for the dashboard (canonically <code>:8081</code>) in <code>CHANGELOG.md:13</code>, <code>CLAUDE.md:29</code> prose, <code>compose.all-in-one.yml:9</code>, <code>SETUP.md</code>, <code>quickstart.md</code>, <code>observability.md</code>, <code>COMPATIBILITY.md</code>, <code>variant-port-guide.md</code>, and <code>.env.example</code> (M1, L19, L27). A single sweep should fix all dashboard mentions while preserving llama-swap <code>:8080</code>.</p>
+<p><strong>(c) Stale perception ownership + consumer counts.</strong> Post-#36 perception lives in <code>dotty-behaviour/consumers/</code> (11 classes), but <code>modes.md</code>, <code>architecture.md</code>, <code>protocols.md</code>, <code>ROADMAP.md</code>, and <code>dotty-behaviour/README.md</code> variously say "six"/"9", use bridge.py <code>_perception_*</code> method names, drop real consumers, or (M9) claim dotty-behaviour hosts the dashboard. Pick the canonical count once (Ambiguity B) and propagate by class name.</p>
+<hr />
+<h2 id="6-recommended-remediation-order">6. Recommended Remediation Order<a class="headerlink" href="#6-recommended-remediation-order" title="Permanent link">&para;</a></h2>
+<p><strong>Phase 0 — Brett's decisions (unblocks the rest).</strong> Resolve Ambiguities A–F (§3). A, B, C, E directly gate the wording of M2, L12/L13, M4/M5, and the vision's own stub/invariant text.</p>
+<p><strong>Phase 1 — Code fixes that affect real behaviour (highest impact first):</strong>
+1. <strong>H2</strong> — wire a shared kid/smart state volume into both compose files. <em>(Restores toggle persistence — a stated invariant.)</em>
+2. <strong>H1</strong> — fix <code>make doctor/status/audit/setup</code> + <code>dotty_doctor.py</code> to probe <code>:8081</code>/<code>:8090</code>, drop ZeroClaw host. <em>(Operators run these constantly.)</em>
+3. <strong>M6 + M7</strong> — fix/remove the dashboard self-restart/update actions (pending Ambiguity F).
+4. <strong>L21</strong> — add the <code>dotty</code> network so the offline-stack <code>up</code> parses.</p>
+<p><strong>Phase 2 — Code/test hygiene (no behaviour change, prevents regressions):</strong>
+5. <strong>M14</strong> — add the localhost-gate test (security invariant guard).
+6. <strong>M5, L24, L25, L26</strong> — fix/mark the stale tests so green ≠ false confidence.
+7. <strong>M4</strong> — Tier1Slim docstring/default-URL banner (pending Ambiguity E).
+8. <strong>L4, L9, L10, L11</strong> — remove dead code / dangling pointers.</p>
+<p><strong>Phase 3 — Documentation sweep (largest count, lowest risk; batch the cross-cutting patterns):</strong>
+9. <strong>Port sweep (M1, L19, L27, the doc half of the cross-cutting <code>:8080</code>):</strong> one pass, dashboard <code>:8080</code>→<code>:8081</code>, leave llama-swap intact.
+10. <strong>ZeroClaw-reference sweep (M3, M8, M12, L3, L6, L7, L14, L18 + the <code>dotty-deploy-bridge</code> skill):</strong> repoint to PiVoiceLLM/dotty-behaviour/textUtils; retire the skill.
+11. <strong>Authoritative-doc fixes (M2, L13):</strong> update <code>modes.md</code>/<code>architecture.md</code> perception ownership + backing paths (depends on Ambiguity A).
+12. <strong>Brain-tool + consumer-count reconciliation (H3, L12, L16, L17, M9, M11):</strong> propagate the canonical 7 tools and 11 consumers (depends on Ambiguity B); fix <code>dotty-behaviour</code> role wording.
+13. <strong>Smaller doc fixes (L1, L2, L5, L8, L15, L20, L22, M13):</strong> README/diagram/nav/style cleanups.
+14. <strong>L23</strong> — add the <code>textUtils</code> emoji-map test last (cheap spec guard).</p>
+<p><strong>Doc-only vs code:</strong> Of the 39 merged findings, <strong>~26 are doc/comment-only</strong> (Phase 3 + L8/L15/L22 etc.), <strong>~9 are code/config</strong> (H1, H2, M4, M6, M7, L4, L9, L21, plus the H3 doc-but-touches-manifests), and <strong>~4 are test</strong> (M5, M14, L24–L26). The doc fixes are low-risk and can be batched by the two cross-cutting sweeps; prioritize the Phase 1 code fixes because they affect live behaviour and operator trust.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
