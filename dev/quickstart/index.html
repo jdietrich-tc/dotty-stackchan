@@ -1028,6 +1028,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="What you need">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2579,6 +2596,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="What you need">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2824,7 +2858,7 @@ alternative configurations.</p>
 </tr>
 <tr>
 <td><strong>Linux or macOS host with Docker</strong></td>
-<td>Runs all four server-side containers. Any distro works.</td>
+<td>Runs all four server-side containers. Any distro works. <strong>No GPU required</strong> for the default stack — see <a href="#server-hardware">Server hardware</a> below.</td>
 </tr>
 <tr>
 <td><strong>2.4 GHz WiFi</strong></td>
@@ -2832,6 +2866,50 @@ alternative configurations.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="server-hardware">Server hardware<a class="headerlink" href="#server-hardware" title="Permanent link">&para;</a></h3>
+<p>The default stack is <strong>CPU-only — no GPU is required.</strong> The voice pipeline
+ships with <a href="https://github.com/modelscope/FunASR">FunASR</a> SenseVoiceSmall for
+ASR and <a href="https://github.com/rhasspy/piper">Piper</a> (<code>LocalPiper</code>) for TTS, both
+of which run comfortably on a modern multi-core x86-64 or Apple Silicon CPU.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Needs a GPU?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Default</strong> (FunASR ASR + LocalPiper TTS + a <strong>cloud</strong> LLM via OpenRouter/OpenAI-compatible key)</td>
+<td>No</td>
+<td>Any 64-bit Linux/macOS host with Docker and ~4 GB free RAM. This is the Quickstart happy path.</td>
+</tr>
+<tr>
+<td><code>WhisperLocal</code> ASR instead of FunASR</td>
+<td>Yes</td>
+<td><code>faster-whisper</code> float16 needs CUDA. This is the <em>only</em> reason the Quickstart compose file carries a <code>runtime: nvidia</code> block.</td>
+</tr>
+<tr>
+<td><strong>Self-hosting the LLM</strong> locally (Ollama / llama-swap instead of a cloud key)</td>
+<td>Recommended</td>
+<td>VRAM scales with the model — roughly ~5 GB for an 8B model, ~18 GB for a 30B. See <a href="../cookbook/run-fully-local/">run-fully-local.md</a> and <a href="../cookbook/llama-swap-concurrent-models/">llama-swap-concurrent-models.md</a>. CPU-only inference works but is slow.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>You do not have to touch the GPU config manually.</strong> <code>make setup</code> (step 4)
+auto-detects the NVIDIA Docker runtime: if it's present, setup selects
+<code>WhisperLocal</code> on the GPU; if it's absent, setup selects <code>FunASR</code> on the CPU
+<strong>and strips the <code>runtime: nvidia</code> / <code>NVIDIA_*</code> blocks</strong> out of the rendered
+<code>docker-compose.yml</code>. The <code># --- BEGIN/END CUDA BLOCK ---</code> markers in
+<code>docker-compose.yml.template</code> exist for exactly this.</p>
+<blockquote>
+<p>If you render the compose file by hand instead of running <code>make setup</code>,
+delete the two marked sections (<code># --- BEGIN CUDA BLOCK ---</code> … <code># --- END
+CUDA BLOCK ---</code> and <code># --- BEGIN CUDA ENV ---</code> … <code># --- END CUDA ENV ---</code>)
+on a host without <code>nvidia-container-toolkit</code>. Leaving them in is what
+produces the <code>could not select device driver "nvidia"</code> error from Docker.</p>
+</blockquote>
 <h2 id="1-flash-the-firmware">1. Flash the firmware<a class="headerlink" href="#1-flash-the-firmware" title="Permanent link">&para;</a></h2>
 <p>Download the latest release from
 <a href="https://github.com/BrettKinny/dotty-stackchan/releases">GitHub Releases</a>
