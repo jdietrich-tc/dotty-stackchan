@@ -2605,13 +2605,13 @@
 - LLM API costs <strong>only</strong> if you use a cloud backend or turn on smart-mode — the default local model is free beyond electricity. Cloud backends (OpenRouter, OpenAI, etc.) are pay-per-token.</p>
 <hr />
 <h3 id="is-it-safe-for-kids">Is it safe for kids?<a class="headerlink" href="#is-it-safe-for-kids" title="Permanent link">&para;</a></h3>
-<p><strong>Kid Mode is ON by default</strong> (<code>DOTTY_KID_MODE=true</code>). It enforces child-safe guardrails. You can disable it with <code>DOTTY_KID_MODE=false</code> for general-purpose use.</p>
+<p><strong>Kid Mode is ON by default</strong> (<code>DOTTY_KID_MODE=true</code>). It applies age-appropriate prompt steering (not an output content filter — see below). You can disable it with <code>DOTTY_KID_MODE=false</code> for general-purpose use.</p>
 <p>What Kid Mode enforces:
 - Per-turn sandwich enforcement forces the LLM to respond in English with an emoji prefix, which limits the scope of unexpected output.
 - The persona prompt (<code>personas/dotty_voice.md</code>) defines the robot's personality and boundaries with kid-safe defaults.
 - Content and tone are constrained to be age-appropriate.</p>
 <p>What Kid Mode does <strong>not</strong> do:
-- Content-filter the LLM's output at a network level. If the LLM says something inappropriate, the stack passes it through.
+- Content-filter the LLM's output. If the LLM says something inappropriate, the stack passes it through. (A blocked-words output filter is planned — see <a href="https://github.com/BrettKinny/dotty-stackchan/issues/138">#138</a>.)
 - Prevent a determined child from asking adversarial questions.
 - Guarantee the LLM won't hallucinate inappropriate content (no model can).</p>
 <p>This is a self-hosted system — you control the prompt, the model, and every log. That's more control than any cloud voice assistant gives you, but it's not a substitute for parental judgment.</p>
