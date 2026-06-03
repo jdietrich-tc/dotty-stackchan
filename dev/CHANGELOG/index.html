@@ -2364,6 +2364,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2575,7 +2586,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#fixed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -2669,6 +2680,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2880,7 +2902,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#fixed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -2935,6 +2957,10 @@
 <li><strong>Dashboard self-update / restart / reboot-all actions</strong> — they invoked a <code>systemctl restart zeroclaw-bridge</code> unit absent from the container and git-pulled into the dead <code>/root/zeroclaw-bridge</code> install dir, so they no-op'd while reporting success. Deploys go through <code>scripts/deploy-bridge-unraid.sh</code>; the header version chip is now a static label.</li>
 <li><strong><code>custom-providers/zeroclaw/</code></strong> — the <code>ZeroClawLLM</code> voice provider, dead since the #36 cutover.</li>
 <li><strong><code>docs/multi-daemon-split.md</code>, <code>docs/advanced/multi-host.md</code></strong> — both documented ZeroClaw-host topologies that no longer exist.</li>
+</ul>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>No-GPU ASR path no longer crash-loops on first run</strong> (#124, #136) — <code>make fetch-models</code> was requesting two SenseVoiceSmall filenames that don't exist on Hugging Face (<code>tokens.json</code> and <code>chn_jpn_yue_eng_ko_spectral.fbank.conf.yaml</code>); the real SentencePiece tokenizer is <code>chn_jpn_yue_eng_ko_spectok.bpe.model</code>. Both 404s were silently saved as 15-byte "Entry not found" stubs (curl had no <code>--fail</code>), so funasr loaded with <code>bpemodel=None</code> and <code>xiaozhi-esp32-server</code> crash-looped on every GPU-less host. The file list is corrected; <strong>all <code>fetch-models</code> downloads now fail loudly</strong> (<code>curl --fail --retry</code> + a size floor + delete-on-failure) instead of saving junk; and <strong><code>make doctor</code> now size-checks the required SenseVoice assets</strong> so a corrupt download FAILs instead of passing. Huge thanks to <strong><a href="https://github.com/miltieIV2">@miltieIV2</a></strong> — a meticulous bug report <em>and</em> a self-driven root-cause that pinned it on the <code>HAS_CUDA=0</code> FunASR switch. A lighter int8 sherpa-onnx SenseVoice runtime (no PyTorch) for Pi-class hosts is tracked in #135.</li>
 </ul>
 <h2 id="server-v010-2026-05-17">[server-v0.1.0] - 2026-05-17<a class="headerlink" href="#server-v010-2026-05-17" title="Permanent link">&para;</a></h2>
 <p>First git-tagged public release. Covers all server + firmware work shipped to <code>main</code> between project inception and 2026-05-17. The earlier <code>[0.1.0] - 2026-04-25</code> entry below describes a pre-tag internal milestone — retained for historical reference, but <code>server-v0.1.0</code> is the canonical first release.</p>
@@ -3077,7 +3103,7 @@
 <li><strong>Default LLM endpoint switched to streaming</strong> — <code>.config.yaml</code> now points <code>ZeroClawLLM.url</code> at <code>/api/message/stream</code> by default; the buffered <code>/api/message</code> endpoint remains available for backward compatibility and smoke tests.</li>
 <li><strong>TTS mounts switched to flat-file format</strong> — directory-form mounts silently fell through to "unsupported TTS type" errors; now matches the working <code>fun_local.py</code> ASR pattern.</li>
 </ul>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Abort race condition</strong> — kill and respawn ACP child on barge-in to prevent stale chunk contamination.</li>
 <li><strong>FunASR language mis-detection</strong> — upstream hardcodes <code>language="auto"</code>, causing SenseVoiceSmall to classify short/unclear English audio as Korean or Japanese. Config-driven language override resolves this.</li>
